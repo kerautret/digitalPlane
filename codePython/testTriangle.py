@@ -1,4 +1,4 @@
-#!/usr/bin/python
+import argparse
 
 from fractions import gcd
 
@@ -6,17 +6,16 @@ from NormalComputer.PointVector import PointVector
 from NormalComputer.DigitalPlane import DigitalPlane, isReduced, additiveReduction
 from NormalComputer.TriangleComputer import TriangleComputer
 
-from sys import argv
+#-------------------------------------------------------------
 
-def usage(script):
-    print("usage: ")
-    print(script + " <max> ")
+#parse command line    
+parser = argparse.ArgumentParser(description="R-algorithm testing for a normal vector whose greatest component is below a threshold")
+parser.add_argument("-t", "--threshold",help="maximal value for the greatest component of the normal vector",type=int, default=10)
 
-if len(argv) < 2:
-    usage(argv[0])
-    exit(0)
+#-------------------------------------------------------------    
 
-maxTests = int(argv[1])
+args = parser.parse_args()
+maxTests = args.threshold
 print(maxTests)
 
 o = PointVector([0]*3)
