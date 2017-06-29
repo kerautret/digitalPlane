@@ -50,28 +50,36 @@ def permutation(v):
         res[index,rank] = 1
     return res
     
+
 class ContinuedFraction3d(object):
     """class that implements one iteration of a 3d continued fraction algorithm
     as a functor"""
     
-    def __init__(self, aTransformationMatrix, aTerminalSet):
+    def __init__(self, aTransformationMatrix, aTerminalSet, aVector):
         """ initialization with a transformation matrix
         acting on a vector of increasing components"""
         self.M = aTransformationMatrix
         self.terminalSet = aTerminalSet
+        self.lastMatrix = None
+        self.V = aVector
 
-    def __call__(self, aVector):
-        """ call operator that takes a vector and returns another one,
-        with smaller components """
-        return self.matrix(aVector)*aVector
+    def advance(self):
+        """ updates the current vector by another one with smaller components
+        if not in the terminal set """
+        if self.V in self.terminalSet:
+            return False
+        else: 
+            self.lastMatrix = self.getNextMatrix()
+            self.V = self.lastMatrix*self.V
+            return True 
 
-    def matrix(self, aVector):
-        P = permutation(aVector)
+    def getNextMatrix(self):
+        P = permutation(self.V)
         return P.inv()*self.M*P
 
-    def isInTerminalSet(self, aVector):
-        return (aVector in self.terminalSet)
-        
+    def getLastMatrix(self):
+        return self.lastMatrix
+
 
 def oneSubstitution123FromMatrix(aMatrix):
     indexToLetters = { 0: '1', 1: '2', 2: '3' }
@@ -123,48 +131,42 @@ class GeneralizedSubstitution(object):
                 res.append( PointedFace( point, j ) )
         return res
 
-                
-# #----------------------------------------------
+
+
+#-----------------------------------------------
+
+from NormalComputer.TriangleComputer import TriangleComputer
+from NormalComputer.DigitalPlane import DigitalPlane
+from NormalComputer.PointVector import PointVector
+
+class ContinuedFraction3dByTriangleComputer(object):
+    """class that implements a 3d continued fraction algorithm
+    based on our triangle computer """
     
-# sigma = Substitution123( { '1': "12", '2': "2", '3': "3"} )
-# w = sigma("123")
-# print(w)
-# print(abelianizationMap123(w))
-# print(abelianizationMap123('1'))
-# print(abelianizationMap123('2'))
-# print(abelianizationMap123('3'))
-# print(abelianizationMap123(''))
-# print()
-# print(sigma.matrix())
-# print()
-# print(permutation( Matrix( [[3], [1], [2]] ) ))
-# print()
-
-# print("poincare")
-# terminalSet = [ Matrix( [[1], [0], [0]] ),
-#                 Matrix( [[0], [1], [0]] ),
-#                 Matrix( [[0], [0], [1]] ) ]
-# poincare = ContinuedFraction3d( Matrix( [[1,0,0],[-1,1,0], [0,-1,1]] ))
-# u = Matrix( [[2], [2], [3]] )
-# print(u)
-# while u not in terminalSet:
-#     print(poincare.matrix(u).inv())
-#     print(oneSubstitution123FromMatrix( poincare.matrix(u).inv() ))
-#     u = poincare(u)
-#     print(u)
-
-
-# print()
-# print( splitWords("132521","2") )
-# print( splitWords("123","3") )
-# print( splitWords("123","1") )
-# print( splitWords("123","5") )
-# print( splitWords("","3") )
-# print()
-
-# origin = Matrix( [[0], [0], [0]] )
-# sigma1 = Substitution123( { '1': "123", '2': "23", '3': "3"} )
-# e1 = GeneralizedSubstitution(sigma1)
-# print (e1( PointedFace(origin, "3") ))
-# print (e1( PointedFace(origin, "2") ))
-# print (e1( PointedFace(origin, "1") ))
+    def __init__(self, aVector):
+        """ initialization with a transformation matrix
+        acting on a vector of increasing components"""
+        o = PointVector([0]*3)
+        e0 = PointVector([1,0,0])
+        e1 = PointVector([0,1,0])
+        e2 = PointVector([0,0,1])
+        q = PointVector([1]*3)
+        s = PointVector(q)
+        self.V = PointVector( aVector )
+        self.plane = DigitalPlane( self.V )
+        self.nc = TriangleComputer([o + e0+e1, o + e1+e2, o + e2+e0], q, s, self.plane)
+        
+    def advance(self):
+        """ do one iteration, the vector has smaller compondents """
+        res =  self.nc.advance()
+        self.V = PointVector( [self.plane.remainder(self.nc.q - x) for x in self.nc.v]) 
+        return res
+        
+    def getLastMatrix(self):
+        """ returns matrix of the previous iteration """
+        k, alpha, beta = self.nc.operations[-1] #last operation
+        mat = eye(3)
+        mat[k,(k+2)%3] = alpha
+        mat[k,(k+1)%3] = beta
+        return mat.inv()
+        

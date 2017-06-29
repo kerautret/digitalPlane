@@ -5,7 +5,8 @@ from sys import argv
 from sympy.matrices import *
 from copy import deepcopy
 
-from pattern import PointedFace, ContinuedFraction3d, oneSubstitution123FromMatrix, GeneralizedSubstitution
+from pattern import PointedFace, ContinuedFraction3d, ContinuedFraction3dByTriangleComputer,\
+    oneSubstitution123FromMatrix, GeneralizedSubstitution
 
 #------------------------------------------------
 #----------------- helpers ----------------------
@@ -53,7 +54,7 @@ def report_event(event):
 class PatternApp(object):
     """ Simple class for a tkinter application that draws patterns of digital plane """
 
-    def __init__(self, parent, normal, size, step, projector, corner, colorMode, algo):
+    def __init__(self, parent, size, step, projector, corner, colorMode, algo):
         """ Initilization of the application
 
         :param parent: object of type Tk
@@ -94,12 +95,10 @@ class PatternApp(object):
 
         #continued fraction expansion
         self.substitutions = []
-        u = Matrix( [ normal ] ).transpose()
-        print(u)
-        while not algo.isInTerminalSet(u):
-            self.substitutions.append( oneSubstitution123FromMatrix( algo.matrix(u).inv() ))
-            u = algo(u)
-            print(u)
+        print(algo.V)
+        while algo.advance():
+            self.substitutions.append( oneSubstitution123FromMatrix( algo.getLastMatrix().inv() ))
+            print(algo.V)
 
         self.start()
             
@@ -183,15 +182,13 @@ parser.add_argument("-s", "--startingCorner",help="type of starting corner",\
 parser.add_argument("-c", "--color",help="either a color by tile type or a color by tile group",\
                     choices=["type","group"],default="type")
 parser.add_argument("-a", "--algo",help="continued fraction expansion algorithm",\
-                    choices=["poincare", "brun", "selmer","fully"],default="poincare")
+                    choices=["poincare", "brun", "selmer","R"],default="poincare")
 
 
 args = parser.parse_args()
 param = [args.x, args.y, args.z]
-n = Matrix( param ).transpose()
-projector = standardProjector
-if args.projection == "hexagonal":
-    projector = hexagonalProjector
+n = Matrix( [param] ).transpose()
+
 projector = standardProjector
 if args.projection == "hexagonal":
     projector = hexagonalProjector
@@ -206,19 +203,21 @@ if args.color == "group":
 algo = ContinuedFraction3d( Matrix( [[1,0,0],[-1,1,0],[0,-1,1]] ),\
                             [ Matrix( [[1], [0], [0]] ), \
                               Matrix( [[0], [1], [0]] ), \
-                              Matrix( [[0], [0], [1]] ) ] ) 
+                              Matrix( [[0], [0], [1]] ) ], n )
 if args.algo == "brun":
     algo = ContinuedFraction3d( Matrix( [[1,0,0],[0,1,0],[0,-1,1]] ),\
                                 [ Matrix( [[1], [0], [0]] ),\
                                   Matrix( [[0], [1], [0]] ),\
-                                  Matrix( [[0], [0], [1]] ) ] ) 
+                                  Matrix( [[0], [0], [1]] ) ], n ) 
 elif args.algo == "selmer":
     algo = ContinuedFraction3d( Matrix( [[1,0,0],[0,1,0],[-1,0,1]] ),\
-                                [ Matrix( [[1], [1], [1]] ) ] ) 
- 
+                                [ Matrix( [[1], [1], [1]] ) ], n ) 
+elif args.algo == "R":
+    algo = ContinuedFraction3dByTriangleComputer(param)
+    
 #application
 root = tk.Tk()
-c = PatternApp(root, n, args.windowSize, args.unitSize, projector, corner, mode, algo)     
+c = PatternApp(root, args.windowSize, args.unitSize, projector, corner, mode, algo)     
 root.mainloop()
 
     
