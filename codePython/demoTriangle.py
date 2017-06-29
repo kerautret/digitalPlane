@@ -1,27 +1,25 @@
-#!/usr/bin/python
 import functools
+import argparse
+
 from NormalComputer.PointVector import PointVector
 from NormalComputer.DigitalPlane import DigitalPlane, isReduced, additiveReduction
 from NormalComputer.TriangleComputer import TriangleComputer, squaredRadiusOfSphere
 
-from sys import argv
-
 #-------------------------------------------------------------
-def usage(script):
-    """Describes the usage of the script."""
-    print(script + " a b c (mode)")
-    print("where:")
-    print("(a,b,c) are the components of the normal")
-    print("mode {H, R(default)} is the algorithm mode")
 
+#parse command line    
+parser = argparse.ArgumentParser(description="computation of the normal vector of a digital plane")
+parser.add_argument("x",help="x-component of the normal",type=int)
+parser.add_argument("y",help="y-component of the normal",type=int)
+parser.add_argument("z",help="z-component of the normal",type=int)
+parser.add_argument("-m", "--algorithmMode",help="mode of the algorithm (default R)",
+                    choices=["H","R"],default="R")
 
 #-------------------------------------------------------------    
-if len(argv) < 4:
-    usage(argv[0])
-    exit(0)
 
-#components
-param = [int(x) for x in argv[1:4]]
+args = parser.parse_args()
+param = [args.x, args.y, args.z]
+
 #non negative
 if not functools.reduce( lambda x,y: x and y, [x >= 0 for x in param] ):
     print("Components must be non negative")
@@ -34,6 +32,7 @@ for component in param:
 if zeros >= 2:
     print("Only one component over three is allowed to be equal to zero")
     exit(0)
+
 #normal
 n = PointVector(param)
 #predicate
@@ -41,9 +40,11 @@ plane = DigitalPlane(n)
 
 #mode
 mode = "R"
-if len(argv) > 4:
-    mode = argv[4]
+if args.algorithmMode == "H":
+    mode = "H"
     
+#-------------------------------------------------------------    
+
 #basis
 o = PointVector([0]*3)
 e0 = PointVector([1,0,0])
