@@ -282,8 +282,8 @@ class TriangleComputerApp(object):
 
         for bigTile in self.tiles:
             for tile in bigTile:
-                if tile.o != self.q:
-                    self.drawParallelogram( tile )
+                #if tile.o != self.q:
+                self.drawParallelogram( tile )
                 
     def drawParallelogram(self, parallelogram):
         p = [ parallelogram.o,
