@@ -325,7 +325,6 @@ class TriangleComputerApp(object):
         self.grid[pointKey] = o
         
     def updateForwardAndDraw(self,event): 
-        report_event(event)
         
         if self.index < len(self.operations):
             k, alpha, beta = self.operations[self.index]
@@ -353,7 +352,6 @@ class TriangleComputerApp(object):
             self.drawTriangle()
 
     def updateBackwardAndDraw(self,event): 
-        report_event(event)
 
         if self.index > 0:
             self.index -= 1
@@ -371,7 +369,6 @@ class TriangleComputerApp(object):
             self.drawTriangle()
             
     def reSetTriangle(self,event): 
-        report_event(event)
 
         e0 = PointVector([1,0,0])
         e1 = PointVector([0,1,0])
@@ -385,7 +382,6 @@ class TriangleComputerApp(object):
         self.drawTriangle()
 
     def setOption(self,event): 
-        report_event(event)
         if event.char == "H": 
             self.enableH = not self.enableH
             if self.enableH:
@@ -428,13 +424,24 @@ parser.add_argument("-u", "--unitSize",help="size of the discrete unit (default 
                     type=int,default=40)
 parser.add_argument("-p", "--projection",help="type of 3d to 2d projection",\
                     choices=["standard","hexagonal"],default="standard")
-
+parser.add_argument("-s", "--showKeybindings", help="print to the standard output the keys you can hit to modify the display",
+                    action="store_true")
+   
 args = parser.parse_args()
 param = [args.x, args.y, args.z]
 n = PointVector( param )
 projector = standardProjector
 if args.projection == "hexagonal":
     projector = hexagonalProjector
+if args.showKeybindings:
+   print("H:enables/disables hexagon display")
+   print("R:enables/disables rays display")
+   print("T:enables/disables circumscribing triangle display")
+   print("P:enables/disables display of the underlying digital plane pattern")
+   print("(All displays can be superimposed)")
+   print("<Right> next triangle")
+   print("<Left> previous triangle")
+   print("<Return> come back to the starting triangle")
 
 #application
 root = tk.Tk()
