@@ -27,6 +27,12 @@ def standardProjector(vector3):
     vector2.append( 0.353 * vector3[0] - vector3[2] ) #NB. we take the opposite for the y-coordinate
     return tuple(vector2)
 
+def firstArg(aX, aY):
+    return aX
+
+def secondArg(aX, aY):
+    return aY
+    
 def _create_circle(self, x, y, r, **kwargs):
     return self.create_oval(x-r, y-r, x+r, y+r, **kwargs)
 tk.Canvas.create_circle = _create_circle
@@ -62,7 +68,7 @@ class TriangleComputerApp(object):
         """ returns the embedding of the k-th component of point x"""
         return (x[k]+self.origin[k])*self.gridStep
     
-    def __init__(self, parent, normal, size, step, projector):
+    def __init__(self, parent, normal, size, step, projector, colorMode):
         """ Initilization of the application
 
         :param parent: object of type Tk
@@ -70,7 +76,10 @@ class TriangleComputerApp(object):
         :param size: discrete size of the drawing window
         :param step: grid step of the drawing window
         :param projector: functor that takes a 3d PointVector and
-        returns its projection as a 2-tuple. 
+        returns its projection as a 2-tuple.
+        :param colorMode: functor that returns its first or second
+        argument according to the color mode (color of the tile type
+        or color of the tile group)
         """
         #dimensions
         self.discreteSize = size
@@ -88,6 +97,8 @@ class TriangleComputerApp(object):
 
         #projector
         self.projector = projector
+        #mode
+        self.mode = colorMode
         
         #digital plane
         o = PointVector([0] * 3)
@@ -279,13 +290,17 @@ class TriangleComputerApp(object):
 
     def drawPiece(self):
         self.canvas.delete("piece")
+        colors = ["white", "gray60", "gray30"]
+        for k,tileSet in enumerate(self.tiles):
+            for tile in tileSet:
+                self.drawParallelogram( tile, colors[k] )
 
-        for bigTile in self.tiles:
-            for tile in bigTile:
-                #if tile.o != self.q:
-                self.drawParallelogram( tile )
+        # for bigTile in self.tiles:
+        #     for tile in bigTile:
+        #         #if tile.o != self.q:
+        #         self.drawParallelogram( tile )
                 
-    def drawParallelogram(self, parallelogram):
+    def drawParallelogram(self, parallelogram, color):
         p = [ parallelogram.o,
               parallelogram.o + parallelogram.v1,
               parallelogram.o + parallelogram.v1 + parallelogram.v2,
@@ -295,7 +310,7 @@ class TriangleComputerApp(object):
                                    self.embbed(p2[1],0), self.embbed(p2[1],1),
                                    self.embbed(p2[2],0), self.embbed(p2[2],1), 
                                    self.embbed(p2[3],0), self.embbed(p2[3],1), 
-                                   fill=parallelogram.c, outline="black",
+                                   fill=self.mode(parallelogram.c, color), outline="black",
                                    width=2, tags="piece")
                                 
     def drawBasis(self):
@@ -424,7 +439,9 @@ parser.add_argument("-u", "--unitSize",help="size of the discrete unit (default 
                     type=int,default=40)
 parser.add_argument("-p", "--projection",help="type of 3d to 2d projection",\
                     choices=["standard","hexagonal"],default="standard")
-parser.add_argument("-s", "--showKeybindings", help="print to the standard output the keys you can hit to modify the display",
+parser.add_argument("-c", "--color",help="either a color by tile type or a color by tile group",\
+                    choices=["type","group"],default="type")
+parser.add_argument("-k", "--showKeybindings", help="print to the standard output the keys you can hit to modify the display",
                     action="store_true")
    
 args = parser.parse_args()
@@ -433,6 +450,9 @@ n = PointVector( param )
 projector = standardProjector
 if args.projection == "hexagonal":
     projector = hexagonalProjector
+mode = firstArg
+if args.color == "group":
+    mode = secondArg
 if args.showKeybindings:
    print("H:enables/disables hexagon display")
    print("R:enables/disables rays display")
@@ -445,7 +465,7 @@ if args.showKeybindings:
 
 #application
 root = tk.Tk()
-c = TriangleComputerApp(root, n, args.windowSize, args.unitSize, projector)     
+c = TriangleComputerApp(root, n, args.windowSize, args.unitSize, projector, mode)     
 root.mainloop()
     
 
