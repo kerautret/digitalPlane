@@ -144,7 +144,7 @@ class TriangleComputerApp(object):
         e0 = PointVector([1,0,0])
         e1 = PointVector([0,1,0])
         e2 = PointVector([0,0,1])
-        nc = TriangleComputer([o+e0+e1, o+e1+e2, o+e2+e0], self.q, s, self.plane )
+        nc = TriangleComputer([o+e1+e2, o+e2+e0, o+e0+e1], self.q, s, self.plane )
         while nc.advance():
             pass
 
@@ -152,9 +152,9 @@ class TriangleComputerApp(object):
 
         #other data
         self.index = 0
-        self.m = [e2, e0, e1]
-        self.tiles = [ [ Parallelogram(self.q, -self.m[1], -self.m[2], "white") ],
-                       [ Parallelogram(self.q, -self.m[2], -self.m[0], "gray60") ],
+        self.m = [e0, e1, e2]
+        self.tiles = [ [ Parallelogram(self.q, -self.m[1], -self.m[2], "gray60") ],
+                       [ Parallelogram(self.q, -self.m[2], -self.m[0], "white") ],
                        [ Parallelogram(self.q, -self.m[0], -self.m[1], "gray30") ] ]
         
         #draw first triangle
@@ -373,12 +373,11 @@ class TriangleComputerApp(object):
         e0 = PointVector([1,0,0])
         e1 = PointVector([0,1,0])
         e2 = PointVector([0,0,1])
-        self.m = [e2, e0, e1]        
-        self.index = 0
-        self.tiles = [ [ Parallelogram(self.q, -self.m[1], -self.m[2], "white") ],
-                       [ Parallelogram(self.q, -self.m[2], -self.m[0], "gray60") ],
+        self.m = [e0, e1, e2]
+        self.tiles = [ [ Parallelogram(self.q, -self.m[1], -self.m[2], "gray60") ],
+                       [ Parallelogram(self.q, -self.m[2], -self.m[0], "white") ],
                        [ Parallelogram(self.q, -self.m[0], -self.m[1], "gray30") ] ]
-        
+        self.index = 0
         self.drawTriangle()
 
     def setOption(self,event): 

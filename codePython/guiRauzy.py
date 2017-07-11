@@ -6,7 +6,7 @@ from sympy.matrices import *
 from copy import deepcopy
 
 from pattern import PointedFace, ContinuedFraction3d, ContinuedFraction3dByTriangleComputer,\
-    oneSubstitution123FromMatrix, GeneralizedSubstitution
+    Substitution123, GeneralizedSubstitution
 
 #------------------------------------------------
 #----------------- helpers ----------------------
@@ -54,7 +54,7 @@ def report_event(event):
 class PatternApp(object):
     """ Simple class for a tkinter application that draws patterns of digital plane """
 
-    def __init__(self, parent, size, step, projector, corner, colorMode, algo):
+    def __init__(self, parent, size, step, projector, corner, colorMode):
         """ Initilization of the application
 
         :param parent: object of type Tk
@@ -89,7 +89,7 @@ class PatternApp(object):
         
         #map type <-> vectors / colors
         self.mapTypeVectors = { "1": ( Matrix( [ [0],[1],[0] ] ), Matrix( [ [0],[0],[1] ] ) ),
-                                "2": ( Matrix( [ [0],[0],[1] ] ), Matrix( [ [1],[0],[0] ] ) ),
+                                "2": ( Matrix( [ [1],[0],[0] ] ), Matrix( [ [0],[0],[1] ] ) ),
                                 "3": ( Matrix( [ [1],[0],[0] ] ), Matrix( [ [0],[1],[0] ] ) ) }
         self.mapTypeVector = { "1": Matrix( [ [1],[0],[0] ] ),
                                "2": Matrix( [ [0],[1],[0] ] ),
@@ -97,15 +97,9 @@ class PatternApp(object):
         self.mapTypeColor = { "1": "gray60", "2": "white", "3": "gray30" }
 
         #continued fraction expansion
-        self.substitutions = []
-        print(algo.V)
-        while algo.advance():
-            self.substitutions.append( oneSubstitution123FromMatrix( algo.getLastMatrix().inv() ))
-            print(algo.V)
-
-        for s in self.substitutions:
-            print(s)
-            
+        self.substitution = Substitution123( { "1": "12", "2": "13", "3": "1"} )
+        print(self.substitution.matrix())
+        print(self.substitution.matrix().inv())
         self.start()
             
         #key binding
@@ -154,29 +148,25 @@ class PatternApp(object):
         
     def forward(self,event):
         report_event(event)
-        if self.index < len(self.substitutions): 
-            #do substitution
-            s = GeneralizedSubstitution( self.substitutions[self.index] )
-            res = []
-            for tileSet in self.tiles:
-                res2 = []
-                for tile in tileSet:
-                    res2 += s(tile)
-                res.append(res2)
-            self.tiles = res
-            self.index += 1
-            #draw
-            self.drawPiece()
+        #do substitution
+        s = GeneralizedSubstitution( self.substitution )
+        res = []
+        for tileSet in self.tiles:
+            res2 = []
+            for tile in tileSet:
+                res2 += s(tile)
+            res.append(res2)
+        self.tiles = res
+        self.index += 1
+        #draw
+        self.drawPiece()
         
 #------------------------------------------------  
 #--------------- main script --------------------
 #------------------------------------------------
 
 #parse command line    
-parser = argparse.ArgumentParser(description="draws a piece of digital plane from its normal vector")
-parser.add_argument("x",help="x-component of the normal",type=int)
-parser.add_argument("y",help="y-component of the normal",type=int)
-parser.add_argument("z",help="z-component of the normal",type=int)
+parser = argparse.ArgumentParser(description="draws a Rauzy fractal")
 parser.add_argument("-w", "--windowSize",help="discrete size of the viewing window (default 10)",
                     type=int,default=10)
 parser.add_argument("-u", "--unitSize",help="size of the discrete unit (default 40)",\
@@ -187,13 +177,9 @@ parser.add_argument("-s", "--startingCorner",help="type of starting corner",\
                     choices=["lower","upper"],default="lower")
 parser.add_argument("-c", "--color",help="either a color by tile type or a color by tile group",\
                     choices=["type","group"],default="type")
-parser.add_argument("-a", "--algo",help="continued fraction expansion algorithm",\
-                    choices=["poincare", "brun", "selmer","R"],default="poincare")
 
 
 args = parser.parse_args()
-param = [args.x, args.y, args.z]
-n = Matrix( [param] ).transpose()
 
 projector = standardProjector
 if args.projection == "hexagonal":
@@ -205,25 +191,9 @@ mode = firstArg
 if args.color == "group":
     mode = secondArg
   
-#poincare
-algo = ContinuedFraction3d( Matrix( [[1,0,0],[-1,1,0],[0,-1,1]] ),\
-                            [ Matrix( [[1], [0], [0]] ), \
-                              Matrix( [[0], [1], [0]] ), \
-                              Matrix( [[0], [0], [1]] ) ], n )
-if args.algo == "brun":
-    algo = ContinuedFraction3d( Matrix( [[1,0,0],[0,1,0],[0,-1,1]] ),\
-                                [ Matrix( [[1], [0], [0]] ),\
-                                  Matrix( [[0], [1], [0]] ),\
-                                  Matrix( [[0], [0], [1]] ) ], n ) 
-elif args.algo == "selmer":
-    algo = ContinuedFraction3d( Matrix( [[1,0,0],[0,1,0],[-1,0,1]] ),\
-                                [ Matrix( [[1], [1], [1]] ) ], n ) 
-elif args.algo == "R":
-    algo = ContinuedFraction3dByTriangleComputer(param)
-    
 #application
 root = tk.Tk()
-c = PatternApp(root, args.windowSize, args.unitSize, projector, corner, mode, algo)     
+c = PatternApp(root, args.windowSize, args.unitSize, projector, corner, mode)     
 root.mainloop()
 
     

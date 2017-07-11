@@ -127,7 +127,7 @@ class GeneralizedSubstitution(object):
         res = []
         for j in ['1', '2', '3']:
             for p,s in splitWords(self.sigma(j), aPointedFace.i):
-                point = self.sigma.matrix().inv() * ( aPointedFace.p + abelianizationMap123(s) )
+                point = self.sigma.matrix().inv() * ( aPointedFace.p - abelianizationMap123(p) )
                 res.append( PointedFace( point, j ) )
         return res
 
@@ -154,7 +154,7 @@ class ContinuedFraction3dByTriangleComputer(object):
         s = PointVector(q)
         self.V = PointVector( aVector )
         self.plane = DigitalPlane( self.V )
-        self.nc = TriangleComputer([o + e0+e1, o + e1+e2, o + e2+e0], q, s, self.plane)
+        self.nc = TriangleComputer([o + e1+e2, o + e2+e0, o + e0+e1], q, s, self.plane)
         
     def advance(self):
         """ do one iteration, the vector has smaller compondents """
@@ -166,7 +166,7 @@ class ContinuedFraction3dByTriangleComputer(object):
         """ returns matrix of the previous iteration """
         k, alpha, beta = self.nc.operations[-1] #last operation
         mat = eye(3)
-        mat[k,(k+2)%3] = alpha
-        mat[k,(k+1)%3] = beta
+        mat[(k+2)%3,k] = alpha
+        mat[(k+1)%3,k] = beta
         return mat.inv()
         
