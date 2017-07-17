@@ -82,11 +82,17 @@ class ContinuedFraction3d(object):
 
 
 def oneSubstitution123FromMatrix(aMatrix):
+    print(aMatrix)
     indexToLetters = { 0: '1', 1: '2', 2: '3' }
     d = { '1' : "", '2' : "", '3' : "" }
-    for indexRow in range(3):
-        for indexCol in range(3):
-            d[indexToLetters[indexCol]] += indexToLetters[indexRow] * aMatrix[indexRow,indexCol]
+    for indexCol in range(3):
+        k = indexCol
+        d[indexToLetters[indexCol]] += (indexToLetters[k] * aMatrix[k,indexCol])
+        for _ in range(2):
+            k = (k+1)%3
+            d[indexToLetters[indexCol]] += (indexToLetters[k] * aMatrix[k,indexCol])
+        # for indexCol in range(3):
+        #     d[indexToLetters[indexCol]] = (indexToLetters[indexRow] * aMatrix[indexRow,indexCol]) + d[indexToLetters[indexCol]]
     return Substitution123( d )
 
 def splitWords(aWord, aLetter):
