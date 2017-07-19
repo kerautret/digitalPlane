@@ -28,3 +28,6 @@ class PointVector(Matrix):
 
     def __repr__(self):
         return "("+ ",".join( [str(x) for x in self] ) +")"
+
+    def __hash__(self):
+        return hash(tuple([x for x in self]))
