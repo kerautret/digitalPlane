@@ -32,17 +32,6 @@ def _create_circle(self, x, y, r, **kwargs):
     return self.create_oval(x-r, y-r, x+r, y+r, **kwargs)
 tk.Canvas.create_circle = _create_circle
 
-class Parallelogram(object):
-
-    def __init__(self, origin, v1, v2, color):
-        self.o = origin
-        self.v1 = v1
-        self.v2 = v2
-        self.c = color
-
-    def shift(self, v):
-        self.o += v
-
 def report_event(event):    
     """Print a description of an event, based on its attributes.
     """
@@ -51,7 +40,43 @@ def report_event(event):
         event_name[str(event.type)],\
         "EventWidgetId=" + str(event.widget), \
         "EventKeySymbol=" + str(event.keysym))
+
+#------------------------------------------------  
+#--------------- helper classes -----------------
+#------------------------------------------------
+class Tile(object):
+
+    colorByType = { PointVector([-1,0,0]): "grey60",
+                    PointVector([0,-1,0]): "grey30",
+                    PointVector([0,0,-1]): "white", }
+    colorByGroup = ["white", "gray60", "gray30"]
     
+    def __init__(self, origin, v1, v2, normal):
+        self.o = origin
+        self.v1 = v1
+        self.v2 = v2
+        self.n = normal
+        
+    def origin(self):
+        return self.o
+        
+    def color(self):
+        return self.c
+        
+    def shift(self, v):
+        self.o += v
+
+class ShiftedTile(Tile):
+
+    def origin(self):
+        return self.o + self.n
+        
+    def shift(self, v):
+        self.o -= v
+
+class PatternMode:
+    pass
+        
 #------------------------------------------------  
 #--------------- main class ---------------------
 #------------------------------------------------
@@ -72,7 +97,7 @@ class TriangleComputerApp(object):
         return res
     #-------------------------------------------------------------------------
         
-    def __init__(self, parent, normal, size, step, projector, colorMode):
+    def __init__(self, parent, normal, size, step, projector, patternMode):
         """ Initilization of the application
 
         :param parent: object of type Tk
@@ -81,9 +106,8 @@ class TriangleComputerApp(object):
         :param step: grid step of the drawing window
         :param projector: projection from a 3d PointVector
         to a 2d PointVector.
-        :param colorMode: functor that returns its first or second
-        argument according to the color mode (color of the tile type
-        or color of the tile group)
+        :param patternMode: specify the color of the tiles or the starting
+        set of tiles, useful when drawing pattern is enabled
         """
         #dimensions
         self.discreteSize = size
@@ -102,8 +126,8 @@ class TriangleComputerApp(object):
         #projector
         self.projector = projector
         #mode
-        self.mode = colorMode
-        
+        self.mode = patternMode
+
         #digital plane
         o = PointVector([0] * 3)
         self.plane = DigitalPlane(normal)
@@ -138,47 +162,56 @@ class TriangleComputerApp(object):
         self.canvas.bind_all( "<Return>", self.reSetTriangle )
         self.canvas.bind_all( "<Key>", self.setOption )
 
-        #draw basis
-        self.drawBasis()
-
         #data
         self.q = PointVector([1]*3)
+        self.s = PointVector([1]*3)
+        self.e0 = PointVector([1,0,0])
+        self.e1 = PointVector([0,1,0])
+        self.e2 = PointVector([0,0,1])
+
+        self.drawBasis()
         self.start()
 
     #-------------------------------------------------------------------------
     #-------------------------------- actions --------------------------------
     #-------------------------------------------------------------------------
 
+    def selectStartingPoint(self,event):
+        report_event(event)
+        pointKey = self.canvas.find_withtag(tk.CURRENT)[0] #current item id
+        self.q = self.grid[pointKey] + PointVector([1]*3)
+        self.start()
+        
     def start(self):
 
         #normal computer to get the list of operations
-        s = PointVector([1]*3)
-        o = self.q - s
-        e0 = PointVector([1,0,0])
-        e1 = PointVector([0,1,0])
-        e2 = PointVector([0,0,1])
-        nc = TriangleComputer([o+e0+e1, o+e1+e2, o+e2+e0], self.q, s, self.plane )
+        o = self.q - self.s
+        nc = TriangleComputer([o+self.e0+self.e1, o+self.e1+self.e2, o+self.e2+self.e0],
+                              self.q, self.s, self.plane )
         while nc.advance():
             pass
 
         self.operations = nc.operations
 
         #other data
-        self.index = 0
-        self.m = [e2, e0, e1]
-        self.tiles = [ [ Parallelogram(self.q, -self.m[1], -self.m[2], "white") ],
-                       [ Parallelogram(self.q, -self.m[2], -self.m[0], "gray60") ],
-                       [ Parallelogram(self.q, -self.m[0], -self.m[1], "gray30") ] ]
+        self.initPattern()
         
         #draw first triangle
         self.drawTriangle()
         
-        
-    def selectStartingPoint(self,event):
-        report_event(event)
-        pointKey = self.canvas.find_withtag(tk.CURRENT)[0] #current item id
-        self.q = self.grid[pointKey] + PointVector([1]*3)
-        self.start()
+    def initPattern(self): 
+        self.index = 0
+        self.m = [self.e2, self.e0, self.e1]
+        if self.mode.corner == "upper":
+            self.tiles = [ [ Tile(self.q, -self.m[1], -self.m[2], -self.m[0]) ],
+                           [ Tile(self.q, -self.m[2], -self.m[0], -self.m[1]) ],
+                           [ Tile(self.q, -self.m[0], -self.m[1], -self.m[2]) ] ]
+        elif self.mode.corner == "lower":
+            self.tiles = [ [ ShiftedTile(self.q, -self.m[1], -self.m[2], -self.m[0]) ],
+                           [ ShiftedTile(self.q, -self.m[2], -self.m[0], -self.m[1]) ],
+                           [ ShiftedTile(self.q, -self.m[0], -self.m[1], -self.m[2]) ] ]
+        else:
+            raise ValueError
         
     def drawTriangle(self): 
         self.canvas.delete("triangle")
@@ -275,32 +308,28 @@ class TriangleComputerApp(object):
 
     def drawPiece(self):
         self.canvas.delete("piece")
-        colors = ["white", "gray60", "gray30"]
         for k,tileSet in enumerate(self.tiles):
             for tile in tileSet:
-                self.drawParallelogram( tile, colors[k] )
+                self.drawTile(tile, self.mode.color(Tile.colorByType[tile.n], Tile.colorByGroup[k]))
                 
-    def drawParallelogram(self, parallelogram, color):
-        polygon3d = [ parallelogram.o,
-                      parallelogram.o + parallelogram.v1,
-                      parallelogram.o + parallelogram.v1 + parallelogram.v2,
-                      parallelogram.o + parallelogram.v2 ]
+    def drawTile(self, t, c):
+        polygon3d = [ t.origin(),
+                      t.origin() + t.v1,
+                      t.origin() + t.v1 + t.v2,
+                      t.origin() + t.v2 ]
         polygon2d = [ self.projector(x) for x in polygon3d ]
         coords = self.flatten( [ self.transform(x) for x in polygon2d] )
         self.canvas.create_polygon(coords, 
-                                   fill=self.mode(parallelogram.c, color), outline="black",
+                                   fill=c, outline="black",
                                    width=2, tags="piece")
                                 
     def drawBasis(self):
 
         o = PointVector([0]*3)
-        e0 = PointVector([1,0,0])
-        e1 = PointVector([0,1,0])
-        e2 = PointVector([0,0,1])
         op = self.projector(o)
-        e0p = self.projector(e0)
-        e1p = self.projector(e1)
-        e2p = self.projector(e2)
+        e0p = self.projector(self.e0)
+        e1p = self.projector(self.e1)
+        e2p = self.projector(self.e2)
         opp = self.transform(op)
         
         self.canvas.create_line(self.flatten( [ opp, self.transform(e0p) ] ),
@@ -361,15 +390,7 @@ class TriangleComputerApp(object):
             
     def reSetTriangle(self,event): 
 
-        e0 = PointVector([1,0,0])
-        e1 = PointVector([0,1,0])
-        e2 = PointVector([0,0,1])
-        self.m = [e2, e0, e1]        
-        self.index = 0
-        self.tiles = [ [ Parallelogram(self.q, -self.m[1], -self.m[2], "white") ],
-                       [ Parallelogram(self.q, -self.m[2], -self.m[0], "gray60") ],
-                       [ Parallelogram(self.q, -self.m[0], -self.m[1], "gray30") ] ]
-        
+        self.initPattern()        
         self.drawTriangle()
 
     def setOption(self,event): 
@@ -417,6 +438,8 @@ parser.add_argument("-p", "--projection",help="type of 3d to 2d projection",\
                     choices=["standard","hexagonal"],default="standard")
 parser.add_argument("-c", "--color",help="either a color by tile type or a color by tile group",\
                     choices=["type","group"],default="type")
+parser.add_argument("-s", "--startingCorner",help="the pattern can either contain the upper of the lower corner",\
+                    choices=["upper","lower"],default="upper")
 parser.add_argument("-k", "--showKeybindings", help="print to the standard output the keys you can hit to modify the display",
                     action="store_true")
    
@@ -426,9 +449,13 @@ n = PointVector( param )
 projector = standardProjector
 if args.projection == "hexagonal":
     projector = hexagonalProjector
-mode = firstArg
+mode = PatternMode()
+mode.color = firstArg
 if args.color == "group":
-    mode = secondArg
+    mode.color = secondArg
+mode.corner = "upper"
+if args.startingCorner == "lower":
+    mode.corner = args.startingCorner
 if args.showKeybindings:
    print("H:enables/disables hexagon display")
    print("R:enables/disables rays display")
