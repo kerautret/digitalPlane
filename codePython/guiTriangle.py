@@ -17,10 +17,10 @@ from NormalComputer.TriangleComputer import TriangleComputer, squaredRadiusOfSph
 #NB. we take the opposite for the y-coordinate
 
 def hexagonalProjector(vector3):
-    return Matrix( [ [ -0.5, 1, -0.5], [ 0.86602540378, 0, - 0.86602540378] ] ) * vector3; 
+    return vector3.projection( [ [ -0.5, 1, -0.5], [ 0.86602540378, 0, - 0.86602540378] ] ); 
 
 def standardProjector(vector3):
-    return Matrix( [ [ -0.355, 1, 0], [ 0.353, 0, -1] ] ) * vector3; 
+    return vector3.projection( [ [ -0.355, 1, 0], [ 0.353, 0, -1] ] ); 
 
 def firstArg(aX, aY):
     return aX
@@ -92,7 +92,7 @@ class TriangleComputerApp(object):
 
         #origin
         mid = self.discreteSize/2
-        self.origin = Matrix( [ [mid], [mid] ] )
+        self.origin = PointVector( [ mid ] *2 )
         
         #canvas
         realSize = self.gridStep * self.discreteSize
