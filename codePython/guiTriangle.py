@@ -186,7 +186,7 @@ class TriangleComputerApp(object):
 
         #normal computer to get the list of operations
         o = self.q - self.s
-        nc = TriangleComputer([o+self.e0+self.e1, o+self.e1+self.e2, o+self.e2+self.e0],
+        nc = TriangleComputer([o+self.e1+self.e2, o+self.e2+self.e0,o+self.e0+self.e1],
                               self.q, self.s, self.plane )
         while nc.advance():
             pass
@@ -201,7 +201,7 @@ class TriangleComputerApp(object):
         
     def initPattern(self): 
         self.index = 0
-        self.m = [self.e2, self.e0, self.e1]
+        self.m = [self.e0, self.e1, self.e2]
         if self.mode.corner == "upper":
             self.tiles = [ [ Tile(self.q, -self.m[1], -self.m[2], -self.m[0]) ],
                            [ Tile(self.q, -self.m[2], -self.m[0], -self.m[1]) ],

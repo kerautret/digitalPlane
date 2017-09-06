@@ -94,7 +94,7 @@ class PatternApp(object):
         self.mapTypeVector = { "1": Matrix( [ [1],[0],[0] ] ),
                                "2": Matrix( [ [0],[1],[0] ] ),
                                "3": Matrix( [ [0],[0],[1] ] ) }
-        self.mapTypeColor = { "1": "gray60", "2": "white", "3": "gray30" }
+        self.mapTypeColor = { "1": "white", "2": "gray60", "3": "gray30" }
 
         #continued fraction expansion
         self.morphisms = []
