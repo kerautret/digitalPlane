@@ -25,13 +25,12 @@ class PointVector(object):
     def __repr__(self):
         return "("+",".join([str(x) for x in self.coords])+")"
 
-    def __str__(self):
-        return self.__repr__()
+    def __iter__(self):
+        return self.coords.__iter__()
 
-    def toTuple(self):
-        """Returns the vector represented as a tuple of components"""
-        return self.coords
-
+    def __getitem__(self,key):
+        return self.coords[key]
+        
     def dim(self):
         """Returns the dimension, ie. the number of components"""
         return len(self.coords)
@@ -101,18 +100,13 @@ class PointVector(object):
     def square(self):
         return self.dot(self)
 
-    def crossProduct(self, other):
+    def cross(self, other):
         assert isinstance(other, PointVector)
         assert self.dim() == 3 and other.dim() == 3
         return PointVector([ self.coords[1]*other.coords[2] - self.coords[2]*other.coords[1],
                              self.coords[2]*other.coords[0] - self.coords[0]*other.coords[2],
                              self.coords[0]*other.coords[1] - self.coords[1]*other.coords[0] ])
         
-def diagonal(aValue, d):
-    """ Function that returns an instance of PointVector.
-
-    The d components are all equal to a given value. 
-    :param aValue: value of the d components of the vector.
-    :param d: dimension, ie. number of components. 
-    """
-    return PointVector([aValue] * d)
+    def projection(self, matrixAsListOfRow):
+        return PointVector( [ self.dot(PointVector(row)) for row in matrixAsListOfRow ] )
+            

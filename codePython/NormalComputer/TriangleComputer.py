@@ -115,7 +115,7 @@ class TriangleComputer(object):
         res = True
         m = [ self.q - x for x in triangle ]
         for k in range(len(m)):
-            nk = m[k-1].crossProduct(m[k])
+            nk = m[k-1].cross(m[k])
             res = res and ( nk.dot(-self.s) <= 0 )
         return res
 
@@ -213,7 +213,7 @@ class TriangleComputer(object):
     def getNormal(self):
         """Returns the normal vector of the underlying triangle. """
         b = self.getBasis()
-        return b[0].crossProduct(b[1])
+        return b[0].cross(b[1])
 
     def isReduced(self):
         """Returns 'True' if the triangle is reduced, 'False' otherwise. """
@@ -266,7 +266,7 @@ def squaredRadiusOfSphere(lst):
     lstV = [ lst[0] - X for X in lst[1:] ]
     lstOppV = [ lst[3] - lst[2], lst[1] - lst[3], lst[2] - lst[1] ]
 
-    M = Matrix( [ list(x.toTuple()) for x in lstV ])
+    M = Matrix( [ [c for c in v] for v in lstV ])
     volume = M.det()
     if volume == 0:
         raise ValueError("ERR: 4 copanar points")
