@@ -1,42 +1,238 @@
 from sympy.matrices import *
 
+class Word123(object):
+    """ class that implements a word over the alphabet {'1','2','3'}.
+    NB. '4', '5', '6' are conjugate letters of '1','2','3' respectively """
 
-def abelianizationMap123(aWord):
-    """ function that returns the number of occurences of each letter of a given word"""
-    occurences = { '1' : 0, '2' : 0, '3' : 0 }
-    for l in aWord:
-        if l in occurences:
-            occurences[l] += 1
-    return Matrix( [ occurences['1'],
-                     occurences['2'],
-                     occurences['3'] ] )
-
-
-class Substitution123(object):
-    """ class that implements a substitution over the alphabet {1,2,3}"""
-
-    def __init__(self,aMap):
-        """ param: aMap, a dictionnary that associates letters 1, 2, 3 to words """
-        self.map = aMap
-
-    def __call__(self,aWord):
+    def __init__(self,aString):
+        """ init method
+        :param: aString, any string
         """
-        param: aWord, any word
-        return: another word after substitution of its letters by the associated words
-        """
-        res = ""
-        for l in aWord:
-            res += self.map[l]
+        self.s = aString
+
+    def __add__(self,other):
+        return Word123(self.s + other.s)
+
+    def __iadd__(self,other):
+        self.s += other.s
+        return self
+        
+    def abelianizationMap(self):
+        """ :return: a column vector mapping (index of) letters
+        to number of occurences """        
+        d = { '1': 0, '2': 0, '3':0 }
+        for c in self.s:
+            if c == '1' or c == '2' or c == '3':
+                d[c] += 1
+            if c == '4':
+                d['1'] -= 1
+            if c == '5':
+                d['2'] -= 1
+            if c == '6':
+                d['3'] -= 1
+        return Matrix( [ d['1'], d['2'], d['3'] ] )        
+
+    def split(self, aLetter):
+        """ returns the list of pairs (p, s) such that the current word
+        is equal to the concatenation of p . aLetter . s
+        :param: self, current word 
+        :param: aLetter, any letter
+        :return: list of word pairs """
+        res = []
+        p = ""          #empty string
+        s = self.s     #whole word string
+        for l in self.s:
+            s = s[1:]  #update suffix
+            if l == aLetter:
+                res.append( (Word123(p), Word123(s)) )
+            p += l     #update prefix
         return res
 
+        
+    def group(self):
+        """ Returns the description of the current word
+        as a list of pairs letter-power (negative power for conjugate letters) """
+        res = list()
+        
+        if self.s:
+            l = self.s[0] #letter
+            c = 1         #counter
+            k = 1         #index
+            while k < len(self.s):
+                if self.s[k] == l:
+                    c += 1
+                else:
+                    res.append( (l,c) )
+                    l = self.s[k]
+                    c = 1
+                k += 1
+            res.append( (l,c) )
+
+        return res
+
+    def simplify(self):
+        res = ""
+        
+        if self.s: #if non empty word
+            l = self.s[0] #letter
+            k = 1         #index
+            toAdd = True  #flag
+            while k < len(self.s):
+                if self.s[k] == Word123.conjugateLetter(l):
+                    #a) if two consecutive letters cancel
+                    l = self.s[k]
+                    k += 1
+                    if k >= len(self.s):
+                        break
+                else:
+                    #b) otherwise
+                    res += l
+                #in both case we advance
+                l = self.s[k]
+                k += 1
+            else: #store the last letter in case b)
+                res += l
+        
+        self.s = res
+        
+    def conjugateLetter(aLetter):
+        if aLetter == '1':
+            return '4'
+        elif aLetter == '2':
+            return '5'
+        elif aLetter == '3':
+            return '6'
+        elif aLetter == '4':
+            return '1'
+        elif aLetter == '5':
+            return '2'
+        elif aLetter == '6':
+            return '3'
+
+    def conjugate(self):
+        """ function that returns the conjugate word """
+        res = ""
+        for l in reversed(self.s):
+            res += Word123.conjugateLetter(l)
+        return Word123(res)
+        
+    def __repr__(self):
+        return self.s
+
+    
+class Endomorphism123(object):
+    """ class that implements an endomorphism over the alphabet {1,2,3}"""
+
+    def __init__(self, aMap):
+        """ init method
+        :param: aMap, map between letters and words
+        """
+        self.map = aMap
+        self.map['4'] = aMap['1'].conjugate()
+        self.map['5'] = aMap['2'].conjugate()
+        self.map['6'] = aMap['3'].conjugate()
+        
+    def __call__(self,aWord):
+        """
+        call operator
+        :param: aWord, any word
+        :return: another word after the replacement of each letter by their associated words
+        """
+        s = ""
+        for l in aWord.s:
+            s += str(self.map[l])
+        res =  Word123(s)
+        res.simplify()
+        return res
+        
     def __repr__(self):
         return "" + self.map.__repr__()
 
     def matrix(self):
-        return abelianizationMap123( self.map['1'] )\
-            .row_join( abelianizationMap123( self.map['2'] ) )\
-            .row_join( abelianizationMap123( self.map['3'] ) )
+        return self.map['1'].abelianizationMap()\
+                            .row_join( self.map['2'].abelianizationMap() )\
+                            .row_join( self.map['3'].abelianizationMap() )
+    
+def oneEndomorphism123FromMatrix(aMatrix):
+    indexToLetters = { 0: '1', 1: '2', 2: '3' }
+    d = { '1' : Word123(""), '2' : Word123(""), '3' : Word123("") }
+    
+    for indexCol in range(3):
+        for indexRow in range(3):
+            d[indexToLetters[indexCol]] += Word123(indexToLetters[indexRow] * aMatrix[indexRow,indexCol])
+    # for indexCol in range(3):
+    #     k = indexCol
+    #     d[indexToLetters[indexCol]] += Word123(indexToLetters[k] * aMatrix[k,indexCol])
+    #     for _ in range(2):
+    #         k = (k+1)%3
+    #         d[indexToLetters[indexCol]] += Word123(indexToLetters[k] * aMatrix[k,indexCol])
+    return Endomorphism123( d )
+
+class PointedFace(object):
+    """ class that implements a pointed face, ie. a pair point - letter,
+    where the letter identifies the face type """
+    
+    def __init__(self, aPoint, aFaceLetter):
+        """ init method
+        :param: aPoint, any point
+        :param: aFaceLetter, any letter of the alphabet
+        """
+        self.p = aPoint
+        self.l = aFaceLetter
+
+    def __hash__(self):
+        return hash( tuple([ tuple([c for c in self.p]), self.l ]) )
+
+    def __repr__(self):
+        return "("+ str([c for c in self.p]) + "," + self.l + "*)"
+    
+class DualMap(object):
+    """ class that implements a dual associated with a unimodular morphism """
+
+    def __init__(self, aSigma):
+        """ param: aSigma, an morphism over the alphabet {'1','2','3'} """
+        self.sigma = aSigma
+        self.m = self.sigma.matrix().inv()
+        self.e = { "1": Matrix( [ [1],[0],[0] ] ),
+                   "2": Matrix( [ [0],[1],[0] ] ),
+                   "3": Matrix( [ [0],[0],[1] ] ) }
         
+    def __call__(self, aPointedFace):
+        """ Function that sustitutes a pointed face by several others
+        param: aPointedFace, ie. a pair (point, letter) 
+        return: a dict of pointed faces
+        """
+        aPoint = aPointedFace.p
+        aFaceLetter = aPointedFace.l
+        
+        d = dict()
+
+        #positive part
+        for j in ['1', '2', '3']:
+            w = self.sigma.map[j]
+            for p,s in w.split(aFaceLetter):
+                point = self.m * ( aPoint - p.abelianizationMap() )
+                newPointedFace = PointedFace( point, j )
+                if newPointedFace in d: 
+                    d[ newPointedFace ] += 1
+                else:
+                    d[ newPointedFace ] = 1
+
+        #negative part
+        for j in ['1', '2', '3']:
+            w = self.sigma.map[j]
+            for p,s in w.split(Word123.conjugateLetter(aFaceLetter)): 
+                point = self.m * ( aPoint - p.abelianizationMap() + e[aFaceLetter] )
+                newPointedFace = PointedFace( point, j )
+                if newPointedFace in d: 
+                    d[ newPointedFace ] -= 1
+                else:
+                    d[ newPointedFace ] = -1
+
+        return d
+
+#-----------------------------------------------
+
 def permutation(v):
     """ computes a permutation matrix to sort the input vector components.
 
@@ -49,7 +245,6 @@ def permutation(v):
     for (index, rank) in enumerate(ranks):
         res[index,rank] = 1
     return res
-    
 
 class ContinuedFraction3d(object):
     """class that implements one iteration of a 3d continued fraction algorithm
@@ -79,65 +274,6 @@ class ContinuedFraction3d(object):
 
     def getLastMatrix(self):
         return self.lastMatrix
-
-
-def oneSubstitution123FromMatrix(aMatrix):
-    print(aMatrix)
-    indexToLetters = { 0: '1', 1: '2', 2: '3' }
-    d = { '1' : "", '2' : "", '3' : "" }
-    for indexCol in range(3):
-        k = indexCol
-        d[indexToLetters[indexCol]] += (indexToLetters[k] * aMatrix[k,indexCol])
-        for _ in range(2):
-            k = (k+1)%3
-            d[indexToLetters[indexCol]] += (indexToLetters[k] * aMatrix[k,indexCol])
-        # for indexCol in range(3):
-        #     d[indexToLetters[indexCol]] = (indexToLetters[indexRow] * aMatrix[indexRow,indexCol]) + d[indexToLetters[indexCol]]
-    return Substitution123( d )
-
-def splitWords(aWord, aLetter):
-    """ returns the list of pairs p, s such that aWord = p aLetter s """
-    res = []
-    p = '' #empty word
-    s = aWord #whole word
-    for l in aWord:
-        s = s[1:]
-        if l == aLetter:
-            res.append( [p,s] )
-        p += l
-    return res
-            
-    
-class PointedFace(object):
-
-    def __init__( self, aPoint, aType ):
-        """ initialization of a pointed face by a point and a face type """
-        self.p = aPoint
-        self.i = aType
-
-    def __repr__(self):
-        return "(" + self.p.__repr__() + "," + self.i + "*)"
-
-class GeneralizedSubstitution(object):
-    """ class that implements a generalized substitution """
-
-    def __init__(self, aSigma):
-        """ param: aSigma, a substitution over the alphabet {1,2,3} """
-        self.sigma = aSigma
-
-    def __call__(self, aPointedFace):
-        """ Function that sustitutes a pointed face by several others
-        param: aPointedFace, any pointed face
-        return: a list of pointed faces
-        """
-        res = []
-        for j in ['1', '2', '3']:
-            for p,s in splitWords(self.sigma(j), aPointedFace.i):
-                point = self.sigma.matrix().inv() * ( aPointedFace.p - abelianizationMap123(p) )
-                res.append( PointedFace( point, j ) )
-        return res
-
-
 
 #-----------------------------------------------
 

@@ -5,8 +5,8 @@ from sys import argv
 from sympy.matrices import *
 from copy import deepcopy
 
-from pattern import PointedFace, ContinuedFraction3d, ContinuedFraction3dByTriangleComputer,\
-    oneSubstitution123FromMatrix, GeneralizedSubstitution
+from pattern import ContinuedFraction3d, ContinuedFraction3dByTriangleComputer,\
+    Word123, Endomorphism123, oneEndomorphism123FromMatrix, PointedFace, DualMap
 
 #------------------------------------------------
 #----------------- helpers ----------------------
@@ -97,14 +97,16 @@ class PatternApp(object):
         self.mapTypeColor = { "1": "gray60", "2": "white", "3": "gray30" }
 
         #continued fraction expansion
-        self.substitutions = []
+        self.morphisms = []
         print(algo.V)
         while algo.advance():
-            self.substitutions.append( oneSubstitution123FromMatrix( algo.getLastMatrix().inv() ))
+            self.morphisms.append( oneEndomorphism123FromMatrix( algo.getLastMatrix().inv() ))
             print(algo.V)
 
-        for s in self.substitutions:
+        for s in self.morphisms:
             print(s)
+            print(s.matrix())
+            print(s.matrix().inv())
             
         self.start()
             
@@ -126,13 +128,13 @@ class PatternApp(object):
         return res
         
     def drawParallelogram(self, aF, aK):
-        x = aF.p + self.mapTypeVector[aF.i]
-        v1, v2 = self.mapTypeVectors[aF.i]
+        x = aF.p + self.mapTypeVector[aF.l]
+        v1, v2 = self.mapTypeVectors[aF.l]
         polygon3d = [ x, x + v1, x + v1 + v2, x + v2 ]
         polygon2d = [ self.projector(x) for x in polygon3d ]
         coords = self.flatten( [ self.transform(x) for x in polygon2d] )
         self.canvas.create_polygon(coords, 
-                                   fill=self.mapTypeColor[self.mode(aF.i, aK)],
+                                   fill=self.mapTypeColor[self.mode(aF.l, aK)],
                                    outline="black",
                                    width=2,
                                    tags="piece")
@@ -154,9 +156,9 @@ class PatternApp(object):
         
     def forward(self,event):
         report_event(event)
-        if self.index < len(self.substitutions): 
+        if self.index < len(self.morphisms): 
             #do substitution
-            s = GeneralizedSubstitution( self.substitutions[self.index] )
+            s = DualMap( self.morphisms[self.index] )
             res = []
             for tileSet in self.tiles:
                 res2 = []

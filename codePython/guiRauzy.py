@@ -5,8 +5,8 @@ from sys import argv
 from sympy.matrices import *
 from copy import deepcopy
 
-from pattern import PointedFace, ContinuedFraction3d, ContinuedFraction3dByTriangleComputer,\
-    Substitution123, GeneralizedSubstitution
+from pattern import ContinuedFraction3d, ContinuedFraction3dByTriangleComputer,\
+    Word123, Endomorphism123, oneEndomorphism123FromMatrix, PointedFace, DualMap
 
 #------------------------------------------------
 #----------------- helpers ----------------------
@@ -97,9 +97,9 @@ class PatternApp(object):
         self.mapTypeColor = { "1": "gray60", "2": "white", "3": "gray30" }
 
         #continued fraction expansion
-        self.substitution = Substitution123( { "1": "12", "2": "13", "3": "1"} )
-        print(self.substitution.matrix())
-        print(self.substitution.matrix().inv())
+        self.rauzySubstitution = Endomorphism123( { '1': Word123("12"), '2': Word123("13"), '3': Word123("1") } )
+        print(self.rauzySubstitution.matrix())
+        print(self.rauzySubstitution.matrix().inv())
         self.start()
             
         #key binding
@@ -120,13 +120,13 @@ class PatternApp(object):
         return res
         
     def drawParallelogram(self, aF, aK):
-        x = aF.p + self.mapTypeVector[aF.i]
-        v1, v2 = self.mapTypeVectors[aF.i]
+        x = aF.p + self.mapTypeVector[aF.l]
+        v1, v2 = self.mapTypeVectors[aF.l]
         polygon3d = [ x, x + v1, x + v1 + v2, x + v2 ]
         polygon2d = [ self.projector(x) for x in polygon3d ]
         coords = self.flatten( [ self.transform(x) for x in polygon2d] )
         self.canvas.create_polygon(coords, 
-                                   fill=self.mapTypeColor[self.mode(aF.i, aK)],
+                                   fill=self.mapTypeColor[self.mode(aF.l, aK)],
                                    outline="black",
                                    width=2,
                                    tags="piece")
@@ -148,8 +148,8 @@ class PatternApp(object):
         
     def forward(self,event):
         report_event(event)
-        #do substitution
-        s = GeneralizedSubstitution( self.substitution )
+        #do endomorphism
+        s = DualMap( self.rauzySubstitution )
         res = []
         for tileSet in self.tiles:
             res2 = []
