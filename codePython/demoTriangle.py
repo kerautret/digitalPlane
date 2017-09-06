@@ -54,14 +54,14 @@ q = PointVector([1]*3)
 s = PointVector(q)
 
 #starting triangle
-startingTriangle = [o + e0+e1, o + e1+e2, o + e2+e0]
+startingTriangle = [o + e1+e2, o + e2+e0, o + e0+e1]
 
 #normal computer
 nc = TriangleComputer(startingTriangle, q, s, plane )
 nc.setMode(mode)
 print("#", nc.mode)
 print("# step [triangle vertices] (normal) [vertices remainder] neighborhood isReduced?")
-print("#", 0, nc.v, nc.getNormal(), [ plane.remainder(x) for x in nc.v ], nc.printNeighborhood(), nc.isReduced())
+print("#", 0, nc.v, nc.getNormal(), [ plane.remainder(q-x) for x in nc.v ], nc.printNeighborhood(), nc.isReduced())
 #main loop
 c = 1
 counterNonReduced = 0
@@ -69,7 +69,7 @@ while nc.advance():
     basis = nc.getBasis()
     if not isReduced(basis[0], basis[1]): 
         counterNonReduced += 1
-    print("#", c, nc.v, nc.getNormal(), [ plane.remainder(x) for x in nc.v ], nc.printNeighborhood(), nc.isReduced())
+    print("#", c, nc.v, nc.getNormal(), [ plane.remainder(q-x) for x in nc.v ], nc.printNeighborhood(), nc.isReduced())
     c += 1
 
 if mode == "H":

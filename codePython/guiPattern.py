@@ -101,8 +101,10 @@ class PatternApp(object):
         print(algo.V)
         while algo.advance():
             self.morphisms.append( oneEndomorphism123FromMatrix( algo.getLastMatrix().inv() ))
+            print(algo.getLastMatrix().inv())
             print(algo.V)
 
+        print()
         for s in self.morphisms:
             print(s)
             print(s.matrix())

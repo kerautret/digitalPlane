@@ -308,7 +308,9 @@ class ContinuedFraction3dByTriangleComputer(object):
         """ returns matrix of the previous iteration """
         k, alpha, beta = self.nc.operations[-1] #last operation
         mat = eye(3)
-        mat[(k+2)%3,k] = alpha
-        mat[(k+1)%3,k] = beta
-        return mat.inv()
+        mat[(k+2)%3,k] = -alpha #k-1
+        mat[(k+1)%3,k] = -beta  #k-2
+        # print(k, alpha, beta)
+        # print(mat)
+        return mat
         
