@@ -285,7 +285,7 @@ class ContinuedFraction3dByTriangleComputer(object):
     """class that implements a 3d continued fraction algorithm
     based on our triangle computer """
     
-    def __init__(self, aVector):
+    def __init__(self, aVector, aMode):
         """ initialization with a transformation matrix
         acting on a vector of increasing components"""
         o = PointVector([0]*3)
@@ -297,6 +297,7 @@ class ContinuedFraction3dByTriangleComputer(object):
         self.V = PointVector( aVector )
         self.plane = DigitalPlane( self.V )
         self.nc = TriangleComputer([o + e1+e2, o + e2+e0, o + e0+e1], q, s, self.plane)
+        self.nc.setMode(aMode)
         
     def advance(self):
         """ do one iteration, the vector has smaller compondents """

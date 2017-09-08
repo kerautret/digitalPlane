@@ -97,7 +97,7 @@ class TriangleComputerApp(object):
         return res
     #-------------------------------------------------------------------------
         
-    def __init__(self, parent, normal, size, step, projector, patternMode):
+    def __init__(self, parent, normal, size, step, projector, algorithmMode, patternMode):
         """ Initilization of the application
 
         :param parent: object of type Tk
@@ -106,6 +106,7 @@ class TriangleComputerApp(object):
         :param step: grid step of the drawing window
         :param projector: projection from a 3d PointVector
         to a 2d PointVector.
+        :param algorithmMode: either 'H' or 'R'
         :param patternMode: specify the color of the tiles or the starting
         set of tiles, useful when drawing pattern is enabled
         """
@@ -127,6 +128,7 @@ class TriangleComputerApp(object):
         self.projector = projector
         #mode
         self.mode = patternMode
+        self.algo = algorithmMode
 
         #digital plane
         o = PointVector([0] * 3)
@@ -188,6 +190,7 @@ class TriangleComputerApp(object):
         o = self.q - self.s
         nc = TriangleComputer([o+self.e1+self.e2, o+self.e2+self.e0,o+self.e0+self.e1],
                               self.q, self.s, self.plane )
+        nc.setMode(self.algo)
         while nc.advance():
             pass
 
@@ -440,6 +443,8 @@ parser.add_argument("-c", "--color",help="either a color by tile type or a color
                     choices=["type","group"],default="type")
 parser.add_argument("-s", "--startingCorner",help="the pattern can either contain the upper of the lower corner",\
                     choices=["upper","lower"],default="upper")
+parser.add_argument("-m", "--algorithmMode",help="mode of the algorithm (default R)",
+                    choices=["H","R"],default="R")
 parser.add_argument("-k", "--showKeybindings", help="print to the standard output the keys you can hit to modify the display",
                     action="store_true")
    
@@ -456,6 +461,9 @@ if args.color == "group":
 mode.corner = "upper"
 if args.startingCorner == "lower":
     mode.corner = args.startingCorner
+algo = "R"
+if args.algorithmMode == "H":
+    algo = "H"
 if args.showKeybindings:
    print("H:enables/disables hexagon display")
    print("R:enables/disables rays display")
@@ -468,7 +476,7 @@ if args.showKeybindings:
 
 #application
 root = tk.Tk()
-c = TriangleComputerApp(root, n, args.windowSize, args.unitSize, projector, mode)     
+c = TriangleComputerApp(root, n, args.windowSize, args.unitSize, projector, algo, mode)     
 root.mainloop()
     
 

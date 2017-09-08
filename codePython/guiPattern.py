@@ -166,6 +166,7 @@ class PatternApp(object):
                 res2 = []
                 for tile in tileSet:
                     res2 += s(tile)
+                print(res2)
                 res.append(res2)
             self.tiles = res
             self.index += 1
@@ -192,7 +193,7 @@ parser.add_argument("-s", "--startingCorner",help="type of starting corner",\
 parser.add_argument("-c", "--color",help="either a color by tile type or a color by tile group",\
                     choices=["type","group"],default="type")
 parser.add_argument("-a", "--algo",help="continued fraction expansion algorithm",\
-                    choices=["poincare", "brun", "selmer","R"],default="poincare")
+                    choices=["poincare", "brun", "selmer", "H", "R"],default="poincare")
 
 
 args = parser.parse_args()
@@ -222,8 +223,8 @@ if args.algo == "brun":
 elif args.algo == "selmer":
     algo = ContinuedFraction3d( Matrix( [[1,0,0],[0,1,0],[-1,0,1]] ),\
                                 [ Matrix( [[1], [1], [1]] ) ], n ) 
-elif args.algo == "R":
-    algo = ContinuedFraction3dByTriangleComputer(param)
+elif args.algo == "H" or args.algo == "R":
+    algo = ContinuedFraction3dByTriangleComputer(param, args.algo)
     
 #application
 root = tk.Tk()
