@@ -60,9 +60,6 @@ class Tile(object):
     def origin(self):
         return self.o
         
-    def color(self):
-        return self.c
-        
     def shift(self, v):
         self.o += v
 
@@ -76,7 +73,7 @@ class ShiftedTile(Tile):
 
 class PatternMode:
     pass
-        
+    
 #------------------------------------------------  
 #--------------- main class ---------------------
 #------------------------------------------------
@@ -314,7 +311,21 @@ class TriangleComputerApp(object):
         for k,tileSet in enumerate(self.tiles):
             for tile in tileSet:
                 self.drawTile(tile, self.mode.color(Tile.colorByType[tile.n], Tile.colorByGroup[k]))
-                
+        #not visible
+        # for k,_ in enumerate(self.tiles):
+        #     self.drawBigTile(Tile(self.q, -self.m[k-2], -self.m[k-1], -self.m[k]), Tile.colorByGroup[k])
+
+    # def drawBigTile(self, t, c):
+    #     polygon3d = [ t.origin(),
+    #                   t.origin() + t.v1,
+    #                   t.origin() + t.v1 + t.v2,
+    #                   t.origin() + t.v2 ]
+    #     polygon2d = [ self.projector(x) for x in polygon3d ]
+    #     coords = self.flatten( [ self.transform(x) for x in polygon2d] )
+    #     self.canvas.create_polygon(coords, 
+    #                                fill="", outline=c,
+    #                                width=2, tags="piece")
+
     def drawTile(self, t, c):
         polygon3d = [ t.origin(),
                       t.origin() + t.v1,
@@ -325,7 +336,7 @@ class TriangleComputerApp(object):
         self.canvas.create_polygon(coords, 
                                    fill=c, outline="black",
                                    width=2, tags="piece")
-                                
+
     def drawBasis(self):
 
         o = PointVector([0]*3)
