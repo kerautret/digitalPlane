@@ -48,8 +48,8 @@ class Tile(object):
 
     colorByType = { PointVector([-1,0,0]): "grey60",
                     PointVector([0,-1,0]): "grey30",
-                    PointVector([0,0,-1]): "white", }
-    colorByGroup = ["white", "gray60", "gray30"]
+                    PointVector([0,0,-1]): "grey80", }
+    colorByGroup = ["grey80", "gray60", "gray30"]
     
     def __init__(self, origin, v1, v2, normal):
         self.o = origin
@@ -159,6 +159,7 @@ class TriangleComputerApp(object):
         self.canvas.bind_all( "<Right>", self.updateForwardAndDraw )
         self.canvas.bind_all( "<Left>", self.updateBackwardAndDraw )
         self.canvas.bind_all( "<Return>", self.reSetTriangle )
+        self.canvas.bind_all( "<End>", self.exportCanvas )
         self.canvas.bind_all( "<Key>", self.setOption )
 
         #data
@@ -434,7 +435,11 @@ class TriangleComputerApp(object):
                 self.canvas.delete("piece")
 
         self.drawTriangle()
-                
+
+    def exportCanvas(self,event):
+        filename = "onPlane" + "-".join([str(c) for c in self.plane.normal]) + ".eps"
+        self.canvas.postscript(file=filename)
+        
 #------------------------------------------------  
 #--------------- main script --------------------
 #------------------------------------------------
@@ -484,6 +489,7 @@ if args.showKeybindings:
    print("<Right> next triangle")
    print("<Left> previous triangle")
    print("<Return> come back to the starting triangle")
+   print("<End> export canvas to eps file")
 
 #application
 root = tk.Tk()
