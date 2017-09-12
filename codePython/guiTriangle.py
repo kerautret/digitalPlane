@@ -71,6 +71,61 @@ class ShiftedTile(Tile):
     def shift(self, v):
         self.o -= v
 
+class DigitalEdge(object):
+
+    def __init__(self, aList):
+        """initialization from a list of vectors
+        :param: aListOfVectors, any list of vectors """
+        self.vectors = aList
+
+    def __neg__(self):
+        """ returns the opposite edge by reversing the list
+        and negating each vectors of the list
+        :return: opposite edge """
+        return DigitalEdge([-e for e in reversed(self.vectors)])
+
+    def __iadd__(self, other):
+        """ incrementally add another edge to this one
+        :param: other, any edge
+        :return: the (updated) current edge """
+        self.vectors += other.vectors
+        return self
+
+    def __isub__(self, other):
+        """ incrementally substract another edge to this one
+        :warning: the other edge must be at the end of the current one
+        :param: other, any edge
+        :return: the (updated) current edge """
+        n = len(self.vectors)
+        if len(other.vectors) > n:
+            raise ValueError
+        else: 
+            isOK = True
+            k = 1
+            while isOK and k <= len(other.vectors):
+                if self.vectors[-k] != other.vectors[-k]: isOK = False
+                k += 1
+            if isOK:
+                self.vectors = self.vectors[0:n-k+1]
+            else:
+                raise ValueError
+        return self
+        
+    def __add__(self, other):
+        return DigitalEdge( self.vectors + other.vectors )
+
+    def __sub__(self, other):
+        return DigitalEdge( self.vectors + (-other).vectors )        
+        
+    def __mul__(self, aScalar):
+        """ returns aScalar copies of the current edge """
+        return DigitalEdge(self.vectors * aScalar)
+        
+    def __repr__(self):
+        return str(self.vectors)
+
+    
+        
 class PatternMode:
     pass
     
@@ -154,6 +209,7 @@ class TriangleComputerApp(object):
         self.enableR = False
         self.enableT = False
         self.enableP = False  
+        self.enableE = False  
 
         #key binding
         self.canvas.bind_all( "<Right>", self.updateForwardAndDraw )
@@ -213,12 +269,15 @@ class TriangleComputerApp(object):
                            [ ShiftedTile(self.q, -self.m[0], -self.m[1], -self.m[2]) ] ]
         else:
             raise ValueError
+        self.edges = [ DigitalEdge([-e]) for e in self.m ]
         
     def drawTriangle(self): 
         self.canvas.delete("triangle")
         
         if self.enableP:
             self.drawPiece()
+        if self.enableE:
+            self.drawEdges()
 
         #draw reference points
         ref = self.transform(self.projector(self.q))
@@ -338,6 +397,22 @@ class TriangleComputerApp(object):
                                    fill=c, outline="black",
                                    width=2, tags="piece")
 
+    def drawEdges(self):
+        self.canvas.delete("edges")
+        
+        for k, edge in enumerate(self.edges):
+            current = self.q
+            polygon3d = [current]
+            for v in edge.vectors:
+                current += v
+                polygon3d.append(current)
+            polygon2d = [ self.projector(x) for x in polygon3d ]
+            coords = self.flatten( [ self.transform(x) for x in polygon2d] )
+            self.canvas.create_line(coords, 
+                                    fill="green",
+                                    width=3, tags="edges")
+        
+
     def drawBasis(self):
 
         o = PointVector([0]*3)
@@ -384,6 +459,8 @@ class TriangleComputerApp(object):
             self.m[k] += - self.m[k-1]*alpha - self.m[k-2]*beta
             self.index += 1
 
+            self.edges[k] += (-self.edges[k-1]*alpha) + (-self.edges[k-2]*beta)
+            
             self.drawTriangle()
 
     def updateBackwardAndDraw(self,event): 
@@ -400,6 +477,8 @@ class TriangleComputerApp(object):
                 del self.tiles[k-2][-nb:]
             
             self.m[k] -= - self.m[k-1]*alpha - self.m[k-2]*beta
+
+            self.edges[k] -= - self.edges[k-1]*alpha - self.edges[k-2]*beta
 
             self.drawTriangle()
             
@@ -433,6 +512,12 @@ class TriangleComputerApp(object):
                 self.drawPiece()
             else:
                 self.canvas.delete("piece")
+        elif event.char == "E":
+            self.enableE = not self.enableE
+            if self.enableE:
+                self.drawEdges()
+            else:
+                self.canvas.delete("edges")
 
         self.drawTriangle()
 
@@ -485,6 +570,7 @@ if args.showKeybindings:
    print("R:enables/disables rays display")
    print("T:enables/disables circumscribing triangle display")
    print("P:enables/disables display of the underlying digital plane pattern")
+   print("E:enables/disables display of the underlying digital edges")
    print("(All displays can be superimposed)")
    print("<Right> next triangle")
    print("<Left> previous triangle")
