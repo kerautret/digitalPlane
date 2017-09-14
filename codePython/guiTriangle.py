@@ -399,9 +399,15 @@ class TriangleComputerApp(object):
 
     def drawEdges(self):
         self.canvas.delete("edges")
-        
-        for k, edge in enumerate(self.edges):
-            current = self.q
+        #we compute the 6 digital edges of the boundary of the upper corner
+        #and a starting point
+        a = [ e for e in self.edges ]
+        b = [ -e for e in self.edges ]
+        hexagon = [ item for sublist in zip(b[1:]+b[:1],a) for item in sublist ] #list interlacing
+        startingPoint = self.q - self.m[1] - self.m[2]
+        #we draw the edges
+        current = startingPoint
+        for edge in hexagon:
             polygon3d = [current]
             for v in edge.vectors:
                 current += v
@@ -410,8 +416,7 @@ class TriangleComputerApp(object):
             coords = self.flatten( [ self.transform(x) for x in polygon2d] )
             self.canvas.create_line(coords, 
                                     fill="green",
-                                    width=3, tags="edges")
-        
+                                    width=3, tags="edges")        
 
     def drawBasis(self):
 
