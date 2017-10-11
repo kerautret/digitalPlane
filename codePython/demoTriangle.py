@@ -13,7 +13,7 @@ parser.add_argument("x",help="x-component of the normal",type=int)
 parser.add_argument("y",help="y-component of the normal",type=int)
 parser.add_argument("z",help="z-component of the normal",type=int)
 parser.add_argument("-m", "--algorithmMode",help="mode of the algorithm (default R)",
-                    choices=["H","R"],default="R")
+                    choices=["H","R","CH"],default="R")
 
 #-------------------------------------------------------------    
 
@@ -40,8 +40,8 @@ plane = DigitalPlane(n)
 
 #mode
 mode = "R"
-if args.algorithmMode == "H":
-    mode = "H"
+if args.algorithmMode == "H" or args.algorithmMode == "CH":
+    mode = args.algorithmMode
     
 #-------------------------------------------------------------    
 
@@ -72,14 +72,14 @@ while nc.advance():
     print("#", c, nc.v, nc.getNormal(), [ plane.remainder(x) for x in nc.v ], nc.printNeighborhood(), nc.isReduced())
     c += 1
 
-if mode == "H":
-    print("Reduction of the result of the H-algorithm")
-    nc.reduction()
+if mode == "H" or mode == "CH":
+    print("Reduction of the result of the ", mode, "-algorithm")
+    nbRed = nc.reduction()
+    print("Number of reductions: ", nbRed)
     
 b = nc.getBasis()
 print(b, "is reduced?", isReduced(b[0], b[1]))
-vec1, vec2, nbRed = additiveReduction(b[0], b[1])
+vec1, vec2, _ = additiveReduction(b[0], b[1])
 print("Reduced basis: ", (vec1, vec2))
-print("Number of reductions: ", nbRed)
 print("Number of times where the temporary basis is not reduced:", counterNonReduced)
 print("Output:", nc.getNormal())

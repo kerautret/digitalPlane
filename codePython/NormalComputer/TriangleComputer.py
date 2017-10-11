@@ -1,4 +1,6 @@
 from sys import stderr
+import numpy
+from scipy.spatial import ConvexHull
 from sympy.matrices import *
 import math
 
@@ -32,11 +34,11 @@ class TriangleComputer(object):
         assert(self.isValid())
 
     def setMode(self, mode):
-        """Sets the algorithm to use (either H- or R-)
-        :param mode: mode (one of the following strings: 'H', 'R')
+        """Sets the algorithm to use (either H-, R-, CH-)
+        :param mode: mode (one of the following strings: 'H', 'R', 'CH')
         :raises: ValueError for any unknown mode
         """
-        if not (mode == "R" or mode == "H"):
+        if not (mode == "R" or mode == "H" or mode == "CH"):
             raise ValueError
         self.mode = mode
 
@@ -102,7 +104,7 @@ class TriangleComputer(object):
         res = res and self.isProjectedInside(self.v)
         assert(res)
         #4) mode
-        res = res and (self.mode == "R" or self.mode == "H")
+        res = res and (self.mode == "R" or self.mode == "H" or self.mode == "CH")
         assert(res)
 
         return res
@@ -119,6 +121,23 @@ class TriangleComputer(object):
             res = res and ( nk.dot(-self.s) <= 0 )
         return res
 
+    def circularEquality(l1, l2):
+        """ returns 'True' if the two lists l1 and l2
+        are circularly identical, 'False' otherwise."""
+        if len(l1) != len(l2):
+            return False
+        else:
+            res = False
+            for k in range(len(l1)):
+                if l2 == ( l1[-k:]+l1[:-k] ):
+                    res = True
+                    break
+            return res
+        
+    def equalsTo(self, triangle):
+        """ returns 'True' if the given triangle is
+        circularly identical to self.v, 'False' otherwise. """
+        return TriangleComputer.circularEquality(triangle,self.v)
 
     def closestPairInList(self, lst):
         """Returns the closest pair point/index among a list of at least one pair index/point."""
@@ -145,10 +164,46 @@ class TriangleComputer(object):
 
         return (previousX, index)
 
-
-    def advance(self):
-        """Updates the triangle by the neighbors belonging to the digital plane."""
+    def advanceByCHalgorithm(self):
+        """Updates the triangle according to the CH-algorithm."""
         res = False
+        
+        pointSet = [ x for x in self.getHexagon() if self.predicate(x) ]
+        if len(pointSet) > 0: 
+            pointSet += self.v
+            #1) input data
+            n = len(pointSet)
+            d = 3
+            inputData = numpy.ndarray(shape=(n,d), dtype=int)
+            for i in range(n):
+                for j in range(d):
+                    inputData[i,j] = pointSet[i][j]
+            print(inputData)
+            #2) convex hull computation        
+            hull = ConvexHull(inputData)
+            #3) find the upper facet where self.q projects into
+            for s in hull.simplices:
+                facet = [ PointVector(inputData[index].tolist()) for index in s ]
+                print(facet)
+                rFacet = list(reversed(facet)) #to take into account both orientations
+                if not TriangleComputer.circularEquality(facet, self.v) and \
+                   not TriangleComputer.circularEquality(rFacet, self.v):
+                    if self.isProjectedInside(facet):
+                        self.v = facet
+                        res = True
+                        break
+                    elif self.isProjectedInside(rFacet):
+                        self.v = rFacet
+                        res = True
+                        break
+            if not res:
+                raise RuntimeError("no facet found")
+        return res
+
+    def advanceByHorRalgorithm(self):
+        """Updates the triangle according to the H- or R-algorithm."""
+        res = False
+
         innerPoints = []
 
         m = [ self.q - x for x in self.v ]
@@ -168,6 +223,17 @@ class TriangleComputer(object):
             res = True
             assert(self.isValid())
 
+        return res
+            
+            
+    def advance(self):
+        """Updates the triangle by the neighbors belonging to the digital plane."""
+        
+        if self.mode == 'CH':
+            return self.advanceByCHalgorithm()
+        else:
+            return self.advanceByHorRalgorithm()
+ 
         return res
         
     def update(self, aTuple):
@@ -247,9 +313,11 @@ class TriangleComputer(object):
             
     def reduction(self):
         """Reduces the triangle until it is reduced"""
+        counter = 0
         while not self.isReduced():
             self.reductionOneStep()
-        
+            counter += 1
+        return counter
        
 #------------------------------------------------------------------
 #criteria for minimality
