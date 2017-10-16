@@ -139,11 +139,6 @@ class TriangleComputer(object):
         circularly identical to self.v, 'False' otherwise. """
         return TriangleComputer.circularEquality(triangle,self.v)
 
-    def closestPairInList(self, lst):
-        """Returns the closest pair point/index among a list of at least one pair index/point."""
-        closestPair = min(lst, key=lambda x: squaredRadiusOfSphere(self.v + [x[1]]))
-        return closestPair
-
     def ray(self, aStartingPoint, aVector):
         """Returns a closest point along a ray given by
         a starting point and a direction vector.
@@ -169,9 +164,13 @@ class TriangleComputer(object):
         res = False
         
         pointSet = [ x for x in self.getHexagon() if self.predicate(x) ]
-        if len(pointSet) > 0: 
-            pointSet += self.v
+        if len(pointSet) > 0:
+            #0) filter
+            closest = min(pointSet, key=lambda x: squaredRadiusOfSphere(self.v + [x]))
+            minValue = squaredRadiusOfSphere(self.v + [closest])
+            allClosest = [ x for x in pointSet if squaredRadiusOfSphere(self.v + [x]) == minValue ]
             #1) input data
+            pointSet = allClosest + self.v
             n = len(pointSet)
             d = 3
             inputData = numpy.ndarray(shape=(n,d), dtype=int)
@@ -219,7 +218,7 @@ class TriangleComputer(object):
                 innerPoints.append( (triple[0], x, alpha, 1) )
 
         if innerPoints:
-            self.update(self.closestPairInList(innerPoints))
+            self.update(min(innerPoints, key=lambda x: squaredRadiusOfSphere(self.v + [x[1]])))
             res = True
             assert(self.isValid())
 
