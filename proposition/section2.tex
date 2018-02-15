@@ -1,0 +1,143 @@
+\section{Project organisation and means implemented}
+\label{sec:org}
+
+\subsection{a. Scientific coordinator and its consortium / its team}
+
+\Comments{
+  In the case of a Young Researchers Project (JCJC), 
+Present the scientific coordinator and his/her role in the project, present his/her position within the organisation of the host laboratory 
+Present the scientific coordinator’s team, its quality and complementarity
+}
+
+\subsection{b. Means of achieving the objectives}
+
+\Comments{Set out the scientific programme and justify the work programme's task breakdown with regard to the objectives being pursued.
+For each task, describe the objectives, the work programme, deliverables, partners' contributions, methods and technical decisions, risks, and fall-back solutions. 
+Illustrate the programme with a Gantt chart. 
+
+Describe the means – those previously available and those requested - to achieve the objectives 
+Scientific and technical justification of the requested means - per item of expenditure and by partner -, linked to the objectives of the proposal. Summarise the funding request in the table below in accordance with the information filled out on the website and with ANR’s grant allocation rules (règlement relatif aux modalités d’attribution des aides de l’ANR ).
+Description of the context in terms of human and financial resources available thanks to previous or ongoing projects. }
+
+\subsection{pre-proposition}
+
+\subsubsection{Organization}
+\label{sec:wp}
+
+This \textbf{four-year project} will be divided into four work packages (WP).
+
+%some notations/defs ? def ce qu'est un plane-probing algo
+\noindent\textbf{\wpPPA: plane-probing algorithms (year 1).} 
+A \emph{digital plane} is an infinite digital set that 
+consists of several consecutive and parallel layers of coplanar points. 
+It is defined by a normal $\vec{N} \in \Z^3$ and a position $\mu \in \Z$ as follows:  
+$\Set := \{ \vec{x} \in \Z^3 | \mu \leq \vec{x} \cdot \vec{N} < \mu + \|\vec{N}\|_1 \}$.
+Given a digital plane $\Set \subset \Z^3$ and a starting point $\vec{p} \in \Set$, 
+a \emph{plane-probing algorithm} computes the parameters of a digital plane $\Set'$
+containing $\vec{p}$ by sparsely probing $\Set$ with the predicate ``is $\vec{x}$ in $\Set$?''. 
+The parameters of $\Set$ and $\Set'$ are expected to be equal for any $\vec{p} \in \Set$. 
+
+In addition to technical details such as dealing with degenerated cases, 
+i.e. normal vector having at least one null component, the main goal of this WP is to 
+certify the locality of the R-algorithm \cite{LPRJMIV2017}: 
+can we bound by above the distance of the probed points to the starting point? 
+what is the minimal part $\Part \subset \Set$ for which the R-algorithm returns the normal of $\Set$?
+can we characterize the behavior of the R-algorithm on a convex or arbitrary part of a digital surface?
+
+%We have proposed several such algorithms \cite{LPRDGCI2016,LPRJMIV2017}, 
+%but there are several short-term questions:  
+%how to deal with degenerated cases, i.e. normal vector having at least one null component? 
+%how to cope with sensitivity to starting point? how to guarantee locality, 
+%i.e. $\Set$ is not probed too far away from $\vec{p}$? 
+%one of them, called \emph{R-algorithm}, experimentally always returns a reduced basis, i.e. 
+%the two shortest nonzero vectors of the 2D lattice $\{ \vec{x} \in \Z^3 | \vec{x} \cdot \vec{N} = 0 \}$. 
+%A first goal of this WP is to provide a proof of this property, which is a key ingredient 
+%to guarantee that $\Set$ is not probed too far away from $\vec{p}$.  
+%Furthermore, most of the previous results hold for a finite part $\Part \subset \Set$, 
+%which raises the following questions: what is the minimal part $\Part$ for which our plane-probing algorithms %return the normal of $\Set$?
+%can we characterize the behavior of theses algorithms on a convex or arbitrary part of a digital surface?
+
+\noindent\textbf{\wpPattern: patterns (years 1-3).}
+Plane-probing algorithms 
+%only maintains the parameters of a tangent digital plane (normal and position), for instance by the mean of a triangular facet, but 
+do not explicitly describe a piece of digital plane as a point set or a surfel set.  
+This WP aims at generating a piece of digital plane, called \emph{pattern} below, in the course of the computation (fig.~\ref{sub:pattern}).
+There are some practical reasons of doing so. For instance, it would help to perform the following tasks: 
+(i) extend the normal vector estimation from the starting point to the whole pattern, 
+(ii) test if the generated pattern is a subset of the underlying digital surface 
+in order to correctly process a concave or saddle part.
+
+The challenge here is to generate patterns having several properties \cite{Jamet2016}: 
+they must be included in the tangent digital plane;
+they should form a connected surfel set;
+at least two independent period vectors should be deduced from them so that the whole tangent digital plane is implicitly described by translation;
+they should be as small as possible to avoid redundancy.
+We can add other properties about their shape: 
+symmetry to their central part \cite{Labbe2015}, convexity, smallest possible elongation 
+or maximal distance to the starting point. 
+There exists a lot of related works based on three-dimensional continued fraction algorithms and their geometric interpretation, e.g. \cite{Fernique2009,Labbe2011,Jamet2016}. However, even if they usually guarantee some of the above properties, they do not take into account the pattern shape. We believe that the R-algorithm, which also produces a sequence of unimodular incident matrices, is a good candidate to generate patterns with shape constraints because it returns a reduced triangular facet thanks to the Delaunay criterion. For this WP, we expect strong and rich interactions between digital geometry, combinatorics on words and the field of multidimensional continued fraction algorithms as highlighted by the collaborators' expertise in sec.~\ref{sec:ressources}.
+
+%risks: to add in the proposition
+%We do not know if it is possible to generate patterns with all the above properties or an appropriate subset of them to solve tasks (T1) and (T2) in spite of promising results (fig.~\ref{sub:zoom}). Still, we have algorithmic solutions \cite{LPRJMIV2017} to cope with these problems, which alleviate such risk. 
+%On the contrary, a success in this WP would lead to both theoretical results on three-dimensional continued fraction algorithms and related geometric problems, and a speed-up in the analysis of digital surfaces thanks to integer-only computations and arithmetic properties.  
+
+\noindent\textbf{\wpEstim: geometric inference and applications (years 2-4).} Most of the time, when we are working with a digital surface, we are 
+%not interested in its geometry, but rather in the geometry of an unknown continuous shape whose digitization is the input digital data. 
+interested in the geometry of a continuous shape whose digitization is the input digital data.
+We expect that a given geometric quantity, such as a normal vector, computed at a point of a digital surface is close to the one of the underlying continuous shape at a close enough point. 
+This WP aims at providing \emph{efficient}, \emph{parameter-free} and \emph{multigrid-convergent} estimators based of the output of plane-probing algorithms: normal vector (and surfel area as a by-product), distance to boundary, voxel coverage (fig.~\ref{sub:2D}). The accuracy of a multigrid-convergent estimator depends on the resolution: the higher the resolution, the more accurate the estimator. We will experimentally and theoretically study the estimation accuracy for shapes digitized at increasing resolutions. 
+
+Plane-probing algorithms not only provide a normal vector but also position information, which may be useful for many applications in graphics such as polyhedral approximation, surface fairing, volume rendering, etc. The goal of this WP is also to investigate at least one of these applications.   
+
+\noindent\textbf{\wpScale: multiscale analysis (years 2-4).} Digital surfaces may be degraded with \emph{noise}, especially in medical imaging. Since noise usually affect only the finest levels of details, the following algorithm is a way of coping with the problem: while there is noise, subsample by 2 the digital surface. At the end, we get a noise-free digital surface, but at a potentially coarser level. Furthermore, in case of non-uniform noise, the same applies only locally, i.e. at each border voxel.  
+
+The challenge here is to detect noise. This can be done by computing the growth rate of the \emph{number} or \emph{size} of the computed facets for decreasing resolutions (see fig.~\ref{sub:snow} for an example of one such facet) and by comparing it with the theoretical or experimental law for digitization of smooth shapes. A significant difference between the two rates suggest that there is noise. 
+This strategy has been used with success for digital curves \cite{Kerautret2012} and the goal of this WP is to provide the theoretical results and tools required to apply it on digital surfaces. 
+
+%risks: to add in the proposition
+%The local strategy, related to the size of the computed facets, could be difficult to develop. However, we are confident on the feasibility of the global strategy, because computed facets are closely related to convex hull facets and the growth rate of the number of convex hull facets is known for digitization of convex smooth shapes \cite{Barany1998}. 
+
+\subsubsection{Ressources}
+\label{sec:ressources}
+
+%------------------------ team
+\textbf{Tristan Roussillon} (33 years old) is the principal investigator (PI) of the project
+and will work on all tasks. Implication: \textbf{30} person months (PM). 
+He completed his PhD in 2009 and since 2012, he is Associate Professor of Computer Science at INSA Lyon
+and a member of LIRIS. 
+He has coauthored a book chapter on digital geometric estimators \cite{Coeurjolly2012} and
+has recently obtained several results on normal vector computation \cite{LPRTCS2016,LPRDGCI2016,LPRJMIV2017}.    
+He has written a total of 8 papers in peer-reviewed international journals (PR, CVIU, JMIV, DAM, \ldots) 
+and 14 in conferences (DGCI, ICPR,\ldots).
+
+The project will also involve specialists in digital geometry and combinatorics on words. 
+\begin{table}[h]
+\small
+\centering
+\begin{tabular}{|ccclcc|}
+\hline
+Collaborator & Position & Lab & Expertise & WP & PM \\ \hline
+\hline
+\textbf{D. Coeurjolly} & DR & LIRIS & digital and comput. geometry, geometry processing & 2-3 & 5 \\ \hline
+\textbf{B. Kerautret} & MdC & LORIA & digital geometry, image analysis & 3 & 12 \\ \hline
+\textbf{S. Labb\'{e}} & CR & LABRI & multidim. cont. frac. alg., combinatorics on words & 0-1 & 12 \\ \hline
+\textbf{J-O. Lachaud} & Pr & LAMA & digital geometry and topology, image analysis & 0,2-3 & 6 \\ \hline
+\hline
+\end{tabular}
+\normalsize
+\end{table}
+
+%\textbf{D. Coeurjolly} 
+%\textbf{B. Kerautret} 
+%\textbf{S. Labb\'{e}} 
+%\textbf{J-O. Lachaud}
+
+This team gathers all the expertise required to ensure the success of the project.
+Furthermore, this project will let the team members maintaining their lead in digital surface analysis 
+and more generally in digital geometry and combinatorics on words for digital imagery. 
+
+
+%--------------------------- fonds
+We first request one PhD grant and one master project funding ($\approx$ 111k euros). A same student would basically start working on \wpPPA~during its master project and then continue with \wpEstim~and \wpScale~during its PhD thesis. We also need a postdoctoral student with background in digital geometry, combinatorics on words or both for working on \wpPattern~during two years in order to strengthen the transdisciplinarity of the project ($\approx$ 95k euros). 
+Computers (one for the PI and one for each student) should cost $\approx$ 6k euros. Work meetings and travels for conferences (one international travel per year per persons receiving the ANR funding) should cost $\approx$ 30k euros. 
+To sum up, the total amount is about \textbf{260k euros}, including management fees. 

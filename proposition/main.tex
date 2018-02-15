@@ -1,0 +1,123 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+%\usepackage[utf8]{inputenc}
+\usepackage{eurosym}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{subfig}
+\graphicspath{{Images/}}
+\usepackage[font={small}]{caption}
+
+%---------------------------------- refs ---------------------------
+\usepackage[backend=bibtex,sorting=none]{biblatex}
+\usepackage{multicol}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks   = true, %Colours links instead of ugly boxes
+  urlcolor     = blue, %Colour for external hyperlinks
+  linkcolor    = blue, %Colour of internal links
+  citecolor   = red %Colour of citations
+}
+\usepackage[usenames, dvipsnames]{color}
+\newcommand{\TM}[1]{\textcolor{black}{\underline{#1}}} %team member in references
+\renewcommand*{\bibfont}{\footnotesize}
+\addbibresource{mybibliography.bib}
+%---------------------------------- misc ---------------------------
+\usepackage{todonotes}
+%---------------------------------- head ---------------------------
+\usepackage{ifthen}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headwidth}{\textwidth}
+\fancyhead{}
+\lhead{\small PARADIS}
+\chead{\small CES 23 (B.7, Axe 4)  - JCJC}
+\rhead{\small AAPG ANR 2018}
+%----------------------------------- macros ---------------------------
+\newboolean{comments}
+\setboolean{comments}{true} %"false" to disable comments
+\newcommand{\Comments}[1]{\ifthenelse{\boolean{comments}}{{\scriptsize\em #1}}{}}
+\newcommand{\DGtal}{\href{http://dgtal.org}{{\sc DGtal}}}
+\newcommand{\IPOL}{\href{http://www.ipol.im/}{{\sc IPOL Journal}}}
+\newcommand{\sage}{\href{http://www.sagemath.org/}{{\sc SageMath}}}
+\newcommand{\Z}{{\ensuremath\mathbb{Z}}}
+\newcommand{\Set}{\ensuremath{\mathbf{S}}}
+\newcommand{\Part}{\ensuremath{\mathbf{P}}}
+\let\vec\mathbf
+\newcommand{\dav}[1]{{\color{red} #1}}
+\newcommand{\toUpdate}[1]{{\color{orange} #1}}
+
+%work-packages
+\def \wpPPA {WP0}
+\def \wpPattern {WP1}
+\def \wpEstim {WP2}
+\def \wpScale {WP3}
+%\def \tExtend {T1} %obsolete
+%\def \tSaddle {T2}
+
+%----------------------------------- title ----------------------------
+%\title{Title (French + English)}
+%\author{}
+%\date{}
+%----------------------------------- doc ----------------------------
+\begin{document}
+
+%\maketitle
+%\thispagestyle
+\centerline{{\Large {\textbf{PAR}ameter-free \textbf{A}nalysis of \textbf{DI}gital \textbf{S}urfaces}}}
+\centerline{\Large {(Analyse sans param\`{e}tre des surfaces digitales)}}
+\bigskip
+\centerline{PI: Tristan Roussillon}
+\smallskip
+\centerline{duration: 4 years}
+\smallskip
+\centerline{Requested funding: 260K\euro}
+\smallskip
+
+\Comments{Applicants are advised to use an easily readable document layout : A4 pages, Times 11 or equivalent, single spaced, 2cm margins, numbered pages.
+  The project description must contain a maximum of 20 pages (including Gantt chart, overview of the requested funds and bibliography related to the project) and must be submitted in an unprotected PDF format.}
+
+\Comments{Avant section 1:
+ - summary table of persons involved in the project
+ - Any changes that have been made in the full proposal compared to the pre-proposal : a priori pas de changement}
+
+\Comments{TODO: resume, sommaire}
+
+\begin{table}[h]
+  \caption{Summary table of persons involved in the project}
+\small
+\centering
+\begin{tabular}{|lcclc|}
+\hline
+LAST NAME \& first name & Position & Lab & Role in the project & Involvement (p.m) \\ \hline
+\hline
+COEURJOLLY David & DR & LIRIS & collaborator WP 2-3 & 5 \\ \hline
+KERAUTRET Bertrand & MdC & LORIA & collaborator WP 3 & 12 \\ \hline
+LABB\'E S\'ebastien & CR & LABRI & collaborator WP 0-1 & 12 \\ \hline
+LACHAUD Jacques-Olivier & Pr & LAMA & collaborator WP 0,2-3 & 6 \\ \hline \hline
+\textbf{ROUSSILLON Tristan} & MdC & LIRIS & \textbf{principal investigator} & \textbf{30} \\ \hline
+\hline
+\end{tabular}
+\normalsize
+\end{table}
+
+\newpage
+
+\input{section1}
+\input{section2}
+\input{section3}
+
+
+%one column
+\printbibliography[title={References (team members are underlined, titles are clickable)}]
+%two columns
+%\printbibheading[title={References (team members are underlined, titles are clickable)}]
+%\vspace{-0.5cm}
+%\begin{multicols}{2}%[]
+%\printbibliography[heading=none]
+%\end{multicols}
+
+\end{document}

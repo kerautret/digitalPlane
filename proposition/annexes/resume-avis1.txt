@@ -1,0 +1,29 @@
+POINTS FORTS
+
+Le comité a trouvé le projet novateur et bien positionné par rapport à l'état de l'art. Son programme de réalisation est
+convaincant. L'expertise du porteur du projet est bien dans le domaine du projet et est suffisante pour conduire le projet. L'équipe accompagnatrice est de grande qualité et présente une expertise complémentaire. La stratégie de diffusion est intéressante.
+
+- EVAL 1
+Le projet propose de développer une nouvelle approche pour améliorer la précisions des surfaces reconstruites à partir de données volumiques, en exploitant le potentiel des plans discrets. L'ambition du projet de permettre de traitée des surfaces non paramètrisées. La direction choisie semble bien justifiée par l'état de l'art et présente un aspect novateur. Le risque est réduit par les travaux exploratoires des participants au projet.
+
+Le porteur démontre une bonne maîtrise du domaine de recherche du projet. Les partenaires et équipes impliquées dans le projet sont des experts du domaine. Le porteur bénéficiera ainsi d'un bon accompagnement de ses collaborateurs.
+Le travail semble principalement de la mise en place théorique. 
+
+- EVAL 2
+Le projet PARADIS est un projet de recherche fondamentale qui vise à augmenter la géométrie des surfaces discrètes de données supplémentaires. Ces surfaces discrètes sont issues par exemple de segmentation 3D. La problématique, l'estimation de ces données supplémentaires, et ses enjeux sont bien décrits et bien positionnés par rapport à l'état de l'art. Pour répondre à ces enjeux, la piste envisagée est de s'appuyer sur des travaux récents du porteur du projet et de ses collaborateurs, qui semblent prometteurs, les algorithmes plane-probing. Le programme scientifique est bien construit en 4 lots. Le premier lot concerne des développements théoriques relatifs aux algorithmes plane-probing. Le deuxième mot concerne la génération de patterns avec des contraintes de formes qui nécessitera de nombreuses collaborations entre les différents membres de l'équipe. Enfin, deux autres lots concernent l'estimation des données supplémentaires et l'analyse multi-échelle et la détection de bruit. Des pistes, bien positionnées par rapport à l'état de l'art, sont proposées pour chacun de ces lots
+
+Le porteur du projet est un expert du domaine de l'estimation géométrique et il a de nombreuses contributions dans ce domaine. Il a aussi une expérience en encadrement et il a déjà participé à de nombreux projets de recherche collaborative. L'équipe impliquée est de grande qualité et d'expertise complémentaire à celle du porteur. Les différents membres du projet ont d'ailleurs un historique de collaboration. Les moyens demandés sont en adéquation avec les objectifs du projet.
+
+La stratégie de diffusion prévoir la mise à disposition des développements via la bibliothèque open source DGTal.
+
+POINTS FAIBLES (jugés mineurs)
+
+- L'adéquation du projet n'est pas suffisamment justifiée par rapport à l'axe et le défi portés par ce comité. 
+- L'impact du projet manque de précision tant au niveau scientifique qu'applicatif.
+
+EVAL 1
+la demande en ressource devra être mieux justifiée (en particulier, l'apport plus concret d'un chercheur en postdoctorat (pas étudiant).
+
+EVAL 2
+Ce projet est, de mon point de vue, un peu à la marge des enjeux de l'axe 4 du défi 7. Des retombées peuvent être attendues dans la communauté de l'informatique graphique (au sens large) et de l'analyse de données 3D mais il est difficile d'apprécier quels pourraient leurs impacts, du point de vue scientifique et applicatif. 
+
