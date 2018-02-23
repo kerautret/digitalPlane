@@ -98,13 +98,16 @@ class PatternApp(object):
 
         #continued fraction expansion
         self.morphisms = []
+        self.M = eye(3,3) #matrix storing the basis vectors
         print(algo.V)
         while algo.advance():
             self.morphisms.append( oneEndomorphism123FromMatrix( algo.getLastMatrix().inv() ))
-            print(algo.getLastMatrix().inv())
+            self.M *= algo.getLastMatrix()
             print(algo.V)
-
+        print(self.M)
         print()
+        
+        self.morphisms.reverse()
         for s in self.morphisms:
             print(s)
             print(s.matrix())
@@ -133,7 +136,8 @@ class PatternApp(object):
         x = aF.p + self.mapTypeVector[aF.l]
         v1, v2 = self.mapTypeVectors[aF.l]
         polygon3d = [ x, x + v1, x + v1 + v2, x + v2 ]
-        polygon2d = [ self.projector(x) for x in polygon3d ]
+        polygon3dbis = [ self.currentM * x for x in polygon3d ]
+        polygon2d = [ self.projector(x) for x in polygon3dbis ]
         coords = self.flatten( [ self.transform(x) for x in polygon2d] )
         self.canvas.create_polygon(coords, 
                                    fill=self.mapTypeColor[self.mode(aF.l, aK)],
@@ -150,6 +154,7 @@ class PatternApp(object):
                 
     def start(self):
         self.index = 0
+        self.currentM = self.M
         self.tiles = self.unitCube
         self.drawPiece()
 
@@ -158,7 +163,10 @@ class PatternApp(object):
         
     def forward(self,event):
         report_event(event)
-        if self.index < len(self.morphisms): 
+        if self.index < len(self.morphisms):
+            #update matrix for embedding
+            self.currentM *= self.morphisms[self.index].matrix()
+            print(self.currentM)
             #do substitution
             s = DualMap( self.morphisms[self.index] )
             res = []
