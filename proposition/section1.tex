@@ -5,17 +5,119 @@
 
 \Comments{Present the objectives and the research hypotheses ; present the scientific and technical barriers to be lifted ; present the expected results; if applicable describe any final products developed.}
 
+\noindent\textbf{Context.}
+3D volumes come from the segmentation of magnetic resonance, X-ray tomographic or micro-tomographic images. 
+They are also generated in scientific modelling and by voxel editors. 
+This project is about the geometry of volume boundaries, called \emph{digital surfaces} (fig.~\ref{sub:snow}). 
+Keeping the digital nature of the data is an advantage
+to use efficient spatial data structures such as voxel octree, 
+to perform constructive solid geometry operations,
+to do integer-only and exact computations, etc.
+A drawback is its poor geometry, because at any resolution a digital surface is only 
+made up of quadrangular surface element (\emph{surfel} for short) 
+whose normal vector is parallel to one axis. 
+Many tasks in computer graphics, vision and 3D image analysis require a richer geometry: 
+rendering, surface deformation for simulation or tracking, precise geometric measurements, etc.
+To perform relevant geometric tasks and 
+to benefit from the above-mentioned advantages in the same time, 
+we need to enhance the geometry of digital surfaces by estimating extra data for each surfel. 
+This project focuses on estimations of local and first-order geometric quantities: 
+normal vector, distance to boundary, coverage of the inner and outer incident voxels 
+(see fig.~\ref{sub:2D} for a 2D illustration).  
+
+\noindent\textbf{Scientific bottleneck.}
+The surface geometry within a patch around each surfel should be gathered to provide such estimations
+-- e.g. by convolution \cite{Pottmann2009} or polynomial fitting \cite{Cazals2008}.
+Almost all methods require at least one parameter that controls the size of the patch.  
+On the other hand, this project aims at providing \emph{accurate} and \emph{parameter-free} estimators
+based on a surface patch with \emph{adaptive} size.
+%Note that accuracy will be evaluated in a \emph{multigrid-convervence} framework as described in section \ref{sec:wp}, WP2. 
+
+Since we are looking for first-order estimations, the patch will be typically a piece of digital plane
+that locally fits to the digital surface (fig.~\ref{sub:pattern}).
+A challenge is to cover the whole digital surface by maximal pieces of digital plane. 
+What makes the problem hard is that there is a combinatorial explosion
+of maximal pieces of digital plane \cite{Sivignon2009} and that among them,
+not all are tangent to the digital surface in a point set framework.  
+An opportunity to make a breakthrough in this issue is the recent development
+by the principal investigator and its collaborators of \emph{plane-probing}
+algorithms \cite{LPRTCS2016, LPRDGCI2016, LPRJMIV2017}. These algorithms decide
+on-the-fly how to probe the digital surface and make grow a piece of digital plane,
+which is tangent by construction. The growth direction is given by both arithmetic and geometric properties.
+
+\noindent\textbf{Objectives and expected results.}
+The first goal of this project is to study extra arithmetic and combinatorial properties
+of plane-probing algorithms (see WP0 and WP1 in section~\ref{sec:wp}, describing work packages).
+The second one is to derive \emph{efficient}, \emph{accurate} and \emph{parameter-free} estimators
+of \emph{local} and \emph{first-order} geometric quantities (WP2).
+The third one is to provide a method and a tool for an automatic and \emph{multiscale} analysis of digital surfaces (WP3). 
+
+\todo{expected results and final products}
+
+%1-WP0: algorithm purely local, from any starting point, which leads to a reduced basis and retrieves any normal
+%1-WP1: pattern generation: minimal number of tiles, connected, 
+%2-WP2: estimateur + ordre de convergence theorique + applis ?
+%3-WP3: outils qui prend un volume et sors un sous-échantillon non bruité, ou un ensemble de voxels à différentes tailles (publi IPOL)
+%=> for each publication and implementation in DGtal at T+24, T+36, T+48
+
+
+%transition not relevant here
+%Since there are so many perspectives and paths to follow, this project needs to strengthen a team of experts by full-time workers in order to make the best of them. 
+
+
 \subsection{b. Originality and relevance in relation to the state of the art}
 
 \Comments{Emphasise the ambitious nature of the proposal and the novelty of the research in relation to the state of the art ; show the possible contributions of project partners to the state of the art ; present any preliminary results. In the case of a project proposal following up on previous project(s) already funded by ANR or by another body, provide a summary of the results achieved and clearly describe the new issues raised and the new objectives set out in the light of the earlier project.}
+
+\todo{related works: normal estimation (especially parameter free), recognition of digital plane, pattern generation}
+
+\noindent\textbf{Normal estimation.}
+%general methods,
+ %=> besoin d'un parametre
+%methods without parameter
+ % => DSS
+To the best of our knowledge, on digital surfaces, only one parameter-free normal estimator has been proposed in nD (see \cite{Lachaud2003} and references therein for 3D). It is based on maximal digital straight segments on 2D slices. Maximal digital straight segments provide windows of adaptive size but the slicing truncates the geometric information and leads to an artificial spatial variability because two neighbor surfels only share one slice over two.
+%methods using DSS size for 
+%David: II ?
+%Tris: pour l'estimation de normale, c'est un peu over-kill, mais c'est juste, plus généralement pour toute les méthodes qui ont un parametre de taille (même si la convergence n'est pas prouvée). En parler dans la proposition...
+%methods in discrete geometry
+ %=> plan discret / explosion combinatoire / pas d'ordre
+
+\noindent\textbf{Recognition of digital plane segment.}
+Related works usually make grow a point set by a breadth-first search according to some heuristics and decide whether the current set is a piece of digital plane or not \cite{Sivignon2004,Charrier2011}. The results are highly dependent on the chosen heuristics.   
+%TODO citation de David sur la reconnaissance de plans discrets ?
+% => breadth-first search + heuristics pour grandir
+
+%thomas fernique en lien avec la section suivante. 
+
+\noindent\textbf{Digital plane generation.}
+%substitution methode generale
+
+
+\noindent\textbf{Preliminary results.}
+%lister les avantages, les limites ?
 
 \subsection{c. Methodology and risk management}
 
 \Comments{Describe the methods and technical decisions, risks and fall-back solutions envisaged.}
 
+%methodes: 
+%plane-probing algorithms sont une bonne approche pour etre tangent, local, sans parametre,
+%substitution bonne approche pour generer un motif au cours de l'algorithme
+%lien avec env. conv. bonne approche pour preuve estimateur et analyse multi-echelle
+
+%risques:
+%algos pas parfaits: il en existe actuellement un 
+%\Comments{Le risque est réduit par les travaux exploratoires des participants au projet.}
+%motif genere pas bons:
+ %- on les genere apres coup en faisant une sorte de croissance de regions
+ %- on traite les concavites avec un critere de separation
+%l'estimateur n'est pas convergent: peu probable, mais si ça arrive c'est que les motifs sont trop petits, il ne grandisse pas assez vite par rapport au pas h, dans ce cas on agrandit le motif jusqu'à obtenir m surfels, ou on agrandit jusqu'à avoir une épaisseur <= h, ou on combine des motifs voisins.
+
+
 \subsection{pre-proposition}
 
-%version 2, pour avoir une entree en mathiere plus grand public. 
+%version 2, pour avoir une entree en matiere plus grand public. 
 \noindent\textbf{Context.} 
 3D volumes come from the segmentation of magnetic resonance, X-ray tomographic or micro-tomographic images. 
 They are also generated in scientific modelling and by voxel editors. 
