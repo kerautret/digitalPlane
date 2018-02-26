@@ -1,14 +1,14 @@
 \section{Proposal's context, positioning and objective(s)}
 \label{sec:context}
 
-\subsection{a. Objectives and scientific hypotheses}
+\subsection{Objectives and scientific hypotheses}
 
 \Comments{Present the objectives and the research hypotheses ; present the scientific and technical barriers to be lifted ; present the expected results; if applicable describe any final products developed.}
 
 \noindent\textbf{Context.}
 3D volumes come from the segmentation of magnetic resonance, X-ray tomographic or micro-tomographic images. 
 They are also generated in scientific modelling and by voxel editors. 
-This project is about the geometry of volume boundaries, called \emph{digital surfaces} (fig.~\ref{sub:snow}). 
+This project is about the geometry of volume boundaries, called \emph{digital surfaces} (fig.~\ref{fig:snow}). 
 Keeping the digital nature of the data is an advantage
 to use efficient spatial data structures such as voxel octree, 
 to perform constructive solid geometry operations,
@@ -23,7 +23,27 @@ to benefit from the above-mentioned advantages in the same time,
 we need to enhance the geometry of digital surfaces by estimating extra data for each surfel. 
 This project focuses on estimations of local and first-order geometric quantities: 
 normal vector, distance to boundary, coverage of the inner and outer incident voxels 
-(see fig.~\ref{sub:2D} for a 2D illustration).  
+(see fig.~\ref{fig:2D} for a 2D illustration).  
+
+\begin{figure}[hb]
+ \includegraphics[height=0.2\textheight]{snow-compositionv2.png} %width=0.55\textwidth
+ \caption{(a) ``ice-air'' interface in a micro-tomographic image of
+   snow\protect\footnotemark~with a closer view to a local normal vector
+   estimated by computing a relevant facet.} 
+\label{fig:snow} 
+\end{figure}
+\footnotetext{obtained by the 3SR Lab and CEN/CNRM - GAME URA 1357/M\'{e}t\'{e}o-France - CNRS, 
+shared during ANR-11-BS02-009 DigitalSnow project.}
+
+\begin{figure}[hb]
+  \centering
+\subfloat[]{ \includegraphics[width=0.17\textwidth,page=1]{square.pdf} } \hspace{0.05\textwidth}
+\subfloat[]{ \includegraphics[width=0.17\textwidth,page=2]{square.pdf} } \hspace{0.05\textwidth}
+\subfloat[]{ \includegraphics[width=0.17\textwidth,page=3]{square.pdf} } \hspace{0.05\textwidth}
+\subfloat[]{ \includegraphics[width=0.17\textwidth,page=4]{square.pdf} } 
+ \caption{2D illustration of a digital surface: voxels are big squares whose center is depicted by a black (resp. white) disk if it lies inside (resp. outside) the volume; surfels are elongated dark rectangles. We want to estimate a relevant normal vector at a given surfel (b), but also locally reconstruct a boundary perpendicular to this normal vector in order to derive distance and coverage estimations (c-d).} 
+\label{fig:2D} 
+\end{figure}
 
 \noindent\textbf{Scientific bottleneck.}
 The surface geometry within a patch around each surfel should be gathered to provide such estimations
@@ -32,9 +52,8 @@ Almost all methods require at least one parameter that controls the size of the 
 On the other hand, this project aims at providing \emph{accurate} and \emph{parameter-free} estimators
 based on a surface patch with \emph{adaptive} size.
 %Note that accuracy will be evaluated in a \emph{multigrid-convervence} framework as described in section \ref{sec:wp}, WP2. 
-
 Since we are looking for first-order estimations, the patch will be typically a piece of digital plane
-that locally fits to the digital surface (fig.~\ref{sub:pattern}).
+that locally fits to the digital surface. %(fig.~\ref{sub:pattern}).
 A challenge is to cover the whole digital surface by maximal pieces of digital plane. 
 What makes the problem hard is that there is a combinatorial explosion
 of maximal pieces of digital plane \cite{Sivignon2009} and that among them,
@@ -47,25 +66,44 @@ which is tangent by construction. The growth direction is given by both arithmet
 
 \noindent\textbf{Objectives and expected results.}
 The first goal of this project is to study extra arithmetic and combinatorial properties
-of plane-probing algorithms (see WP0 and WP1 in section~\ref{sec:wp}, describing work packages).
-The second one is to derive \emph{efficient}, \emph{accurate} and \emph{parameter-free} estimators
-of \emph{local} and \emph{first-order} geometric quantities (WP2).
-The third one is to provide a method and a tool for an automatic and \emph{multiscale} analysis of digital surfaces (WP3). 
+of plane-probing algorithms. We expect to design an ultimate plane-probing algorithm that requires
+no specific staring configuration and only a part of digital surface \emph{as small as possible}
+to return a relevant facet. A formal definition of what is meant by \emph{small} should be given
+with a theoretical upper bound.
+In addition, we expect to be able to make explicit an underlying minimal and connected piece of
+digital plane in order to correctly process concave and saddle parts. 
 
-\todo{expected results and final products}
+%The algorithm should be implemented in \DGtal at T+12. At the same time, a paper where
+%a formal definition of \emph{small} is given with a theoretical upper bound should be ready for
+%publication. 
+%(see WP0 and WP1 in section~\ref{sec:wp}, describing work packages).
+
+The second goal is to derive \emph{efficient}, \emph{accurate} and \emph{parameter-free} estimators
+of \emph{local} and \emph{first-order} geometric quantities. We expect to derive such estimators from
+the plane-probing algorithms and provide a theoretical evaluation of their accuracy with respect to
+resolution. Plane-probing algorithms and derived esimators will be implemented in \DGtal. % at T+24 ?
+Theoretical studies and results will be gathered in papers submitted to high impact venues or journals. 
+%(WP2).
+
+The third goal is to provide a method and a tool for an automatic and \emph{multiscale} analysis of digital surfaces,
+based on the number or the size of the computed facets for several subsampled versions of the input 3D volume. 
+We expect to develop a tool that provides without any parameter the scale at which noise is unlikely.
+This tool will be implemented in \DGtalTools~ and published in \IPOL. 
+%(WP3). 
+
+%\todo{expected results and final products}
 
 %1-WP0: algorithm purely local, from any starting point, which leads to a reduced basis and retrieves any normal
 %1-WP1: pattern generation: minimal number of tiles, connected, 
 %2-WP2: estimateur + ordre de convergence theorique + applis ?
 %3-WP3: outils qui prend un volume et sors un sous-échantillon non bruité, ou un ensemble de voxels à différentes tailles (publi IPOL)
-%=> for each publication and implementation in DGtal at T+24, T+36, T+48
-
+%=> for each publication and implementation in DGtal. 
 
 %transition not relevant here
 %Since there are so many perspectives and paths to follow, this project needs to strengthen a team of experts by full-time workers in order to make the best of them. 
 
 
-\subsection{b. Originality and relevance in relation to the state of the art}
+\subsection{Originality and relevance in relation to the state of the art}
 
 \Comments{Emphasise the ambitious nature of the proposal and the novelty of the research in relation to the state of the art ; show the possible contributions of project partners to the state of the art ; present any preliminary results. In the case of a project proposal following up on previous project(s) already funded by ANR or by another body, provide a summary of the results achieved and clearly describe the new issues raised and the new objectives set out in the light of the earlier project.}
 
@@ -73,10 +111,19 @@ The third one is to provide a method and a tool for an automatic and \emph{multi
 
 \noindent\textbf{Normal estimation.}
 %general methods,
- %=> besoin d'un parametre
+%The surface geometry within a patch around each surfel should be gathered to provide such estimations
+%-- e.g. by convolution \cite{Pottmann2009} or polynomial fitting \cite{Cazals2008}.
+%=> besoin d'un parametre
+%convergent methods
 %methods without parameter
  % => DSS
-To the best of our knowledge, on digital surfaces, only one parameter-free normal estimator has been proposed in nD (see \cite{Lachaud2003} and references therein for 3D). It is based on maximal digital straight segments on 2D slices. Maximal digital straight segments provide windows of adaptive size but the slicing truncates the geometric information and leads to an artificial spatial variability because two neighbor surfels only share one slice over two.
+To the best of our knowledge, on digital surfaces, only one parameter-free normal estimator
+has been proposed in nD (see \cite{Lachaud2003} and references therein for 3D).
+It is based on maximal digital straight segments on 2D slices.
+Maximal digital straight segments provide windows of adaptive size
+but the slicing truncates the geometric information and leads to
+an artificial spatial variability because two neighbor surfels only
+share one slice over two.
 %methods using DSS size for 
 %David: II ?
 %Tris: pour l'estimation de normale, c'est un peu over-kill, mais c'est juste, plus généralement pour toute les méthodes qui ont un parametre de taille (même si la convergence n'est pas prouvée). En parler dans la proposition...

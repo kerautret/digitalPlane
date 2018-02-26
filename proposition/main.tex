@@ -1,6 +1,6 @@
-\documentclass[11pt,a4paper]{article}
+\documentclass[11pt]{article}
 
-\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage[a4paper, top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
 %\usepackage[utf8]{inputenc}
 \usepackage{eurosym}
 \usepackage{amsmath}
@@ -41,6 +41,7 @@
 \setboolean{comments}{true} %"false" to disable comments
 \newcommand{\Comments}[1]{\ifthenelse{\boolean{comments}}{{\scriptsize\em #1}}{}}
 \newcommand{\DGtal}{\href{http://dgtal.org}{{\sc DGtal}}}
+\newcommand{\DGtalTools}{\href{http://dgtal.org/tools/}{{\sc DGtalTools}}}
 \newcommand{\IPOL}{\href{http://www.ipol.im/}{{\sc IPOL Journal}}}
 \newcommand{\sage}{\href{http://www.sagemath.org/}{{\sc SageMath}}}
 \newcommand{\Z}{{\ensuremath\mathbb{Z}}}
@@ -49,6 +50,8 @@
 \let\vec\mathbf
 \newcommand{\dav}[1]{{\color{red} #1}}
 \newcommand{\toUpdate}[1]{{\color{orange} #1}}
+\newcommand{\ie}{{ie.}}
+
 
 %work-packages
 \def \wpPPA {WP0}
