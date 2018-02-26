@@ -1,6 +1,6 @@
 doc=main.tex
 pdf=$(doc:.tex=.pdf)
-src=$(doc) section1.tex section2.tex section3.tex
+src=$(doc) section1.tex section2.tex section3.tex mybibliography.bib
 
 all: $(pdf)
 

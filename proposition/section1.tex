@@ -109,14 +109,33 @@ This tool will be implemented in \DGtalTools~ and published in \IPOL.
 
 \todo{related works: normal estimation (especially parameter free), recognition of digital plane, pattern generation}
 
-\noindent\textbf{Normal estimation.}
+\noindent\textbf{Normal estimation on point clouds.}
 %general methods,
+polynomial fitting \cite{Hoppe1992,Cazals2005,Cazals2008}
+
+VCM: \cite{Dey2006,Alliez2007,Merigot2011}
+
+within a ball: 3-point random: \cite{Boulch2012,Zhang2013} II: \cite{Pottmann2009}
+
+\todo{by convolution}
+%bilateral mesh denoising
+
 %The surface geometry within a patch around each surfel should be gathered to provide such estimations
 %-- e.g. by convolution \cite{Pottmann2009} or polynomial fitting \cite{Cazals2008}.
 %=> besoin d'un parametre
-%convergent methods
-%methods without parameter
- % => DSS
+%convergent methods en 2D
+\noindent\textbf{Multigrid convergent estimators on digital curves and surfaces.}
+
+2d \cite{Provot2011,Esbelin2011,Esbelin2016}
+
+3d \cite{Fourey2009}, \cite{Coeurjolly2014, Cuel2015}
+
+\noindent\textbf{Parameter-free estimators.}
+
+2d \cite{Lachaud2007}
+
+3d  
+
 To the best of our knowledge, on digital surfaces, only one parameter-free normal estimator
 has been proposed in nD (see \cite{Lachaud2003} and references therein for 3D).
 It is based on maximal digital straight segments on 2D slices.
@@ -124,6 +143,7 @@ Maximal digital straight segments provide windows of adaptive size
 but the slicing truncates the geometric information and leads to
 an artificial spatial variability because two neighbor surfels only
 share one slice over two.
+
 %methods using DSS size for 
 %David: II ?
 %Tris: pour l'estimation de normale, c'est un peu over-kill, mais c'est juste, plus généralement pour toute les méthodes qui ont un parametre de taille (même si la convergence n'est pas prouvée). En parler dans la proposition...
