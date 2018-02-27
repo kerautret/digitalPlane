@@ -108,20 +108,85 @@ This tool will be implemented in \DGtalTools~ and published in \IPOL.
 
 \Comments{Emphasise the ambitious nature of the proposal and the novelty of the research in relation to the state of the art ; show the possible contributions of project partners to the state of the art ; present any preliminary results. In the case of a project proposal following up on previous project(s) already funded by ANR or by another body, provide a summary of the results achieved and clearly describe the new issues raised and the new objectives set out in the light of the earlier project.}
 
+In this section, we review some estimation method in order to underline the novelty of the proposed approach. 
+
+\noindent\textbf{Digital surface and multigrid convergence.}
+
+3D volumes are collections of cubes. % of size $h$, called \emph{grid step}. 
+Their topological boundary is a quadrangular mesh called \emph{digital surface}.
+The vertex set consists of evenly spaced data points whose coordinates are
+half-integer. This set approximates a continuous 2-manifold under a uniform
+noise model. 
+%TODO: Lachaud Thibert
+
+Most of the time, when we are working with a digital surface, we are 
+interested in the geometry of a continuous shape whose digitization
+is the input 3D volume.
+Formally, given a compact shape $X \subset \R^3$,
+its digitization at grid step $h \in \R^+$ is $\Dig(X) := \{z \in \Z^3, hz \in X\}$.
+If we denote the axis-aligned closed cube centered on $z \in h\Z^3$ and of size $h$ as $Q_z^h$,
+the cube embedding of a digital set $Z$ at grid step $h$ is $\underset{z\in Z}{\cup}Q_z^h$.
+Let $\partial_h X$ be the topological boundary of the embedding of the digitization of $X$: 
+\[
+\partial_h M := \partial \Big( \underset{z\in\Dig(X)}{\bigcup}Q_z^h \Big).
+\]
+
+We expect that a given geometric quantity, such as a normal vector,
+computed at a point of a digital surface ($\partial_h X$),
+is close to the one of the underlying continuous shape ($X$) at a close enough point. 
+
+\begin{Definition}[multigrid-convergent estimator \cite{Coeurjolly2012}]
+  \label{def:multigrid-convergence2}
+  The estimator $\hat{Q}$ is {\em multigrid-convergent} for the family
+  {\Shapes} if and only if, for any shape $X \in \Shapes$,
+  there exists a grid step $h_X>0$ such that the estimate
+    $\hat{Q}(\Dig(X),y,h)$ is defined for all
+  $y \in \partial_h X$ with $0<h < h_X$, and for any $x \in \BT{X}$,
+  \begin{equation*}
+    \forall y \in \partial_h X \text{~with~} \| y - x \|_1 \le h, \quad
+    \hat{Q}(\Dig(X),y,h) - Q(X,x) | \le \tau_{X,x}(h),
+  \end{equation*}
+  where $\tau_{X,x}: \R^{+*} \rightarrow \R^+$ has null limit at
+  $0$.
+  %% This function defines the speed of convergence of $\hat{Q}$
+  %% toward $Q$ at point $x$ of $\BT{X}$. The convergence is {\em uniform} for
+  %% $X$ when every $\tau_{X,x}$ is bounded from above by a function
+  %% $\tau_X$ independent of $x \in \BT{X}$ with null limit at $0$.
+\end{Definition}
+
+The accuracy of a multigrid-convergent estimator depends on the grid step:
+the smaller the grid step, the more accurate the estimator. 
+
+
 %TODO: dire pourquoi c'est interessant de regarder ce qui se fait en point cloud, quel lien avec les digital surfaces
 %ou alors presenter les donnees et la convergence multigrille
 
-\noindent\textbf{Normal estimation on point clouds and meshes.}
+%TODO: pourquoi c'est interessant des normales ?
 
-Fitting is a common method. Hoppe \etal estimate the normal at a data point $x_i$
-by computing the least squares best fitting plane to a point set around $x_i$ \cite{Hoppe1992}.
+%TODO
+% Je parlerais des methodes 2d convergentes dans multigrid convergence
+%Provot and Gérard show the multigrid convergence of an estimator based on a
+%polynomial fitting for digitization of TODO \cite{Provot2011}.
+%\cite{Provot2011,Esbelin2011,Esbelin2016}
+
+\noindent\textbf{Normal estimation in 3d.}
+
+Hoppe \etal estimate the normal at a given data point by computing
+the least squares best fitting plane to a point set within a neighborhood
+around the point of interest \cite{Hoppe1992}.
 Other fitting surfaces have been used too, such as jets, \ie truncated Taylor expansion
 of a surface expression \cite{Cazals2005,Cazals2008}. 
+
 All fitting methods first consist in collecting the points used for the fitting.
 In the mesh case, a breadth-first search visit the neighbors until enough points
 have been collected. In the point-cloud case, we typically resort to the k-nearest-neighbors
 strategy. In both cases, the number of points to collect is usually a user-defined parameter,
 even if some heuristics are proposed to select it automatically \cite{Hoppe1992,Cazals2005}.  
+
+%In 3d, a straightforward application
+%of \cite{Cazals2005}[Theorem 3] to digital surface shows that a polynomial fitting of degree $n$
+%estimates the coefficients of the unit normal vector in $O(h^n)$.
+%TRIS probablement faux
 
 Instead of approximating the tangent space, another familly of methods focuses on the
 Voronoi diagram to estimate at best the orthogonal space. Amenta \etal first use the
@@ -133,27 +198,28 @@ by taking a weighted average of covariance matrices of Voronoi cells instead of
 taking the covariance matrix of their union \cite{Merigot2011}. In their method,
 only the intersection between the Voronoi diagram and a ball around the data point
 are taken into account in order to get purely local information about the surface geometry.
+A digital variant has been proposed by Cuel \etal \cite{Cuel2015}. 
 
-Other methods sum up the surface geometry within a ball.  
+In the mesh case, another method sums up the surface geometry within a ball by 
+computing integrals over the intersection between the ball and the volume
+bounded by the mesh \cite{Pottmann2009}. The covariance matrix of the intersection set 
+provides a way to estimate principal curvatures, principal directions and normal direction.
+A digital variant has been proposed by Lachaud \etal \cite{Lachaud2017}.
 
-%Digital variant of VCM \cite{Cuel2015} has convergence guarantees
-%for digitization of smooth shapes, but the radii must be adapted to the sampling grid step
-
-
-within a ball: 3-point random: \cite{Boulch2012,Zhang2013} II: \cite{Pottmann2009}
+The radius of the ball is a user-defined parameter in these methods. The above-mentionned
+digital variants \cite{Cuel2015,Lachaud2017} are multigrid convergent for digitization
+of smooth shapes if the radius is conveniently chosen with respect to the grid step.
 
 \todo{by convolution}
+%pas d'isotropie, donc filtres
 %bilateral mesh denoising
+%\cite{Fourey2009}
 
-%The surface geometry within a patch around each surfel should be gathered to provide such estimations
-%-- e.g. by convolution \cite{Pottmann2009} or polynomial fitting \cite{Cazals2008}.
-%=> besoin d'un parametre
-%convergent methods en 2D
-\noindent\textbf{Multigrid convergent estimators on digital curves and surfaces.}
-
-2d \cite{Provot2011,Esbelin2011,Esbelin2016}
-
-3d \cite{Fourey2009}, \cite{Coeurjolly2014, Cuel2015}
+To end, let us mention also probabilistic methods based on the Randomized Hough Transform.
+Boulch and Marlet consider many random triples of data points in a neighborhood
+and bin their normal direction into a spherical histogram \cite{Boulch2012}.
+Maximal vote provides the normal estimate. However, their method has many input parameters,
+the first of which is the size or radius of the neighborhood. 
 
 \noindent\textbf{Parameter-free estimators.}
 
@@ -172,9 +238,8 @@ share one slice over two.
 %methods using DSS size for 
 %David: II ?
 %Tris: pour l'estimation de normale, c'est un peu over-kill, mais c'est juste, plus généralement pour toute les méthodes qui ont un parametre de taille (même si la convergence n'est pas prouvée). En parler dans la proposition...
-%methods in discrete geometry
- %=> plan discret / explosion combinatoire / pas d'ordre
 
+ %=> plan discret / explosion combinatoire / pas d'ordre
 \noindent\textbf{Recognition of digital plane segment.}
 Related works usually make grow a point set by a breadth-first search according to some heuristics and decide whether the current set is a piece of digital plane or not \cite{Sivignon2004,Charrier2011}. The results are highly dependent on the chosen heuristics.   
 %TODO citation de David sur la reconnaissance de plans discrets ?
