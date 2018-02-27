@@ -47,7 +47,7 @@ shared during ANR-11-BS02-009 DigitalSnow project.}
 
 \noindent\textbf{Scientific bottleneck.}
 The surface geometry within a patch around each surfel should be gathered to provide such estimations
--- e.g. by convolution \cite{Pottmann2009} or polynomial fitting \cite{Cazals2008}.
+-- e.g. by polynomial fitting \cite{Cazals2005,Cazals2008}.
 Almost all methods require at least one parameter that controls the size of the patch.  
 On the other hand, this project aims at providing \emph{accurate} and \emph{parameter-free} estimators
 based on a surface patch with \emph{adaptive} size.
@@ -66,12 +66,11 @@ which is tangent by construction. The growth direction is given by both arithmet
 
 \noindent\textbf{Objectives and expected results.}
 The first goal of this project is to study extra arithmetic and combinatorial properties
-of plane-probing algorithms. We expect to design an ultimate plane-probing algorithm that requires
-no specific staring configuration and only a part of digital surface \emph{as small as possible}
-to return a relevant facet. A formal definition of what is meant by \emph{small} should be given
-with a theoretical upper bound.
+of plane-probing algorithms. We expect to design an ultimate plane-probing algorithm that
+only probes a part of digital surface \emph{as small as possible} to provide a relevant facet.
+A formal definition of what is meant by \emph{small} and a theoretical upper bound should be given.
 In addition, we expect to be able to make explicit an underlying minimal and connected piece of
-digital plane in order to correctly process concave and saddle parts. 
+digital plane in order to correctly process convex, concave and saddle parts. 
 
 %The algorithm should be implemented in \DGtal at T+12. At the same time, a paper where
 %a formal definition of \emph{small} is given with a theoretical upper bound should be ready for
@@ -79,15 +78,17 @@ digital plane in order to correctly process concave and saddle parts.
 %(see WP0 and WP1 in section~\ref{sec:wp}, describing work packages).
 
 The second goal is to derive \emph{efficient}, \emph{accurate} and \emph{parameter-free} estimators
-of \emph{local} and \emph{first-order} geometric quantities. We expect to derive such estimators from
-the plane-probing algorithms and provide a theoretical evaluation of their accuracy with respect to
-resolution. Plane-probing algorithms and derived esimators will be implemented in \DGtal. % at T+24 ?
+of \emph{local} and \emph{first-order} geometric quantities: normal vector (and surfel area as a by-product),
+distance to boundary, voxel coverage (fig.~\ref{fig:2D}). We expect to derive such estimators from
+the above-mentionned plane-probing algorithm and provide a theoretical evaluation of their accuracy
+with respect to resolution. Plane-probing algorithms and derived esimators will be implemented in \DGtal.
+% at T+24 ?
 Theoretical studies and results will be gathered in papers submitted to high impact venues or journals. 
 %(WP2).
 
 The third goal is to provide a method and a tool for an automatic and \emph{multiscale} analysis of digital surfaces,
 based on the number or the size of the computed facets for several subsampled versions of the input 3D volume. 
-We expect to develop a tool that provides without any parameter the scale at which noise is unlikely.
+We expect to develop a tool that provides, without any parameter, the scale at which noise is unlikely.
 This tool will be implemented in \DGtalTools~ and published in \IPOL. 
 %(WP3). 
 
@@ -107,13 +108,37 @@ This tool will be implemented in \DGtalTools~ and published in \IPOL.
 
 \Comments{Emphasise the ambitious nature of the proposal and the novelty of the research in relation to the state of the art ; show the possible contributions of project partners to the state of the art ; present any preliminary results. In the case of a project proposal following up on previous project(s) already funded by ANR or by another body, provide a summary of the results achieved and clearly describe the new issues raised and the new objectives set out in the light of the earlier project.}
 
-\todo{related works: normal estimation (especially parameter free), recognition of digital plane, pattern generation}
+%TODO: dire pourquoi c'est interessant de regarder ce qui se fait en point cloud, quel lien avec les digital surfaces
+%ou alors presenter les donnees et la convergence multigrille
 
-\noindent\textbf{Normal estimation on point clouds.}
-%general methods,
-polynomial fitting \cite{Hoppe1992,Cazals2005,Cazals2008}
+\noindent\textbf{Normal estimation on point clouds and meshes.}
 
-VCM: \cite{Dey2006,Alliez2007,Merigot2011}
+Fitting is a common method. Hoppe \etal estimate the normal at a data point $x_i$
+by computing the least squares best fitting plane to a point set around $x_i$ \cite{Hoppe1992}.
+Other fitting surfaces have been used too, such as jets, \ie truncated Taylor expansion
+of a surface expression \cite{Cazals2005,Cazals2008}. 
+All fitting methods first consist in collecting the points used for the fitting.
+In the mesh case, a breadth-first search visit the neighbors until enough points
+have been collected. In the point-cloud case, we typically resort to the k-nearest-neighbors
+strategy. In both cases, the number of points to collect is usually a user-defined parameter,
+even if some heuristics are proposed to select it automatically \cite{Hoppe1992,Cazals2005}.  
+
+Instead of approximating the tangent space, another familly of methods focuses on the
+Voronoi diagram to estimate at best the orthogonal space. Amenta \etal first use the
+furthest vertex of the Voronoi cell to estimate the normals of point clouds \cite{Amenta1999}.
+In order to get more stable estimates, Alliez \etal propose to apply linear fitting
+to the Voronoi cell or to the union of Voronoi cells into a neighborhood \cite{Alliez2007}. 
+Mérigot \etal propose an improvement, called Voronoi Covariance Measure (VCM),
+by taking a weighted average of covariance matrices of Voronoi cells instead of
+taking the covariance matrix of their union \cite{Merigot2011}. In their method,
+only the intersection between the Voronoi diagram and a ball around the data point
+are taken into account in order to get purely local information about the surface geometry.
+
+Other methods sum up the surface geometry within a ball.  
+
+%Digital variant of VCM \cite{Cuel2015} has convergence guarantees
+%for digitization of smooth shapes, but the radii must be adapted to the sampling grid step
+
 
 within a ball: 3-point random: \cite{Boulch2012,Zhang2013} II: \cite{Pottmann2009}
 
