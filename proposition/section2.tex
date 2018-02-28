@@ -98,7 +98,7 @@ can we characterize the behavior of the R-algorithm on a convex or arbitrary par
 Plane-probing algorithms 
 %only maintains the parameters of a tangent digital plane (normal and position), for instance by the mean of a triangular facet, but 
 do not explicitly describe a piece of digital plane as a point set or a surfel set.  
-This WP aims at generating a piece of digital plane, called \emph{pattern} below, in the course of the computation (fig.~\ref{sub:pattern}).
+This WP aims at generating a piece of digital plane, called \emph{pattern} below, in the course of the computation.% (fig.~\ref{sub:pattern}).
 There are some practical reasons of doing so. For instance, it would help to perform the following tasks: 
 (i) extend the normal vector estimation from the starting point to the whole pattern, 
 (ii) test if the generated pattern is a subset of the underlying digital surface 
@@ -122,13 +122,13 @@ There exists a lot of related works based on three-dimensional continued fractio
 %not interested in its geometry, but rather in the geometry of an unknown continuous shape whose digitization is the input digital data. 
 interested in the geometry of a continuous shape whose digitization is the input digital data.
 We expect that a given geometric quantity, such as a normal vector, computed at a point of a digital surface is close to the one of the underlying continuous shape at a close enough point. 
-This WP aims at providing \emph{efficient}, \emph{parameter-free} and \emph{multigrid-convergent} estimators based of the output of plane-probing algorithms: normal vector (and surfel area as a by-product), distance to boundary, voxel coverage (fig.~\ref{sub:2D}). The accuracy of a multigrid-convergent estimator depends on the resolution: the higher the resolution, the more accurate the estimator. We will experimentally and theoretically study the estimation accuracy for shapes digitized at increasing resolutions. 
+This WP aims at providing \emph{efficient}, \emph{parameter-free} and \emph{multigrid-convergent} estimators based of the output of plane-probing algorithms: normal vector (and surfel area as a by-product), distance to boundary, voxel coverage (fig.~\ref{fig:2D}). The accuracy of a multigrid-convergent estimator depends on the resolution: the higher the resolution, the more accurate the estimator. We will experimentally and theoretically study the estimation accuracy for shapes digitized at increasing resolutions. 
 
 Plane-probing algorithms not only provide a normal vector but also position information, which may be useful for many applications in graphics such as polyhedral approximation, surface fairing, volume rendering, etc. The goal of this WP is also to investigate at least one of these applications.   
 
 \noindent\textbf{\wpScale: multiscale analysis (years 2-4).} Digital surfaces may be degraded with \emph{noise}, especially in medical imaging. Since noise usually affect only the finest levels of details, the following algorithm is a way of coping with the problem: while there is noise, subsample by 2 the digital surface. At the end, we get a noise-free digital surface, but at a potentially coarser level. Furthermore, in case of non-uniform noise, the same applies only locally, i.e. at each border voxel.  
 
-The challenge here is to detect noise. This can be done by computing the growth rate of the \emph{number} or \emph{size} of the computed facets for decreasing resolutions (see fig.~\ref{sub:snow} for an example of one such facet) and by comparing it with the theoretical or experimental law for digitization of smooth shapes. A significant difference between the two rates suggest that there is noise. 
+The challenge here is to detect noise. This can be done by computing the growth rate of the \emph{number} or \emph{size} of the computed facets for decreasing resolutions (see fig.~\ref{fig:snow} for an example of one such facet) and by comparing it with the theoretical or experimental law for digitization of smooth shapes. A significant difference between the two rates suggest that there is noise. 
 This strategy has been used with success for digital curves \cite{Kerautret2012} and the goal of this WP is to provide the theoretical results and tools required to apply it on digital surfaces. 
 
 %risks: to add in the proposition
