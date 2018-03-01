@@ -215,7 +215,7 @@ digital variants \cite{Cuel2015,Lachaud2017} are multigrid convergent for digiti
 of smooth shapes if the radius is conveniently chosen with respect to the grid step.
 
 \noindent\textbf{Convolution.}
-\todo{by convolution}
+TODO ?
 %pas d'isotropie, donc filtres
 %bilateral mesh denoising
 %\cite{Fourey2009}
@@ -232,15 +232,16 @@ the first of which is the size or radius of the neighborhood.
 All previous methods require at least one parameter that controls the size of the neighborhood.
 On the other hand, the specificity of digital surfaces makes the development of parameter-free
 estimators possible. The trick is to perform a uniform fitting of the data points by a plane.
-Instead of the number of data points, another possible user-defined parameter is the maximal
-admissible error. However, it is a known constant in case of digital surfaces because the data
-points follow a known uniform noise model.
+In addition, instead of specifying \emph{a priori} the number of data points, they are added
+step by step, while a maximal admissible error is not reached. This threshold is not a user-defined
+parameter, but a known constant, because the data points follow a known uniform noise model
+in case of digital surfaces. 
 %In addition, due to the specific structure of the data points, we can expect to take profit
 %TODO utiliser prop arith et combi pour algo efficaces ?
 
 \noindent\textbf{Parameter-free estimators.}
-In 2D, the set of maximal digital straight segments (DSSs) provides
-a parameter-free and multigrid-convergent tangent (and normal) estimator \cite{Feschet1999,Lachaud2007}.
+In 2D, the set of maximal digital straight segments (DSSs) \cite{Feschet1999,Feschet2005} provides
+a parameter-free and multigrid-convergent tangent (and normal) estimator \cite{Lachaud2007}.
 This estimator preserves the inflexion points because maximal DSSs are closely related to local convexity \cite{Roussillon2011}
 and normal integration over the digital curve yields a multigrid-convergent length estimator \cite{Coeurjolly2004}. 
 In addition, asymptotic properties of maximal DSSs can be used to estimate the local amount of noise along the
@@ -270,31 +271,120 @@ Finally, a set of digital plane segments (DPSs) that locally fits to the digital
 would overcome these limitations. The challenge is to efficiently recognize DPSs and to
 cover the whole digital surface by a relevant set of DPSs.
 
- %=> plan discret / explosion combinatoire / pas d'ordre
-\noindent\textbf{Recognition and generation of digital plane segment.}
+\noindent\textbf{Recognition of digital plane segment.}
+A \emph{digital plane} is an infinite digital set that 
+consists of several consecutive and parallel layers of coplanar points. 
+It is defined by a (nonzero) normal $\vec{n} \in \Z^3$ and a position $\mu \in \Z$ as follows:  
+$\Plane{\mu}{\vec{n}} := \{ \vec{x} \in \Z^3 \ | \ \mu \leq \vec{x} \cdot \vec{n} < \mu + \|\vec{n}\|_1 \}$
+\cite{reveilles1991}.
 
-\cite{Stojmenovic1991,Gerard2005,Buzer2003,Brimkov2007,Gerard2009,Veelaert2012,Chica2008,Provot2006,Charrier2008}
+Given a finite digital set $\Set$, the \emph{recognition problem} consists in providing
+$\mu$ and $\vec{n}$ such that $\Set \subseteq \Plane{\mu}{\vec{n}}$ if any.
+Note that such a recognition problem can have zero or infinitely many solutions.
+One solution can be found in linear time, \ie in $O(|\Set|)$, by linear programming
+and all solutions can be found in $O(|\Set|\log{(|\Set|)})$ by computational geometry tools.
+See \cite{Brimkov2007} for a review on digital planarity.
 
-\cite{Sivignon2004,Charrier2011}
+However, we usually want to add data points step by step and incrementally update the solution
+or the set of solutions. In this on-line framework, algorithms with optimal bounds are difficult
+to implement and are in all probability slow in practive due to a high constant (see for instance
+\cite{Buzer2003}).
+On the other hand, there exists fast geometrical algorithms but with higher theoretical bounds,
+\eg \cite{Gerard2005, Charrier2008, Veelaert2012}.
+%% the chord algorithm by Gérard \etal \cite{Gerard2005}, 
+%% the COBA algorithm by Charrier and Buzer \cite{Charrier2008}
+%% the combinatorial algorithm of Veelaert \cite{Veelaert2012}.
 
-\cite{Sivignon2009}
+%\cite{Gerard2009} preimage
+%\cite{Stojmenovic1991} separation
+%Provot2006, largeur
 
-%% What makes the problem hard is that there is a combinatorial explosion
-%% of maximal pieces of digital plane \cite{Sivignon2009} and that among them,
-%% not all are tangent to the digital surface in a point set framework.  
+Actually, the main challenge is not so much to recognize DPSs, but more to find which data points
+should be taken into account during the recognition process to obtain DPSs tangent to the digital
+surface.
+Segmentation methods usually make grow a point set from a seed by a breadth-first search according
+to some heuristics and decide whether the current set is a piece of digital plane or not
+\cite{Klette2001,Sivignon2004,Provot2009,Charrier2011}.
+The results are however highly dependent on the chosen heuristics.   
+%\cite{Sivignon2009} combinatorial explosion of DPSs
 
-%% Related works usually make grow a point set by a breadth-first search according to some heuristics and decide whether the current set is a piece of digital plane or not \cite{Sivignon2004,Charrier2011}. The results are highly dependent on the chosen heuristics.   
-%% %TODO citation de David sur la reconnaissance de plans discrets ?
-%% % => breadth-first search + heuristics pour grandir
+Until recently, artihmetic properties of digital planes did not help so much.
+Pionneering incremental recognition algorithms based on arithmetic properties \cite{Debled1994,Mesmoudi2002}
+are neither as easy-to-implement nor as fast as purely geometric ones, such as \cite{Gerard2005}.  
+The work of T. Fernique et V. Berth\'{e} \cite{Fernique2009}, 
+based on multidimensional continued fractions and desubstitution on words,
+is quite interesting from a theoretical point of view. However, their algorithm,
+which reduces a piece of digital surface until no transformation is possible,
+is not of practical interest because it requires the whole point set to be known
+in advance and must be coupled with another recognition algorithm to conclude
+at the last step.  
 
+\noindent\textbf{Preliminary results: plane-probing algorithms.}
+An opportunity to make a breakthrough in this issue is the recent development
+by the principal investigator and its collaborators of \emph{plane-probing
+algorithms} \cite{LPRTCS2016, LPRDGCI2016, LPRJMIV2017}. These algorithms decide
+on-the-fly how to probe the digital surface and make grow a piece of digital plane,
+which is tangent by construction. The growth direction is given by both arithmetic
+and geometric properties.
 
-%thomas fernique en lien avec la section suivante. 
-%\noindent\textbf{Digital plane generation.}
+More formally, given a digital plane $\Plane{\mu}{\vec{n}} \subset Z^3$
+and a starting point $\vec{p} \in \Set$, 
+a plane-probing algorithm computes the parameters of a digital plane $\Plane{\mu'}{\vec{n}'}$
+containing $\vec{p}$ by sparsely probing $\Plane{\mu}{\vec{n}}$ with the predicate
+``is $\vec{x}$ in $\Plane{\mu}{\vec{n}}$?''. The parameters of $\Plane{\mu}{\vec{n}}$
+and $\Plane{\mu'}{\vec{n}'}$ are expected to be equal when the algorithm terminates.
+%for any $\vec{p} \in \Plane{\mu}{\vec{n}}$. 
+
+The first algorithm of this kind has been proposed in \cite{LPRTCS2016}.
+Its principle is to deform an initial unit tetrahedron based at the starting point
+with only unimodular transformations. Each transformation is decided by looking
+mostly at a few points around the tetrahedron. These points are chosen so that
+the transformed tetrahedron lies in $\Plane{\mu}{\vec{n}}$, with the same volume,
+but closer to the upper plane
+$\UpperPlane{\mu}{\vec{n}} := \{ x \in R^3 \ | \ x \cdot \vec{n} = \mu + \|\vec{n}\|_1 \}$.
+At the end of this iterative process, one face of the tetrahedron has an extremal
+position in the plane and is thus parallel to $\UpperPlane{\mu}{\vec{n}}$.
+
+New plane-probing algorithms have been proposed in \cite{LPRDGCI2016, LPRJMIV2017}. 
+They also iteratively deform an initial tetrahedron and stop when one face is
+parallel to $\UpperPlane{\mu}{\vec{n}}$. 
+However they differ from our first work on several aspects.  %as illustrated on \RefFig{fig:illustration:algo}. 
+First, they are simpler, because they repeat one simple operation instead
+of several possible transformations depending on the current onfiguration
+as in \cite{LPRTCS2016}.  
+Second, one vertex of the evolving tetrahedron is a fixed point lying above the 
+starting point and the opposite triangular facet. The position of the evolving 
+tetrahedron is thus better controlled than in \cite{LPRTCS2016}. 
+Last, a geometric criterion is used so that the evolving tetrahedron is not
+too much elongated during the computation.  
+
+%surface
+In addition, \cite{LPRJMIV2017} show how to use these algorithms
+for digital surface analysis. In this preliminary work, one drawback is
+the processing of non-convex parts that requires to associate a piece
+of digital plane to the tetrahedron by discretizing its triangular facet
+not incident to the fixed point. Generating a relevant piece of digital plane
+in the course of the computation may be a neater and more efficient
+solution.  
+
+%% Although it is a preliminary work with
+%% several drawbacks that we expect to overcome in this project, some fall-back
+%% solutions are detailed. 
+
+%% For instance, a procedure for detecting planarity defects
+%% is detailed.  and in case of non-convex configuration and propose several strategy 
+%% We show how to detect convex/concave/inflexion zones onto a digital surfacewe show  , we also For some well-identified starting points, this algo- rithm stops and outputs only an approximation of the normal to P. We show how to detect such bad starting points and how to connect them to their corresponding facet
+
+%reduction
+%% For one variant, called $R$-algorithm, we experimentally observe
+%% that the returned basis is reduced at least after every two steps and it is always reduced
+%% when the algorithm terminates. This conjecture is not proved yet and it is one of our
+%% future work to prove it.
+
+%generation d'un motif
 %substitution methode generale
+\noindent\textbf{Discretization and pattern generation.} TODO
 
-
-\noindent\textbf{Preliminary results: plane-probing algorithms}
-%lister les avantages, les limites ?
 
 \subsection{Methodology and risk management}
 
