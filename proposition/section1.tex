@@ -55,20 +55,22 @@ on-the-fly how to probe the digital surface and make grow a piece of digital pla
 which is tangent by construction. The growth direction is given by both arithmetic and geometric properties.
 
 \noindent\textbf{Objectives and expected results.}
+This project aims at analyzing digital surfaces. Three distinct goal can be highlighted:
+\begin{enumerate}
+  \item[(G1)] 
 The first goal of this project is to study extra arithmetic and combinatorial properties
 of plane-probing algorithms. We expect to design an ultimate plane-probing algorithm that
 only probes a part of digital surface \emph{as small as possible} to provide a relevant facet.
 A formal definition of what is meant by \emph{small} and a theoretical upper bound should be given.
-In addition, we expect to be able to make explicit an underlying minimal and connected piece of
-digital plane in order to correctly process convex, concave and saddle parts. 
+In addition, we expect to correctly process non-convex parts by generating an underlying
+minimal and connected piece of digital plane. 
 %(see WP0 and WP1 in section~\ref{sec:wp}, describing work packages).
-
+ \item[(G2)]
 The second goal is to derive \emph{efficient}, \emph{accurate} and \emph{parameter-free} estimators
 of \emph{local} and \emph{first-order} geometric quantities: normal vector (and surfel area as a by-product),
 distance to boundary, voxel coverage (fig.~\ref{fig:2D}). We expect to derive such estimators from
 the above-mentionned plane-probing algorithm and provide a theoretical evaluation of their accuracy
-with respect to resolution. Plane-probing algorithms and derived esimators will be implemented in \DGtal. % at T+24 ?
-Theoretical studies and results will be gathered in papers submitted to high impact venues or journals. 
+with respect to resolution.  
 %(WP2).
 
 \begin{figure}[hb]
@@ -81,11 +83,18 @@ Theoretical studies and results will be gathered in papers submitted to high imp
 \label{fig:2D} 
 \end{figure}
 
+ \item[(G3)]
 The third goal is to provide a method and a tool for an automatic and \emph{multiscale} analysis of digital surfaces,
 based on the number or the size of the computed facets for several subsampled versions of the input 3D volume. 
-We expect to develop a tool that provides, without any parameter, the scale at which noise is unlikely.
-This tool will be implemented in \DGtalTools~ and published in \IPOL. 
+We expect to develop a tool that provides, without any parameter, the scale at which noise is unlikely. Based on
+this tool, we may add other features like a 3D normal estimator robust to noise.  
 %(WP3). 
+\end{enumerate}
+
+ % at T+24 ?
+New algorithms, theoretical results and experimental studies will be gathered in papers submitted to
+top venues or in peer-reviewed international journals. Plane-probing algorithms and derived estimators
+ will be implemented in \DGtal, tools in \DGtalTools~ with an \IPOL~ companion paper. 
 
 %\todo{expected results and final products}
 
@@ -110,17 +119,18 @@ or carry position information already approximated by the digital surface itself
 
 In addition, a digital surface is a quadrangular mesh. The vertex set consists of evenly spaced data points
 whose coordinates are (half-)integer. This specific point cloud approximates a continuous 2-manifold under a
-uniform noise model due to discretisation erros. That is why we review the most common methods for normal estimation
+uniform noise model due to discretisation errors. That is why we review the most common methods for normal estimation
 not only on digital surfaces, but also on meshes and point clouds.
 %TODO nombreuses applications de normal estimation ce qui explique qu'il y ait beaucoup de travaux.  
-Note that we do not present 2D estimators (\eg \cite{Provot2011,Esbelin2011,Esbelin2016}),
-with the exception of \cite{Lachaud2007}, which is parameter-free and used in 3d estimators
-\cite{Lenoir1996,Tellier1999,Lachaud2003}. 
+
+%% Note that we do not present 2D estimators (\eg \cite{Provot2011,Esbelin2011,Esbelin2016}),
+%% with the exception of \cite{Lachaud2007}, which is parameter-free and used in 3d estimators
+%% \cite{Lenoir1996,Tellier1999,Lachaud2003}. 
 
 Since one goal of the project is to propose an accurate and parameter-free normal estimator,
-we focus in this state of the art on input parameters and, for digital surfaces only, we check
-whether the estimator in multigrid-convergent or not. Indeed, the accuracy of a multigrid-convergent estimator
-depends on the grid step: the smaller the grid step, the more accurate the estimator. 
+we focus in this state of the art on user-defined parameters and, for digital surfaces only,
+we check if the estimator is \emph{multigrid-convergent}, \ie the smaller the grid step,
+the higher the resolution, the more accurate the estimator. 
 
 
 %% \noindent\textbf{Digital surface and multigrid convergence.}
@@ -185,6 +195,8 @@ have been collected. In the point-cloud case, we typically resort to the k-neare
 strategy. In both cases, the number of points to collect is usually a user-defined parameter,
 even if some heuristics are proposed to select it automatically \cite{Hoppe1992,Cazals2005}.  
 
+%\cite{Provot2011} ?
+
 %In 3d, a straightforward application
 %of \cite{Cazals2005}[Theorem 3] to digital surface shows that a polynomial fitting of degree $n$
 %estimates the coefficients of the unit normal vector in $O(h^n)$.
@@ -196,7 +208,7 @@ Voronoi diagram to estimate at best the orthogonal space. Amenta \etal first use
 furthest vertex of the Voronoi cell to estimate the normals of point clouds \cite{Amenta1999}.
 In order to get more stable estimates, Alliez \etal propose to apply linear fitting
 to the Voronoi cell or to the union of Voronoi cells into a neighborhood \cite{Alliez2007}. 
-Mérigot \etal propose an improvement, called Voronoi Covariance Measure (VCM),
+M\'{e}rigot \etal propose an improvement %, called Voronoi Covariance Measure (VCM),
 by taking a weighted average of covariance matrices of Voronoi cells instead of
 taking the covariance matrix of their union \cite{Merigot2011}. In their method,
 only the intersection between the Voronoi diagram and a ball around the data point
@@ -210,8 +222,8 @@ bounded by the mesh \cite{Pottmann2009}. The covariance matrix of the intersecti
 provides a way to estimate principal curvatures, principal directions and normal direction.
 A digital variant has been proposed by Lachaud \etal \cite{Lachaud2017}.
 
-The radius of the ball is a user-defined parameter in these methods. The above-mentionned
-digital variants \cite{Cuel2015,Lachaud2017} are multigrid convergent for digitization
+Note that the ball radius is a user-defined parameter in these methods. The above-mentionned
+digital variants \cite{Cuel2015,Lachaud2017} are multigrid-convergent for digitization
 of smooth shapes if the radius is conveniently chosen with respect to the grid step.
 
 \noindent\textbf{Convolution.}
@@ -219,6 +231,7 @@ TODO ?
 %pas d'isotropie, donc filtres
 %bilateral mesh denoising
 %\cite{Fourey2009}
+%\cite{Esbelin2011,Esbelin2016})
 
 \noindent\textbf{Randomized Hough Transform.}
 To end, let us mention also probabilistic methods based on the Randomized Hough Transform.
@@ -227,30 +240,29 @@ and bin their normal direction into a spherical histogram \cite{Boulch2012}.
 Maximal vote provides the normal estimate. However, their method has many input parameters,
 the first of which is the size or radius of the neighborhood. 
 
-\subsubsection{Parameter-free estimators on digital surfaces and digital plane segments}
+\subsubsection{Parameter-free normal estimators on digital surfaces}
 
 All previous methods require at least one parameter that controls the size of the neighborhood.
 On the other hand, the specificity of digital surfaces makes the development of parameter-free
 estimators possible. The trick is to perform a uniform fitting of the data points by a plane.
-In addition, instead of specifying \emph{a priori} the number of data points, they are added
+In addition, instead of specifying the number of data points \emph{a priori}, they are added
 step by step, while a maximal admissible error is not reached. This threshold is not a user-defined
 parameter, but a known constant, because the data points follow a known uniform noise model
-in case of digital surfaces. 
-%In addition, due to the specific structure of the data points, we can expect to take profit
-%TODO utiliser prop arith et combi pour algo efficaces ?
+in case of digital surfaces. In 2D, methods based on digital straight segments (DSSs) follow
+this approach.
 
-\noindent\textbf{Parameter-free estimators.}
-In 2D, the set of maximal digital straight segments (DSSs) \cite{Feschet1999,Feschet2005} provides
-a parameter-free and multigrid-convergent tangent (and normal) estimator \cite{Lachaud2007}.
-This estimator preserves the inflexion points because maximal DSSs are closely related to local convexity \cite{Roussillon2011}
-and normal integration over the digital curve yields a multigrid-convergent length estimator \cite{Coeurjolly2004}. 
-In addition, asymptotic properties of maximal DSSs can be used to estimate the local amount of noise along the
-digital curve \cite{Kerautret2012}.  
+The set of maximal DSSs, \ie inextensible straight parts, can be computed by one scan of the
+digital curve \cite{Feschet1999,Feschet2005} and provides a parameter-free and multigrid-convergent
+tangent (and normal) estimator \cite{Lachaud2007}.
+This estimator preserves the inflexion points because maximal DSSs are closely related to
+local convexity \cite{Roussillon2011} and normal integration over the digital curve yields
+a multigrid-convergent length estimator \cite{Coeurjolly2004}. 
+In addition, asymptotic properties of maximal DSSs can be used to estimate the local amount
+of noise along the digital curve \cite{Kerautret2012}.  
 
 In higher dimension, to the best of our knowledge, only one parameter-free normal estimator
 has been proposed in 3D \cite{Lenoir1996,Tellier1999} and extended to nD \cite{Lachaud2003}.
-It is based on maximal DSSs on 2D slices.
-Maximal DSSs provide windows of adaptive size
+It is based on maximal DSSs on 2D slices. Maximal DSSs provide windows of adaptive size
 but the slicing truncates the geometric information and leads to
 an artificial spatial variability because two neighbor surfels only
 share one slice over two. 
@@ -267,16 +279,23 @@ because we must take into account the preprocessing cost to approximate the para
 and the cost of the original estimator without any optimization trick that takes profit of the neighboring
 computations with the same parameter value, as done in \cite{Lachaud2017}. 
 
-Finally, a set of digital plane segments (DPSs) that locally fits to the digital surface
-would overcome these limitations. The challenge is to efficiently recognize DPSs and to
-cover the whole digital surface by a relevant set of DPSs.
+Finally, another possible approach is to mimic the 2D tool box by computing the set of
+digital plane segments (DPSs) that locally fits to the digital surface. This approach
+has been used for surface area estimation \cite{Klette2001}, reversible polyhedrisation
+\cite{Sivignon2004} and normal estimation \cite{Charrier2011}.
+The challenge is to find how to scan the digital surface to efficiently recognize relevant DPSs. 
 
-\noindent\textbf{Recognition of digital plane segment.}
+\subsubsection{Digital plane segments: recognition and generation}
+
+\noindent\textbf{Recognition of digital plane segments.}
 A \emph{digital plane} is an infinite digital set that 
 consists of several consecutive and parallel layers of coplanar points. 
-It is defined by a (nonzero) normal $\vec{n} \in \Z^3$ and a position $\mu \in \Z$ as follows:  
-$\Plane{\mu}{\vec{n}} := \{ \vec{x} \in \Z^3 \ | \ \mu \leq \vec{x} \cdot \vec{n} < \mu + \|\vec{n}\|_1 \}$
-\cite{reveilles1991}.
+It is defined by a (nonzero) normal $\vec{n} \in \Z^3$ and a position $\mu \in \Z$ as follows
+\cite{reveilles1991}:  
+\begin{equation}
+  \label{eq:plane}
+\Plane{\mu}{\vec{n}} := \{ \vec{x} \in \Z^3 \ | \ \mu \leq \vec{x} \cdot \vec{n} < \mu + \|\vec{n}\|_1 \}.
+\end{equation}
 
 Given a finite digital set $\Set$, the \emph{recognition problem} consists in providing
 $\mu$ and $\vec{n}$ such that $\Set \subseteq \Plane{\mu}{\vec{n}}$ if any.
@@ -301,17 +320,21 @@ On the other hand, there exists fast geometrical algorithms but with higher theo
 
 Actually, the main challenge is not so much to recognize DPSs, but more to find which data points
 should be taken into account during the recognition process to obtain DPSs tangent to the digital
-surface.
+surface. In addition, as noted \cite{Charrier2011}, most inextensible digital planar sets are not
+characteristics of the local geometry of the shape and finding the smallest subset which covers
+the digital surface has been shown to be NP-complete \cite{Sivignon2009}.
+
 Segmentation methods usually make grow a point set from a seed by a breadth-first search according
 to some heuristics and decide whether the current set is a piece of digital plane or not
-\cite{Klette2001,Sivignon2004,Provot2009,Charrier2011}.
+(see for instance \cite{Klette2001} or \cite{Sivignon2004}). 
+%\cite{Provot2009} un peu different car parametre de bruit
 The results are however highly dependent on the chosen heuristics.   
-%\cite{Sivignon2009} combinatorial explosion of DPSs
 
 Until recently, artihmetic properties of digital planes did not help so much.
-Pionneering incremental recognition algorithms based on arithmetic properties \cite{Debled1994,Mesmoudi2002}
-are neither as easy-to-implement nor as fast as purely geometric ones, such as \cite{Gerard2005}.  
-The work of T. Fernique et V. Berth\'{e} \cite{Fernique2009}, 
+Pionneering incremental recognition algorithms based on arithmetic properties
+\cite{Debled1994,Mesmoudi2002} are neither as easy-to-implement nor as fast as
+purely geometric ones, such as \cite{Gerard2005}.  
+The work of V. Berth\'{e} and T. Fernique \cite{Fernique2009,Berthe2011}, 
 based on multidimensional continued fractions and desubstitution on words,
 is quite interesting from a theoretical point of view. However, their algorithm,
 which reduces a piece of digital surface until no transformation is possible,
@@ -322,12 +345,8 @@ at the last step.
 \noindent\textbf{Preliminary results: plane-probing algorithms.}
 An opportunity to make a breakthrough in this issue is the recent development
 by the principal investigator and its collaborators of \emph{plane-probing
-algorithms} \cite{LPRTCS2016, LPRDGCI2016, LPRJMIV2017}. These algorithms decide
-on-the-fly how to probe the digital surface and make grow a piece of digital plane,
-which is tangent by construction. The growth direction is given by both arithmetic
-and geometric properties.
-
-More formally, given a digital plane $\Plane{\mu}{\vec{n}} \subset Z^3$
+algorithms} \cite{LPRTCS2016, LPRDGCI2016, LPRJMIV2017}. 
+Given a digital plane $\Plane{\mu}{\vec{n}} \subset Z^3$
 and a starting point $\vec{p} \in \Set$, 
 a plane-probing algorithm computes the parameters of a digital plane $\Plane{\mu'}{\vec{n}'}$
 containing $\vec{p}$ by sparsely probing $\Plane{\mu}{\vec{n}}$ with the predicate
@@ -335,6 +354,9 @@ containing $\vec{p}$ by sparsely probing $\Plane{\mu}{\vec{n}}$ with the predica
 and $\Plane{\mu'}{\vec{n}'}$ are expected to be equal when the algorithm terminates.
 %for any $\vec{p} \in \Plane{\mu}{\vec{n}}$. 
 
+What makes plane-probing algorithms promising is that they decide on-the-fly how
+to probe the digital surface and make grow a piece of digital plane, which is
+tangent by construction. 
 The first algorithm of this kind has been proposed in \cite{LPRTCS2016}.
 Its principle is to deform an initial unit tetrahedron based at the starting point
 with only unimodular transformations. Each transformation is decided by looking
@@ -348,7 +370,7 @@ position in the plane and is thus parallel to $\UpperPlane{\mu}{\vec{n}}$.
 New plane-probing algorithms have been proposed in \cite{LPRDGCI2016, LPRJMIV2017}. 
 They also iteratively deform an initial tetrahedron and stop when one face is
 parallel to $\UpperPlane{\mu}{\vec{n}}$. 
-However they differ from our first work on several aspects.  %as illustrated on \RefFig{fig:illustration:algo}. 
+However they differ from the first work on several aspects.  %as illustrated on \RefFig{fig:illustration:algo}. 
 First, they are simpler, because they repeat one simple operation instead
 of several possible transformations depending on the current onfiguration
 as in \cite{LPRTCS2016}.  
@@ -361,11 +383,13 @@ too much elongated during the computation.
 %surface
 In addition, \cite{LPRJMIV2017} show how to use these algorithms
 for digital surface analysis. In this preliminary work, one drawback is
-the processing of non-convex parts that requires to associate a piece
-of digital plane to the tetrahedron by discretizing its triangular facet
-not incident to the fixed point. Generating a relevant piece of digital plane
-in the course of the computation may be a neater and more efficient
-solution.  
+the processing of non-planar parts, especially non-convex parts. This case
+requires to associate a piece of digital plane to the tetrahedron.
+
+%% by discretizing its triangular facet
+%% not incident to the fixed point. Generating a relevant piece of digital plane
+%% in the course of the computation may be a neater and more efficient
+%% solution.  
 
 %% Although it is a preliminary work with
 %% several drawbacks that we expect to overcome in this project, some fall-back
@@ -381,19 +405,79 @@ solution.
 %% when the algorithm terminates. This conjecture is not proved yet and it is one of our
 %% future work to prove it.
 
-%generation d'un motif
-%substitution methode generale
-\noindent\textbf{Discretization and pattern generation.} TODO
+\noindent\textbf{Discretization and generation.}
+%generation de plans
+%% Due to the analytical definition of digital plane (see \Eq{eq:plane}), it is
+%% trivial to generate an arbitrary piece of digital plane. Indeed, it is enough to scan all
+%% the digital point of a given domain and for each of them to check whether
+%% it belongs to the digital plane or not. However the topological and
+%% arithmetical properties of standard digital planes defined in \Eq{eq:plane}
+%% make generation algorithms more efficient, using breadth-first
+%% traversal and incremental computations.
+Due to the analytical definition of digital plane, its topological and
+arithmetical properties, we can efficiently generate an arbitrary piece
+of digital plane using breadth-first traversal and incremental computations.
+However, if the piece of digital plane is required to be projected into a
+given polygon or simply a triangle as in \cite{LPRJMIV2017}, this approach
+is not always possible, because acute angles can make the digital set disconnected. 
+
+%discretisation de polygone en 3D
+The standard analytical model provides a consistent way to discretize a $m$-simplex
+in $n$D with topological guarentees, \ie into a $(n-1)$-connected, tunnel-free
+and bubble-free point set \cite{Andres2003}. This model has been successfully
+used for reversible polyhedrisation by Sivignon \etal \cite{Sivignon2004},
+because they precisely find a way of building a polyhedron that can be
+discretized into the input 3D volume according to this model.
+%The resulting polyhedron has some very small facets and its vertices have rational coordinates.
+In the framework of \cite{LPRJMIV2017}, this model, which generates a point set
+centered around the $m$-simplex, requires to shift the triangle by half of the
+plane thickness.
+
+However, plane-probing algorithms allow to use totally different generation algorithms
+based on multidimensional continued fractions (MCF), \eg \cite{Fernique2009,Jamet2016}. 
+They indeed generate a sequence of unimodular matrices, each one mapping a tetrahedron to
+the next one, just as MCF algorithms generate a sequence of matrices, each one mapping
+a vector to the next one. As a result, we can either adopt a translation-union approach \cite{Jamet2016}
+or use (dual) substitutions \cite{Fernique2009} in order to generate a piece
+of digital plane whose geometry follows the matrix sequence. The topological and geometrical
+properties of such a piece of digital plane is unknown and should be investigated. 
+
+\todo{image for matrix sequence ?}
+
+%TODO points/tuiles ?
 
 
 \subsection{Methodology and risk management}
 
 \Comments{Describe the methods and technical decisions, risks and fall-back solutions envisaged.}
 
-%methodes: 
+
 %plane-probing algorithms sont une bonne approche pour etre tangent, local, sans parametre,
+This project aims at developing a theoretical and practical framework for the automatic
+analysis of digital surfaces. We believe that plane-probing algorithms give the right
+direction to follow, because they provide a way to obtain a relevant piece of digital
+plane that fits to the digital surface and a normal estimation without any parameter. 
+
+The preliminary works \cite{LPRTCS2016, LPRDGCI2016, LPRJMIV2017}
+currently suffer some limitations, but we already know several ways of coping with
+these problems. More details will be given in the next section.
+
 %substitution bonne approche pour generer un motif au cours de l'algorithme
+One issue arises when processing non-planar parts, especially non-convex ones.
+In such cases, a sparse probing is not enough to correctly identify the underlying geometry.
+We believe that generating a piece of digital plane in the course of the computation will
+not only solve this problem but also give new insights on the combinatorial structure
+of DPSs. This knowledge will be useful both algorithm optimization and for asymptotic
+analysis of linear parts.   
+
 %lien avec env. conv. bonne approche pour preuve estimateur et analyse multi-echelle
+TO BE CONTINUED
+
+
+%\Comments{Le risque est réduit par les travaux exploratoires des participants au projet.}
+
+%methodes: 
+%
 
 %risques:
 %algos pas parfaits: il en existe actuellement un 
