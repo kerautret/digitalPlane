@@ -1,16 +1,11 @@
 \documentclass[11pt]{article}
-
+%\documentclass[a4paper,11pt]{article}
 \usepackage[a4paper, top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
 %\usepackage[utf8]{inputenc}
 \usepackage{eurosym}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
-\usepackage{graphicx}
-\usepackage{wrapfig}
-\usepackage{subfig}
-\graphicspath{{Images/}}
-\usepackage[font={small}]{caption}
 
 %---------------------------------- refs ---------------------------
 \usepackage[backend=bibtex,sorting=none]{biblatex}
@@ -26,6 +21,17 @@
 \newcommand{\TM}[1]{\textcolor{black}{\underline{#1}}} %team member in references
 \renewcommand*{\bibfont}{\footnotesize}
 \addbibresource{mybibliography.bib}
+
+%---------------------------------- img ---------------------------
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{subfig}
+\graphicspath{{Images/}}
+%
+\usepackage[font={small},margin=1cm]{caption}
+\usepackage{tikz}
+\usetikzlibrary{spy}
+
 %---------------------------------- misc ---------------------------
 \usepackage{todonotes}
 %---------------------------------- head ---------------------------

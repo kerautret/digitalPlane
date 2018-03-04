@@ -26,10 +26,28 @@ normal vector, distance to boundary, coverage of the inner and outer incident vo
 (see fig.~\ref{fig:2D} for a 2D illustration).  
 
 \begin{figure}[hb]
- \includegraphics[height=0.2\textheight]{snow-compositionv2.png} %width=0.55\textwidth
- \caption{(a) ``ice-air'' interface in a micro-tomographic image of
-   snow\protect\footnotemark~with a closer view to a local normal vector
-   estimated by computing a relevant facet.} 
+  \centering
+%
+%\subfloat[]{ \includegraphics[height=0.2\textheight]{INH5_512_0}}
+%
+\subfloat[]{
+\begin{tikzpicture}[spy using outlines={circle,yellow,magnification=2.5,size=2.8cm,connect spies}]
+\node {\includegraphics[width=0.45\textwidth]{closeup-normals-3710x2112}};
+\spy on (1.2,-0.2) in node [left] at (-0.95,-0.75);
+\end{tikzpicture}
+}
+%
+%
+\subfloat[]{
+\begin{tikzpicture}[spy using outlines={circle,yellow,magnification=2.5,size=2.8cm,connect spies}]
+\node {\includegraphics[width=0.45\textwidth]{closeup-facets-3710x2112}};
+\spy on (1.2,-0.2) in node [left] at (-0.95,-0.75);
+\end{tikzpicture}
+}
+%
+\caption{``ice-air'' interface in a micro-tomographic image of
+  snow\protect\footnotemark. Local normal vectors are estimated
+  at each corner (a) by computing relevant facets (b).} 
 \label{fig:snow} 
 \end{figure}
 \footnotetext{obtained by the 3SR Lab and CEN/CNRM - GAME URA 1357/M\'{e}t\'{e}o-France - CNRS, 
@@ -72,17 +90,6 @@ distance to boundary, voxel coverage (fig.~\ref{fig:2D}). We expect to derive su
 the above-mentionned plane-probing algorithm and provide a theoretical evaluation of their accuracy
 with respect to resolution.  
 %(WP2).
-
-\begin{figure}[hb]
-  \centering
-\subfloat[]{ \includegraphics[width=0.17\textwidth,page=1]{square.pdf} } \hspace{0.05\textwidth}
-\subfloat[]{ \includegraphics[width=0.17\textwidth,page=2]{square.pdf} } \hspace{0.05\textwidth}
-\subfloat[]{ \includegraphics[width=0.17\textwidth,page=3]{square.pdf} } \hspace{0.05\textwidth}
-\subfloat[]{ \includegraphics[width=0.17\textwidth,page=4]{square.pdf} } 
- \caption{2D illustration of a digital surface: voxels are big squares whose center is depicted by a black (resp. white) disk if it lies inside (resp. outside) the volume; surfels are elongated dark rectangles. We want to estimate a relevant normal vector at a given surfel (b), but also locally reconstruct a boundary perpendicular to this normal vector in order to derive distance and coverage estimations (c-d).} 
-\label{fig:2D} 
-\end{figure}
-
  \item[(G3)]
 The third goal is to provide a method and a tool for an automatic and \emph{multiscale} analysis of digital surfaces,
 based on the number or the size of the computed facets for several subsampled versions of the input 3D volume. 
@@ -90,6 +97,16 @@ We expect to develop a tool that provides, without any parameter, the scale at w
 this tool, we may add other features like a 3D normal estimator robust to noise.  
 %(WP3). 
 \end{enumerate}
+
+\begin{figure}[hbt]
+  \centering
+\subfloat[]{ \includegraphics[width=0.15\textwidth,page=1]{square.pdf} } \hspace{0.05\textwidth}
+\subfloat[]{ \includegraphics[width=0.15\textwidth,page=2]{square.pdf} } \hspace{0.05\textwidth}
+\subfloat[]{ \includegraphics[width=0.15\textwidth,page=3]{square.pdf} } \hspace{0.05\textwidth}
+\subfloat[]{ \includegraphics[width=0.15\textwidth,page=4]{square.pdf} } 
+ \caption{2D illustration of a digital surface: voxels are big squares whose center is depicted by a black (resp. white) disk if it lies inside (resp. outside) the volume; surfels are elongated dark rectangles. We want to estimate a relevant normal vector at a given surfel (b), but also locally reconstruct a boundary perpendicular to this normal vector in order to derive distance and coverage estimations (c-d).} 
+\label{fig:2D} 
+\end{figure}
 
  % at T+24 ?
 New algorithms, theoretical results and experimental studies will be gathered in papers submitted to
