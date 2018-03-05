@@ -1,3 +1,10 @@
+@string{TRO={\mkbibbold{T. Roussillon}}}
+@string{JOL={\mkbibbold{J-O. Lachaud}}}
+@string{DCO={\mkbibbold{D. Coeurjolly}}}
+@string{BKE={\mkbibbold{B. Kerautret}}}
+@string{SLA={\mkbibbold{S. Labb\'{e}}}}
+
+
 @inproceedings{Alliez2007,
  author = {Alliez, P. and Cohen-Steiner, D. and Tong, Y. and Desbrun, M.},
  title = {Voronoi-based Variational Reconstruction of Unoriented Point Sets},
@@ -190,6 +197,21 @@ title = {{A comparative evaluation of length estimators of digital curves.}},
 url = {http://www.ncbi.nlm.nih.gov/pubmed/15376899},
 volume = {26},
 year = {2004}
+}
+
+@InProceedings{Lachaud2012,
+author="Lachaud, Jacques-Olivier",
+editor="K{\"o}the, Ullrich
+and Montanvert, Annick
+and Soille, Pierre",
+title="Digital Shape Analysis with Maximal Segments",
+booktitle="Applications of Discrete Geometry and Mathematical Morphology",
+year="2012",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="14--27",
+abstract="We show in this paper how a digital shape can be efficiently analyzed through the maximal segments defined along its digital contour. They are efficiently computable. They can be used to prove the multigrid convergence of several geometric estimators. Their asymptotic properties can be used to estimate the local amount of noise along the shape, through a multiscale analysis.",
+isbn="978-3-642-32313-3"
 }
 
 @article{Roussillon2011,
@@ -447,7 +469,7 @@ volume = {26},
 year = {2009}
 }
 @inproceedings{Lachaud2003,
-author = {\TM{J-O. Lachaud} and Vialard, A.},
+author = JOL#{ and Vialard, A.},
 booktitle = {Proc. Discrete Geometry for Computer Imagery},
 pages = {434--443},
 title = {\href{https://www.lama.univ-savoie.fr/~lachaud/References/.../Lachaud03c-paper.ps.gz}{Geometric Measures on Arbitrary Dimensional Digital Surfaces}},
@@ -575,7 +597,7 @@ keywords = "Digital planes, Digital geometry, Arithmetic geometry, 2D array peri
 }
 
 @article{Sivignon2009,
-author = {Sivignon, I. and \TM{D. Coeurjolly}},
+author = {Sivignon, I. and } #DCO,
 journal = {Discrete Applied Mathematics},
 number = {3},
 pages = {558--570},
@@ -584,7 +606,7 @@ volume = {157},
 year = {2009}
 }
 @inproceedings{Charrier2011,
- author = {Charrier, E. and \TM{J-O. Lachaud}},
+ author = {Charrier, E. and }#JOL,
  title = {\href{http://www.lama.univ-savoie.fr/~lachaud/References/Charrier:2011-iwcia/Charrier:2011-iwcia-paper.pdf}{Maximal Planes and Multiscale Tangential Cover of 3D Digital Objects}},
  booktitle = {Proc. International Workshop on Combinatorial Image Analysis},
  year = {2011},
@@ -633,14 +655,14 @@ isbn="978-3-540-45986-6"
 }
 
 @inproceedings{LPRDGCI2016,
-author = {\TM{J-O. Lachaud} and Proven{\c{c}}al, X. and \TM{T. Roussillon}},
+author = JOL#{ and Proven{\c{c}}al, X. and }#TRO,
 booktitle = {Proc. Discrete Geometry for Computer Imagery.},
 pages = {194--205},
 title = {\href{http://liris.cnrs.fr/tristan.roussillon/articles/LPR-DGCI2016.pdf}{Computation of the Normal Vector to a Digital Plane by Sampling Significant Points}},
-year = {2016}
+year = {2016},
 }
 @article{LPRJMIV2017,
-author = {\TM{J-O. Lachaud} and Proven{\c{c}}al, X. and \TM{T. Roussillon}},
+author = JOL#{ and Proven{\c{c}}al, X. and }#TRO,
 journal = {J. Math. Imaging Vis.}, 
 number = {1},
 pages = {23--39},
@@ -649,14 +671,14 @@ volume = {59},
 year = {2017}
 }
 @inproceedings{Labbe2011,
-author = {Berth{\'{e}}, V. and \TM{S. Labb{\'{e}}}},
+author = {Berth{\'{e}}, V. and }#SLA,
 booktitle = {Proc. Discrete Geometry for Computer Imagery},
 pages = {47--58},
 title = {\href{http://www.slabbe.org/Publications/2011-DGCI-3d-lines.pdf}{An Arithmetic and Combinatorial Approach to three-dimensional Discrete Lines}},
 year = {2011}
 }
 @article{Labbe2015,
-author = {\TM{S. Labb{\'{e}}} and Reutenauer, C.},
+author = SLA#{ and Reutenauer, C.},
 journal = {Discrete and Computational Geometry},
 number = {1},
 pages = {152--181},
@@ -683,7 +705,7 @@ year = {2016}
 }
 @article{Kerautret2012,
   TITLE = {\href{http://ieeexplore.ieee.org/document/6138862/?reload=true}{Meaningful Scales Detection along Digital Contours for Unsupervised Local Noise Estimation}},
-  AUTHOR = {\TM{B. Kerautret} and \TM{J-O. Lachaud}},
+  AUTHOR = BKE# { and } #JOL,
   JOURNAL = {{IEEE Trans. Pattern Anal. Mach. Intell.}},  
   VOLUME = {34},
   NUMBER = {12},
@@ -713,7 +735,7 @@ volume = {311},
 year = {2011}
 }
 @article{LPRTCS2016,
-author = {\TM{J-O. Lachaud} and Proven{\c{c}}al, X. and \TM{T. Roussillon}},
+author = JOL#{ and Proven{\c{c}}al, X. and }#TRO,
 journal = {Theoretical Computer Science},
 title = {\href{http://liris.cnrs.fr/tristan.roussillon/articles/LPR-TCS2016.pdf}{An output-sensitive algorithm to compute the normal vector of a digital plane}},
 volume = {624},
@@ -721,7 +743,7 @@ year = {2016}
 }
 
 @inbook{Coeurjolly2012,
-author = {\TM{D. Coeurjolly} and \TM{J-O. Lachaud} and \TM{T. Roussillon}},
+author = DCO# { and } #JOL# { and } #TRO,
 booktitle = {\href{http://liris.cnrs.fr/tristan.roussillon/com/estimation.pdf}{Digital Geometry Algorithms: Theoretical Foundations and Applications to Computational Imaging}},
 pages = {395--424},
 title = {{Multigrid Convergence of Discrete Geometric Estimators}},

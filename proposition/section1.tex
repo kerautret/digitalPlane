@@ -2,6 +2,7 @@
 \label{sec:context}
 
 \subsection{Objectives and scientific hypotheses}
+\label{sec:goals}
 
 \Comments{Present the objectives and the research hypotheses ; present the scientific and technical barriers to be lifted ; present the expected results; if applicable describe any final products developed.}
 
@@ -125,6 +126,7 @@ top venues or in peer-reviewed international journals. Plane-probing algorithms 
 %Since there are so many perspectives and paths to follow, this project needs to strengthen a team of experts by full-time workers in order to make the best of them. 
 
 \subsection{Originality and relevance in relation to the state of the art}
+\label{sec:art}
 
 \Comments{Emphasise the ambitious nature of the proposal and the novelty of the research in relation to the state of the art ; show the possible contributions of project partners to the state of the art ; present any preliminary results. In the case of a project proposal following up on previous project(s) already funded by ANR or by another body, provide a summary of the results achieved and clearly describe the new issues raised and the new objectives set out in the light of the earlier project.}
 
@@ -198,9 +200,12 @@ the higher the resolution, the more accurate the estimator.
 %% the smaller the grid step, the more accurate the estimator. 
 
 \subsubsection{Normal estimation on point clouds, meshes and digital surfaces}
+\label{sec:estim:all}
+
+TODO: dire quel est l'interet d'estimer des normales ?
 
 \noindent\textbf{Fitting.}
-Hoppe \etal estimate the normal at a given data point by computing
+\citeauthor*{Hoppe1992} estimate the normal at a given data point by computing
 the least squares best fitting plane to a point set within a neighborhood
 around the point of interest \cite{Hoppe1992}.
 Other fitting surfaces have been used too, such as jets, \ie truncated Taylor expansion
@@ -221,23 +226,23 @@ even if some heuristics are proposed to select it automatically \cite{Hoppe1992,
 
 \noindent\textbf{Voronoi diagram.}
 Instead of approximating the tangent space, another familly of methods focuses on the
-Voronoi diagram to estimate at best the orthogonal space. Amenta \etal first use the
+Voronoi diagram to estimate at best the orthogonal space. \citeauthor*{Amenta1999} first use the
 furthest vertex of the Voronoi cell to estimate the normals of point clouds \cite{Amenta1999}.
-In order to get more stable estimates, Alliez \etal propose to apply linear fitting
+In order to get more stable estimates, \citeauthor*{Alliez2007} propose to apply linear fitting
 to the Voronoi cell or to the union of Voronoi cells into a neighborhood \cite{Alliez2007}. 
-M\'{e}rigot \etal propose an improvement %, called Voronoi Covariance Measure (VCM),
+\citeauthor*{Merigot2011} propose an improvement %, called Voronoi Covariance Measure (VCM),
 by taking a weighted average of covariance matrices of Voronoi cells instead of
 taking the covariance matrix of their union \cite{Merigot2011}. In their method,
 only the intersection between the Voronoi diagram and a ball around the data point
 are taken into account in order to get purely local information about the surface geometry.
-A digital variant has been proposed by Cuel \etal \cite{Cuel2015}. 
+A digital variant has been proposed by \citeauthor*{Cuel2015} \cite{Cuel2015}. 
 
 \noindent\textbf{Integral invariants.}
 In the mesh case, another method sums up the surface geometry within a ball by 
 computing integrals over the intersection between the ball and the volume
 bounded by the mesh \cite{Pottmann2009}. The covariance matrix of the intersection set 
 provides a way to estimate principal curvatures, principal directions and normal direction.
-A digital variant has been proposed by Lachaud \etal \cite{Lachaud2017}.
+A digital variant has been proposed by \citeauthor*{Lachaud2017} \cite{Lachaud2017}.
 
 Note that the ball radius is a user-defined parameter in these methods. The above-mentionned
 digital variants \cite{Cuel2015,Lachaud2017} are multigrid-convergent for digitization
@@ -258,6 +263,7 @@ Maximal vote provides the normal estimate. However, their method has many input 
 the first of which is the size or radius of the neighborhood. 
 
 \subsubsection{Parameter-free normal estimators on digital surfaces}
+\label{sec:estim:ds}
 
 All previous methods require at least one parameter that controls the size of the neighborhood.
 On the other hand, the specificity of digital surfaces makes the development of parameter-free
@@ -302,7 +308,10 @@ has been used for surface area estimation \cite{Klette2001}, reversible polyhedr
 \cite{Sivignon2004} and normal estimation \cite{Charrier2011}.
 The challenge is to find how to scan the digital surface to efficiently recognize relevant DPSs. 
 
+TODO: discuter \cite{Charrier2011} et en donner des limitations ?
+
 \subsubsection{Digital plane segments: recognition and generation}
+\label{sec:dps}
 
 \noindent\textbf{Recognition of digital plane segments.}
 A \emph{digital plane} is an infinite digital set that 
@@ -327,10 +336,6 @@ to implement and are in all probability slow in practive due to a high constant 
 \cite{Buzer2003}).
 On the other hand, there exists fast geometrical algorithms but with higher theoretical bounds,
 \eg \cite{Gerard2005, Charrier2008, Veelaert2012}.
-%% the chord algorithm by Gérard \etal \cite{Gerard2005}, 
-%% the COBA algorithm by Charrier and Buzer \cite{Charrier2008}
-%% the combinatorial algorithm of Veelaert \cite{Veelaert2012}.
-
 %\cite{Gerard2009} preimage
 %\cite{Stojmenovic1991} separation
 %Provot2006, largeur
@@ -397,6 +402,8 @@ tetrahedron is thus better controlled than in \cite{LPRTCS2016}.
 Last, a geometric criterion is used so that the evolving tetrahedron is not
 too much elongated during the computation.  
 
+TODO: image d'illustration ?
+
 %surface
 In addition, \cite{LPRJMIV2017} show how to use these algorithms
 for digital surface analysis. In this preliminary work, one drawback is
@@ -442,7 +449,7 @@ is not always possible, because acute angles can make the digital set disconnect
 The standard analytical model provides a consistent way to discretize a $m$-simplex
 in $n$D with topological guarentees, \ie into a $(n-1)$-connected, tunnel-free
 and bubble-free point set \cite{Andres2003}. This model has been successfully
-used for reversible polyhedrisation by Sivignon \etal \cite{Sivignon2004},
+used for reversible polyhedrisation by \citeauthor*{Sivignon2004} \cite{Sivignon2004},
 because they precisely find a way of building a polyhedron that can be
 discretized into the input 3D volume according to this model.
 %The resulting polyhedron has some very small facets and its vertices have rational coordinates.
@@ -459,16 +466,21 @@ or use (dual) substitutions \cite{Fernique2009} in order to generate a piece
 of digital plane whose geometry follows the matrix sequence. The topological and geometrical
 properties of such a piece of digital plane is unknown and should be investigated. 
 
-\todo{image for matrix sequence ?}
+TODO: image d'illustration avec matrix sequence ?
 
 %TODO points/tuiles ?
 
 
 \subsection{Methodology and risk management}
+\label{sec:methodo}
 
 \Comments{Describe the methods and technical decisions, risks and fall-back solutions envisaged.}
 
+In this section, based on the previous discussion, a short overview of
+the project methodology is given. The main risks are highlighted (more
+details will be given in the next section).  
 
+\noindent\textbf{Methodology overview.}
 %plane-probing algorithms sont une bonne approche pour etre tangent, local, sans parametre,
 This project aims at developing a theoretical and practical framework for the automatic
 analysis of digital surfaces. We believe that plane-probing algorithms give the right
@@ -481,27 +493,75 @@ these problems. More details will be given in the next section.
 
 %substitution bonne approche pour generer un motif au cours de l'algorithme
 One issue arises when processing non-planar parts, especially non-convex ones.
-In such cases, a sparse probing is not enough to correctly identify the underlying geometry.
+In such cases, a sparse probing is not enough to correctly identify the underlying geometry
+as reported in \cite{LPRJMIV2017}.
 We believe that generating a piece of digital plane in the course of the computation will
 not only solve this problem but also give new insights on the combinatorial structure
-of DPSs. This knowledge will be useful both algorithm optimization and for asymptotic
-analysis of linear parts.   
+of DPSs.
+%This knowledge will be useful for both algorithm optimization
+%and asymptotic analysis of linear parts.   
 
 %lien avec env. conv. bonne approche pour preuve estimateur et analyse multi-echelle
-TO BE CONTINUED
-
-
-%\Comments{Le risque est réduit par les travaux exploratoires des participants au projet.}
-
-%methodes: 
-%
-
-%risques:
+An important achievement will be to derive a multigrid-convergent normal estimator.
+Another one will be to develop an automatic tool that selects a locally noise-free scale.
+Both achievements will be based on an asymptotic analysis of linear parts. Such analysis
+will require a good understanding of the combinatorial structure of DPSs but also a
+good understanding of the link between facets computed by plane-probing algorithms and
+facets of (relative) convex hull. This approach has been adopted with success for digital
+curves \cite{Lachaud2012} and we believe that it can be similarly applied to digital
+surfaces with the help of plane-probing algorithms.
+ 
+\noindent\textbf{Risk management.}
+Preliminary works have considerably reduced the project risks but have not eliminated them.
+Main risks are classified below by goal (see \sect{sec:goals}):
+\begin{enumerate}
+  \item[(G1)]
 %algos pas parfaits: il en existe actuellement un 
-%\Comments{Le risque est réduit par les travaux exploratoires des participants au projet.}
 %motif genere pas bons:
  %- on les genere apres coup en faisant une sorte de croissance de regions
  %- on traite les concavites avec un critere de separation
+First, we may struggle to find the ultimate plane-probing algorithm or fail to do so.
+If it happens, we will resort to the \emph{R-algorithm} \cite{LPRJMIV2017}, which
+has interesting properties related to the locality of the probing, or a combination
+of different but complementary algorithms to make the best of them as suggested in
+\cite{LPRJMIV2017}. We will lack provable properties but we will be able to still
+develop practical algorithms in order to derive a parameter-free normal estimator.
+%general approach
+For instance, we can adopt the approach of \citeauthor*{Charrier2011} \cite{Charrier2011}
+where the initial isotropic neighborhoods are replaced by the digitization of the facet
+returned by the R-Algorithm at each corner, but leave as they are, otherwise. Extending all
+these pieces, we obtain a tangential cover that is less sensitive to the initial step and
+from which we can deduce an estimation of the normal vector field.  
+\item[(G2)]
 %l'estimateur n'est pas convergent: peu probable, mais si ça arrive c'est que les motifs sont trop petits, il ne grandisse pas assez vite par rapport au pas h, dans ce cas on agrandit le motif jusqu'à obtenir m surfels, ou on agrandit jusqu'à avoir une épaisseur <= h, ou on combine des motifs voisins.
-
-
+Another risk is that the derived normal estimator is not multigrid-convergent.
+An important condition for such a normal estimator to be multigrid-convergent
+is that computed facets get smaller as the grid step $h$ tends toward zero,
+but not too quickly so that the uniform noise of the point positions,
+which is in $O(h)$, becomes negligible with respect to the facet size. 
+%% This may happen if the computed facets get smaller too quickly with respect to the grid step $h$,
+%% as $h$ tends toward zero, because the uniform noise in the position of the data points
+%% is not negligible before the facet size. 
+If this is not the case, at least two solutions can be envisaged. 
+We can simply use our method to automatically set the input size
+parameter of an existing multigrid-convergent method, as discussed in \sect{sec:estim:ds}.
+Otherwise, we can discretize the computed facet (see \sect{sec:dps}) and make grow these
+DPSs using a recognition algorithm where the maximal admissible error (or thickness) can
+be controlled such as \cite{Charrier2008}. Setting this parameter to a constant greater
+than $\sqrt{3}$ (used for standard digital plane as defined in \Eq{eq:plane}),
+\eg $2\sqrt{3}$, might be enough to get a better asymptotic behavior. These fall-back
+solutions will achieve multigrid-convergence without any parameter but at the price of
+a higher computational cost and a lower accuracy in the localization of sharp features. 
+%citer these muhamad ?
+\item[(G3)]
+%multiscale analysis
+A multiscale analysis of digital surfaces also depends on the asymptotics of linear parts.
+If the convergence rate is not as much important as in the previous item, it must be slower
+than $O(h)$ to be able to distinguish noise or small-scale feature from smooth parts.
+In this case, we cannot use thicker pieces of digital surfaces as explained above, since
+small noise will be not detected. However, we can observe the length of the maximal DSSs
+along all the 2D slices of the 3D volume. The objections raised in \sect{sec:estim:ds} for
+normal estimation just not relevant for this application. Due to the previous results in 2D,
+\cite{Kerautret2012}, we can expect similar results in 3D with this approach in spite of a
+trickier implementation.  
+\end{enumerate}

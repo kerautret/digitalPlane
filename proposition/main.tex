@@ -8,14 +8,17 @@
 \usepackage{amsthm}
 
 %---------------------------------- refs ---------------------------
-\usepackage[backend=bibtex,sorting=none]{biblatex}
+\usepackage[backend=bibtex,citestyle=alphabetic,bibstyle=alphabetic]{biblatex}
+%citestyle=numeric => numero
+%citestyle=alphabetic => initiales des auteurs
+%citestyle=authoryear => tous les auteurs + annee
 \usepackage{multicol}
 \usepackage{hyperref}
 \hypersetup{
   colorlinks   = true, %Colours links instead of ugly boxes
   urlcolor     = blue, %Colour for external hyperlinks
   linkcolor    = blue, %Colour of internal links
-  citecolor   = red %Colour of citations
+  citecolor   = blue %Colour of citations
 }
 \usepackage[usenames, dvipsnames]{color}
 \newcommand{\TM}[1]{\textcolor{black}{\underline{#1}}} %team member in references
@@ -62,6 +65,8 @@
 %----------------------------------- math notation ----------------------
 \newtheorem{Definition}{Definition}
 \newcommand{\Eq}[1]{Eq.~\ref{#1}}
+\newcommand{\sect}[1]{sec.~\ref{#1}}
+
 \newcommand{\Z}{{\ensuremath\mathbb{Z}}}
 \newcommand{\R}{{\ensuremath\mathbb{R}}}
 \newcommand{\Dig}{{\ensuremath\mathtt{D}_h}}
@@ -145,7 +150,7 @@ LACHAUD Jacques-Olivier & Pr & LAMA & collaborator WP 0,2-3 & 6 \\ \hline \hline
 
 
 %one column
-\printbibliography[title={References (team members are underlined, titles are clickable)}]
+\printbibliography[title={References (team members are underlined)}]
 %two columns
 %\printbibheading[title={References (team members are underlined, titles are clickable)}]
 %\vspace{-0.5cm}
