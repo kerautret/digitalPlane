@@ -1,7 +1,7 @@
 \section{Project organisation and means implemented}
 \label{sec:org}
 
-\subsection{a. Scientific coordinator and its consortium / its team}
+\subsection{Scientific coordinator and its team}
 
 \Comments{
   In the case of a Young Researchers Project (JCJC), 
@@ -25,74 +25,187 @@ The project will also involve specialists in digital geometry and combinatorics 
 \centering
 \begin{tabular}{|ccclcc|}
 \hline
-Collaborator & Position & Lab & Expertise & WP & PM \\ \hline
+Collaborator & Position & Lab & Expertise \\ \hline
 \hline
-\textbf{D. Coeurjolly} & DR & LIRIS & digital and comput. geometry, geometry processing & 2-3 & 5 \\ \hline
-\textbf{B. Kerautret} & MdC & LORIA & digital geometry, image analysis & 3 & 12 \\ \hline
-\textbf{S. Labb\'{e}} & CR & LABRI & multidim. cont. frac. alg., combinatorics on words & 0-1 & 12 \\ \hline
-\textbf{J-O. Lachaud} & Pr & LAMA & digital geometry and topology, image analysis & 0,2-3 & 6 \\ \hline
+\textbf{D. Coeurjolly} & DR & LIRIS & digital and comput. geometry, geometry processing \\ \hline
+\textbf{B. Kerautret} & MdC & LORIA & digital geometry, image analysis \\ \hline
+\textbf{S. Labb\'{e}} & CR & LABRI & multidim. cont. frac. alg., combinatorics on words \\ \hline
+\textbf{J-O. Lachaud} & Pr & LAMA & digital geometry and topology, image analysis \\ \hline
 \hline
 \end{tabular}
 \normalsize
 \end{table}
+%% \begin{table}[h]
+%% \small
+%% \centering
+%% \begin{tabular}{|ccclcc|}
+%% \hline
+%% Collaborator & Position & Lab & Expertise & WP & PM \\ \hline
+%% \hline
+%% \textbf{D. Coeurjolly} & DR & LIRIS & digital and comput. geometry, geometry processing & 2-3 & 5 \\ \hline
+%% \textbf{B. Kerautret} & MdC & LORIA & digital geometry, image analysis & 3 & 12 \\ \hline
+%% \textbf{S. Labb\'{e}} & CR & LABRI & multidim. cont. frac. alg., combinatorics on words & 0-1 & 12 \\ \hline
+%% \textbf{J-O. Lachaud} & Pr & LAMA & digital geometry and topology, image analysis & 0,2-3 & 6 \\ \hline
+%% \hline
+%% \end{tabular}
+%% \normalsize
+%% \end{table}
 
-%\textbf{D. Coeurjolly} 
-%\textbf{B. Kerautret} 
-%\textbf{S. Labb\'{e}} 
-%\textbf{J-O. Lachaud}
+TODO qqs phrases de presentations pour chacun ?
+\textbf{D. Coeurjolly} 
+\textbf{B. Kerautret} 
+\textbf{S. Labb\'{e}} 
+\textbf{J-O. Lachaud}
 
 This team gathers all the expertise required to ensure the success of the project.
 Furthermore, this project will let the team members maintaining their lead in digital surface analysis 
 and more generally in digital geometry and combinatorics on words for digital imagery. 
 
 
-\subsection{b. Means of achieving the objectives}
+\subsection{Means of achieving the objectives}
+
+In this section, we first detail and justify the scientific programme with regard to the project objectives.
+We then describe the requested means. 
+
+\subsubsection{Scientific programme}
+\label{sec:wp}
 
 \Comments{Set out the scientific programme and justify the work programme's task breakdown with regard to the objectives being pursued.
 For each task, describe the objectives, the work programme, deliverables, partners' contributions, methods and technical decisions, risks, and fall-back solutions. 
 Illustrate the programme with a Gantt chart. 
-
-Describe the means – those previously available and those requested - to achieve the objectives 
-Scientific and technical justification of the requested means - per item of expenditure and by partner -, linked to the objectives of the proposal. Summarise the funding request in the table below in accordance with the information filled out on the website and with ANR’s grant allocation rules (règlement relatif aux modalités d’attribution des aides de l’ANR ).
-Description of the context in terms of human and financial resources available thanks to previous or ongoing projects. }
-
-\Comments{la demande en ressource devra être mieux justifiée (en particulier, l'apport plus concret d'un chercheur en postdoctorat (pas étudiant).}
-
-\subsubsection{Organization}
-\label{sec:wp}
+}
 
 This \textbf{four-year project} will be divided into four work packages (WP).
+The two first corresponds to goal G1, whereas the two last correspond
+respectively to goals G2 and G3 (see \sect{sec:goals} for the goal description).
+We have decided to have two WPs for G1 because this goal has two distinct sides,
+each requiring distinct expertise. On one hand, we want to improve various
+features of plane-probing algorithms, even in the planar case. Due to
+preliminary works, we have in mind many short-term tasks for this.
+On the other hand, we want to associate to the state of a plane-probing
+algorithm a piece of digital plane that fits to the digital surface in order
+to correctly process non-planar parts. This requires not only expertise
+in digital geometry but also in multidimensional continued
+fractions algorithms and combinatorics on words (see \sect{sec:dps} and below).
 
-%some notations/defs ? def ce qu'est un plane-probing algo
-\noindent\textbf{\wpPPA: plane-probing algorithms (year 1).} 
-A \emph{digital plane} is an infinite digital set that 
-consists of several consecutive and parallel layers of coplanar points. 
-It is defined by a normal $\vec{N} \in \Z^3$ and a position $\mu \in \Z$ as follows:  
-$\Set := \{ \vec{x} \in \Z^3 | \mu \leq \vec{x} \cdot \vec{N} < \mu + \|\vec{N}\|_1 \}$.
-Given a digital plane $\Set \subset \Z^3$ and a starting point $\vec{p} \in \Set$, 
-a \emph{plane-probing algorithm} computes the parameters of a digital plane $\Set'$
-containing $\vec{p}$ by sparsely probing $\Set$ with the predicate ``is $\vec{x}$ in $\Set$?''. 
-The parameters of $\Set$ and $\Set'$ are expected to be equal for any $\vec{p} \in \Set$. 
+\newpage
 
-In addition to technical details such as dealing with degenerated cases, 
-i.e. normal vector having at least one null component, the main goal of this WP is to 
-certify the locality of the R-algorithm \cite{LPRJMIV2017}: 
-can we bound by above the distance of the probed points to the starting point? 
-what is the minimal part $\Part \subset \Set$ for which the R-algorithm returns the normal of $\Set$?
-can we characterize the behavior of the R-algorithm on a convex or arbitrary part of a digital surface?
+\WP{0}{Plane-probing algorithms}
+   {Find the ultimate plane-probing algorithm (G1)}
+   {S. Labb\'{e}, J-O. Lachaud, \textbf{T. Roussillon}}
+\medskip
 
-%We have proposed several such algorithms \cite{LPRDGCI2016,LPRJMIV2017}, 
-%but there are several short-term questions:  
-%how to deal with degenerated cases, i.e. normal vector having at least one null component? 
-%how to cope with sensitivity to starting point? how to guarantee locality, 
-%i.e. $\Set$ is not probed too far away from $\vec{p}$? 
-%one of them, called \emph{R-algorithm}, experimentally always returns a reduced basis, i.e. 
-%the two shortest nonzero vectors of the 2D lattice $\{ \vec{x} \in \Z^3 | \vec{x} \cdot \vec{N} = 0 \}$. 
-%A first goal of this WP is to provide a proof of this property, which is a key ingredient 
-%to guarantee that $\Set$ is not probed too far away from $\vec{p}$.  
-%Furthermore, most of the previous results hold for a finite part $\Part \subset \Set$, 
-%which raises the following questions: what is the minimal part $\Part$ for which our plane-probing algorithms %return the normal of $\Set$?
-%can we characterize the behavior of theses algorithms on a convex or arbitrary part of a digital surface?
+%% \noindent\textbf{\wpPPA: plane-probing algorithms (year 1).} 
+%% A \emph{digital plane} is an infinite digital set that 
+%% consists of several consecutive and parallel layers of coplanar points. 
+%% It is defined by a normal $\vec{N} \in \Z^3$ and a position $\mu \in \Z$ as follows:  
+%% $\Set := \{ \vec{x} \in \Z^3 | \mu \leq \vec{x} \cdot \vec{N} < \mu + \|\vec{N}\|_1 \}$.
+%% Given a digital plane $\Set \subset \Z^3$ and a starting point $\vec{p} \in \Set$, 
+%% a \emph{plane-probing algorithm} computes the parameters of a digital plane $\Set'$
+%% containing $\vec{p}$ by sparsely probing $\Set$ with the predicate ``is $\vec{x}$ in $\Set$?''. 
+%% The parameters of $\Set$ and $\Set'$ are expected to be equal for any $\vec{p} \in \Set$. 
+
+As explained in \sect{sec:dps}, a plane-probing algorithms sparsely probes the data points
+around a starting point to compute a local normal direction. Several algorithms of this kind
+has been proposed by the principal investigator and its collaborators
+\cite{LPRTCS2016, LPRDGCI2016, LPRJMIV2017}.
+What makes them original in regard to the state of the art, is that they decide on-the-fly
+how to probe the digital surface, without any parameter or any prior order.
+
+The last proposed algorithm, called \emph{R-algorithm} in \cite{LPRJMIV2017}, is the most
+local algorithm. In order to explain what we mean by \emph{local}, we recall that
+the R-algorithm iteratively deforms an initial tetrahedron. One vertex, denoted by $q$,
+is however fixed and is always projected into the opposite triangular facet, denoted by
+$F := (v_0,v_1,v_2)$. For any permutation $\sigma$ over $\{0,1,2\}$, $F$ defines a 2D
+lattice embedded in 3D:
+$\Lambda := \{ v_{\sigma(0)} + k (v_{\sigma(1)}-v_{\sigma(0)}) + k' (v_{\sigma(2)}-v_{\sigma(1)}) \ | \ k,k' \in \Z \}$. 
+The basis $(v_{\sigma(1)}-v_{\sigma(0)}, v_{\sigma(2)}-v_{\sigma(1)})$ is \emph{reduced} if and only
+if they are the two shortest nonzero vectors of $\Lambda$. By extension $F$ is said reduced
+if there exists a permutation $\sigma$ such that $(v_{\sigma(1)}-v_{\sigma(0)}, v_{\sigma(2)}-v_{\sigma(1)})$
+is reduced. The following conjucture is experimentally true but not yet proved:
+
+\begin{Conjecture}
+  \label{conj:reduction}
+  The facet $F$ returned by the R-algorithm is reduced at least every two steps and
+  is always reduced at the last step.  
+\end{Conjecture}
+
+A first task of this WP is to prove this conjecture, because it may be
+a key ingredient to certify the locality of the R-algorithm and answer
+the following questions: can we bound by above the distance of the probed
+points to the starting point? 
+what is the minimal part $\Part \subset \Plane{\mu}{\vec{n}}$ for which the
+R-algorithm returns the normal $\vec{n}$ when applied to $\Part$?
+can we characterize the behavior of the R-algorithm on a convex or arbitrary
+part of a digital surface?
+
+\begin{Task}
+  \label{task:reduction}
+  Prove conjecture~\ref{conj:reduction} and certify the locality of the R-algorithm. 
+\end{Task}
+
+Another task in this WP is related to the starting point. In \cite{LPRJMIV2017},
+it must be a \emph{reentrant corner}. This restriction avoids degenerate cases, but
+limit the pratical usage of the algorithm for digital surface analysis
+(see fig.~\ref{fig:snow}). Raising this restriction to points whose neighboring
+surfels form a flat part along one or two axis is however just a technical
+problem that can be quickly solved. A more important challenge is that the R-algorithm
+stops prematurately and outputs only an approximation of the normal vector for some
+well-indentified starting points, which are not located deeply enough in the digital
+surface. Even if we know how to detect and remove approximated results
+\emph{a posteriori} \cite{LPRJMIV2017}, it would be quite interesting to translate
+the starting point to deeper and deeper positions in order to avoid producing any
+approximated results.
+%TODO ne remet pas en cause la localite.
+%Finally, it remains the \emph{sailent corners}. 
+%how to retrieve complementary facets ?
+
+\begin{Task}
+  \label{task:start}
+  Modify the R-algorithm so that it can be run from any starting point. 
+\end{Task}
+
+
+%risks,
+\noindent\textbf{Risks:}
+Preliminary works have considerably reduced the risks in this WP. Task~\ref{task:start}
+can be done within one year. If we face to a difficulty that cannot be overcomed,
+we will resort to the R-algorithm as it is described in \cite{LPRJMIV2017} and use it
+to improve the approach of \citeauthor*{Charrier2011} \cite{Charrier2011}, as explained
+in \sect{sec:methodo}. Task~\ref{task:reduction} is very important to rely on provable
+properties but not completing it does not prevent us from developing practical algorithms.
+
+\noindent\textbf{Success indicators:}
+\begin{itemize}
+    \item A plane-probing algorithm, which always leads to a
+      reduced facet of normal $\vec{n}$ when applied to a digital
+      plane $\Plane{\mu}{\vec{n}}$ from any starting points.
+    \item Implementation of the algorithm in \DGtal.   
+    \item Theoretical guarantees about the locality of the algorithm
+      for convex digital surfaces.  
+\end{itemize}
+
+\newpage
+
+\WP{1}{Patterns}
+   {Generate a pattern under shape constraints (G1.b)}
+   {S. Labb\'{e}, \textbf{T. Roussillon}}
+\medskip
+
+
+Plane-probing algorithms probes for data points in a sparse way.
+This works well when identifying a true digital plane, but it
+may badly identify pieces of plane on digital surfaces. For
+instance, the algorithm may jump over holes or cracks in the
+surface. Therefore, we have to check at each iteration that the
+current triangle fits closely the digital surface.
+
+One issue arises when processing non-planar parts, especially non-convex ones.
+In such cases, a sparse probing is not enough to correctly identify the underlying geometry
+as reported in \cite{LPRJMIV2017}.
+We believe that generating a piece of digital plane in the course of the computation will
+not only solve this problem but also give new insights on the combinatorial structure
+of DPSs.
 
 \noindent\textbf{\wpPattern: patterns (years 1-3).}
 Plane-probing algorithms 
@@ -118,6 +231,13 @@ There exists a lot of related works based on three-dimensional continued fractio
 %We do not know if it is possible to generate patterns with all the above properties or an appropriate subset of them to solve tasks (T1) and (T2) in spite of promising results (fig.~\ref{sub:zoom}). Still, we have algorithmic solutions \cite{LPRJMIV2017} to cope with these problems, which alleviate such risk. 
 %On the contrary, a success in this WP would lead to both theoretical results on three-dimensional continued fraction algorithms and related geometric problems, and a speed-up in the analysis of digital surfaces thanks to integer-only computations and arithmetic properties.  
 
+\newpage
+
+\WP{2}{Geometric inference and applications}
+   {Propose a parameter-free, multigrid-convergent normal estimator (G2)}
+   {C. Coeurjolly, J-O. Lachaud, \textbf{T. Roussillon}}
+\medskip
+
 \noindent\textbf{\wpEstim: geometric inference and applications (years 2-4).} Most of the time, when we are working with a digital surface, we are 
 %not interested in its geometry, but rather in the geometry of an unknown continuous shape whose digitization is the input digital data. 
 interested in the geometry of a continuous shape whose digitization is the input digital data.
@@ -125,6 +245,13 @@ We expect that a given geometric quantity, such as a normal vector, computed at 
 This WP aims at providing \emph{efficient}, \emph{parameter-free} and \emph{multigrid-convergent} estimators based of the output of plane-probing algorithms: normal vector (and surfel area as a by-product), distance to boundary, voxel coverage (fig.~\ref{fig:2D}). The accuracy of a multigrid-convergent estimator depends on the resolution: the higher the resolution, the more accurate the estimator. We will experimentally and theoretically study the estimation accuracy for shapes digitized at increasing resolutions. 
 
 Plane-probing algorithms not only provide a normal vector but also position information, which may be useful for many applications in graphics such as polyhedral approximation, surface fairing, volume rendering, etc. The goal of this WP is also to investigate at least one of these applications.   
+
+\newpage
+
+\WP{3}{multiscale analysis}
+   {Develop a tool for a multiscale analysis of digital surfaces (G3)}
+   {C. Coeurjolly, B. Kerautret, J-O. Lachaud, \textbf{T. Roussillon}}
+\medskip
 
 \noindent\textbf{\wpScale: multiscale analysis (years 2-4).} Digital surfaces may be degraded with \emph{noise}, especially in medical imaging. Since noise usually affect only the finest levels of details, the following algorithm is a way of coping with the problem: while there is noise, subsample by 2 the digital surface. At the end, we get a noise-free digital surface, but at a potentially coarser level. Furthermore, in case of non-uniform noise, the same applies only locally, i.e. at each border voxel.  
 
@@ -134,9 +261,17 @@ This strategy has been used with success for digital curves \cite{Kerautret2012}
 %risks: to add in the proposition
 %The local strategy, related to the size of the computed facets, could be difficult to develop. However, we are confident on the feasibility of the global strategy, because computed facets are closely related to convex hull facets and the growth rate of the number of convex hull facets is known for digitization of convex smooth shapes \cite{Barany1998}. 
 
-\subsubsection{Ressources}
+\newpage
+
+\subsubsection{Requested means}
 \label{sec:ressources}
 
+\Comments{
+Describe the means – those previously available and those requested - to achieve the objectives 
+Scientific and technical justification of the requested means - per item of expenditure and by partner -, linked to the objectives of the proposal. Summarise the funding request in the table below in accordance with the information filled out on the website and with ANR’s grant allocation rules (règlement relatif aux modalités d’attribution des aides de l’ANR ).
+Description of the context in terms of human and financial resources available thanks to previous or ongoing projects. }
+
+\Comments{la demande en ressource devra être mieux justifiée (en particulier, l'apport plus concret d'un chercheur en postdoctorat (pas étudiant).}
 
 
 %--------------------------- fonds
@@ -144,5 +279,5 @@ We first request one PhD grant and one master project funding ($\approx$ 111k eu
 Computers (one for the PI and one for each student) should cost $\approx$ 6k euros. Work meetings and travels for conferences (one international travel per year per persons receiving the ANR funding) should cost $\approx$ 30k euros. 
 To sum up, the total amount is about \textbf{260k euros}, including management fees. 
 
-
+TODO tableau
 

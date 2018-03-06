@@ -1,24 +1,19 @@
-@string{TRO={\mkbibbold{T. Roussillon}}}
-@string{JOL={\mkbibbold{J-O. Lachaud}}}
-@string{DCO={\mkbibbold{D. Coeurjolly}}}
-@string{BKE={\mkbibbold{B. Kerautret}}}
-@string{SLA={\mkbibbold{S. Labb\'{e}}}}
+@string{TRO={\Rou{T. Roussillon}}}
+@string{JOL={\Lac{J-O. Lachaud}}}
+@string{DCO={\Coe{D. Coeurjolly}}}
+@string{BKE={\Ker{B. Kerautret}}}
+@string{SLA={\Lab{S. Labb\'{e}}}}
 
+@string{DGCI={Proc. Discrete Geometry for Computer Imagery}}
+@string{SGP={Proc. the Eurographics Symposium on Geometry Processing}}
 
 @inproceedings{Alliez2007,
  author = {Alliez, P. and Cohen-Steiner, D. and Tong, Y. and Desbrun, M.},
  title = {Voronoi-based Variational Reconstruction of Unoriented Point Sets},
- booktitle = {Proceedings of the Fifth Eurographics Symposium on Geometry Processing},
- series = {SGP '07},
+ booktitle = SGP, 
  year = {2007},
- isbn = {978-3-905673-46-3},
- location = {Barcelona, Spain},
  pages = {39--48},
  numpages = {10},
- url = {http://dl.acm.org/citation.cfm?id=1281991.1281997},
- acmid = {1281997},
- publisher = {Eurographics Association},
- address = {Aire-la-Ville, Switzerland, Switzerland},
 } 
 @ARTICLE{Merigot2011,
 author={Q. Merigot and M. Ovsjanikov and L. J. Guibas},
@@ -58,20 +53,15 @@ keywords = "Digital geometry, Curvature estimation, Multigrid convergence, Integ
 }
 
 @article{Boulch2012,
- author = {Boulch, Alexandre and Marlet, Renaud},
+ author = {Boulch, A. and Marlet, R.},
  title = {Fast and Robust Normal Estimation for Point Clouds with Sharp Features},
  journal = {Comput. Graph. Forum},
- issue_date = {August 2012},
  volume = {31},
  number = {5},
  month = aug,
  year = {2012},
- issn = {0167-7055},
  pages = {1765--1774},
  numpages = {10},
- url = {http://dx.doi.org/10.1111/j.1467-8659.2012.03181.x},
- doi = {10.1111/j.1467-8659.2012.03181.x},
- acmid = {2346811},
  publisher = {The Eurographs Association \&\#38; John Wiley \&\#38; Sons, Ltd.},
  address = {Chichester, UK},
  keywords = {I.3.5 [Computer Graphics]: Computational Geometry and Object Modeling\&\#x2014;},
@@ -287,17 +277,13 @@ isbn="978-3-540-45129-7"
 }
 
 @article{Andres2003,
-author = {Andres, Eric},
-doi = {10.1016/S1524-0703(03)00004-3},
-file = {:home/roussillon/Documents/references/MendeleyDesktop/Andres/2003/Andres - 2003 - Discrete linear objects in dimension n the standard model.pdf:pdf},
-issn = {15240703},
+author = {Andres, E.},
 journal = {Graphical Models},
 keywords = {digitization,dimension n,discrete geometry,m-flat,simplex},
 month = {may},
 number = {1-3},
 pages = {92--111},
-title = {{Discrete linear objects in dimension n: the standard model}},
-url = {http://linkinghub.elsevier.com/retrieve/pii/S1524070303000043},
+title = {{Discrete Linear Objects in Dimension n: the Standard Model}},
 volume = {65},
 year = {2003}
 }
@@ -430,11 +416,7 @@ month="Dec",
 day="01",
 volume="22",
 number="4",
-pages="481--504",
-abstract="We give a simple combinatorial algorithm that computes a piecewise-linear approximation of a smooth surface from a finite set of sample points. The algorithm uses Voronoi vertices to remove triangles from the Delaunay triangulation. We prove the algorithm correct by showing that for densely sampled surfaces, where density depends on a local feature size function, the output is topologically valid and convergent (both pointwise and in surface normals) to the original surface. We briefly describe an implementation of the algorithm and show example outputs. ",
-issn="1432-0444",
-doi="10.1007/PL00009475",
-url="https://doi.org/10.1007/PL00009475"
+pages="481--504"
 }
 
 @article{Cazals2005,
@@ -470,7 +452,7 @@ year = {2009}
 }
 @inproceedings{Lachaud2003,
 author = JOL#{ and Vialard, A.},
-booktitle = {Proc. Discrete Geometry for Computer Imagery},
+booktitle = DGCI,
 pages = {434--443},
 title = {\href{https://www.lama.univ-savoie.fr/~lachaud/References/.../Lachaud03c-paper.ps.gz}{Geometric Measures on Arbitrary Dimensional Digital Surfaces}},
 volume = {2886},
@@ -583,16 +565,13 @@ isbn="978-3-540-79126-3"
 }
 
 @article{Brimkov2007,
-title = "Digital planarity—A review",
+title = "Digital planarity \- A review",
 journal = "Discrete Applied Mathematics",
 volume = "155",
 number = "4",
 pages = "468 - 495",
 year = "2007",
-issn = "0166-218X",
-doi = "https://doi.org/10.1016/j.dam.2006.08.004",
-url = "http://www.sciencedirect.com/science/article/pii/S0166218X06003805",
-author = "Valentin Brimkov and David Coeurjolly and Reinhard Klette",
+author = "V. Brimkov and "# DCO #" and R. Klette",
 keywords = "Digital planes, Digital geometry, Arithmetic geometry, 2D array periodicity, Sturmian words, Geometric algorithms"
 }
 
@@ -722,10 +701,7 @@ year = {1998}
 }
 @article{Berthe2011,
 abstract = {Dual maps have been introduced as a generalization to higher dimensions of word substitutions and free group morphisms. In this paper, we study the action of these dual maps on particular discrete planes and surfaces, namely stepped planes and stepped surfaces. We show that dual maps can be seen as discretizations of toral automorphisms. We then provide a connection between stepped planes and the Brun multi-dimensional continued fraction algorithm, based on a desubstitution process defined on local geometric configurations of stepped planes. By extending this connection to stepped surfaces, we obtain an effective characterization of stepped planes (more exactly, stepped quasi-planes) among stepped surfaces. {\textcopyright} 2010 Elsevier B.V. All rights reserved..},
-author = {Berth{\'{e}}, Val{\'{e}}rie and Fernique, Thomas},
-doi = {10.1016/j.disc.2010.12.007},
-file = {:home/roussillon/Documents/references/MendeleyDesktop/Berth{\'{e}}, Fernique/2011/Berth{\'{e}}, Fernique - 2011 - Brun expansions of stepped surfaces.pdf:pdf},
-issn = {0012365X},
+author = {Berth{\'{e}}, V. and Fernique, T. },
 journal = {Discrete Mathematics},
 keywords = {Arithmetic discrete plane,Brun algorithm,Digital planarity,Discrete geometry,Dual map,Flip,Free group morphism,Multi-dimensional continued fraction,Stepped plane,Stepped surface,Substitution},
 number = {7},

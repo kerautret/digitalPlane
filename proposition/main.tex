@@ -22,6 +22,12 @@
 }
 \usepackage[usenames, dvipsnames]{color}
 \newcommand{\TM}[1]{\textcolor{black}{\underline{#1}}} %team member in references
+%ugly hack to underline names while maintaining alphabetic order
+\newcommand{\Rou}[1]{\textcolor{black}{\underline{#1}}} %team member in references
+\newcommand{\Lab}[1]{\textcolor{black}{\underline{#1}}} %team member in references
+\newcommand{\Coe}[1]{\textcolor{black}{\underline{#1}}} %team member in references
+\newcommand{\Lac}[1]{\textcolor{black}{\underline{#1}}} %team member in references
+\newcommand{\Ker}[1]{\textcolor{black}{\underline{#1}}} %team member in references
 \renewcommand*{\bibfont}{\footnotesize}
 \addbibresource{mybibliography.bib}
 
@@ -62,8 +68,11 @@
 \newcommand{\eg}{{eg.~}}
 \newcommand{\etal}{{et al.~}}
 
+\newtheorem{Task}{Task}
+
 %----------------------------------- math notation ----------------------
 \newtheorem{Definition}{Definition}
+\newtheorem{Conjecture}{Conjecture}
 \newcommand{\Eq}[1]{Eq.~\ref{#1}}
 \newcommand{\sect}[1]{sec.~\ref{#1}}
 
@@ -76,11 +85,25 @@
 \newcommand{\Set}{\ensuremath{\mathbf{S}}}
 \newcommand{\Part}{\ensuremath{\mathbf{S}}}
 \newcommand{\Plane}[2]{\ensuremath{\Pi_{#1,#2}}}
-%\newcommand{\Plane}{\ensuremath{\Pi_{\mu,\vec{n}}}}
 \newcommand{\UpperPlane}[2]{\ensuremath{\mathcal{P}^{+}_{#1,#2}}}
 \let\vec\mathbf
 
+%--------------------------------- WPs -----------------------------
+\newcommand{\RisksAndSolutions}[1]{\noindent
+\begin{minipage}{0.98\textwidth}
+\textbf{Possible risks, solutions to these risks: }\usefont{T1}{cmbr}{m}{n}\vspace{-1mm}    #1  \end{minipage}\vspace{1mm}}
+\newcommand{\Success}[1]{\noindent
+\begin{minipage}{0.98\textwidth}
+\textbf{Success indicators: }\usefont{T1}{cmbr}{m}{n}\vspace{-1mm}    #1  \end{minipage}\vspace{1mm}}
 
+\newcommand{\WP}[4]{\noindent\fbox{
+\begin{minipage}{0.98\linewidth}
+\begin{tabular}{rp{1\textwidth}}
+\textsc{WP#1: }&    #2\\
+\textsc{Main objective: }&    #3\\
+\textsc{Members: }&    #4\\
+\end{tabular}
+\end{minipage}}}
 
 %work-packages
 \def \wpPPA {WP0}
