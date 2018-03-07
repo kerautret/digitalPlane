@@ -235,6 +235,8 @@ from an arbitrary multidimensional continued fractions (MCF) algorithm:
 \end{itemize}
 We believe that these two approaches are closely related, but this requires
 further investigation because they rely on different frameworks. 
+%TODO lien avec Christoffel graph
+
 
 \begin{Task}
   \label{task:genmeth}
@@ -286,21 +288,77 @@ of digital surfaces thanks to arithmetic and combinatorial properties.
   \item Theoretical guarantees about the shape of the generated pattern. 
 \end{itemize}
 
-
-\newpage
-
 \WP{2}{Geometric inference and applications}
    {Propose a parameter-free, multigrid-convergent normal estimator (G2)}
    {C. Coeurjolly, J-O. Lachaud, \textbf{T. Roussillon}}
 \medskip
 
-\noindent\textbf{\wpEstim: geometric inference and applications (years 2-4).} Most of the time, when we are working with a digital surface, we are 
-%not interested in its geometry, but rather in the geometry of an unknown continuous shape whose digitization is the input digital data. 
+ Most of the time, when we are working with a digital surface, we are 
 interested in the geometry of a continuous shape whose digitization is the input digital data.
-We expect that a given geometric quantity, such as a normal vector, computed at a point of a digital surface is close to the one of the underlying continuous shape at a close enough point. 
-This WP aims at providing \emph{efficient}, \emph{parameter-free} and \emph{multigrid-convergent} estimators based of the output of plane-probing algorithms: normal vector (and surfel area as a by-product), distance to boundary, voxel coverage (fig.~\ref{fig:2D}). The accuracy of a multigrid-convergent estimator depends on the resolution: the higher the resolution, the more accurate the estimator. We will experimentally and theoretically study the estimation accuracy for shapes digitized at increasing resolutions. 
+We expect that a given geometric quantity, such as a normal vector, computed at a point of a digital surface
+is close to the one of the underlying continuous shape at a close enough point. 
+This WP aims at providing efficient, parameter-free and multigrid-convergent estimators based of
+the output of plane-probing algorithms: normal vector (and surfel area as a by-product),
+distance to boundary, voxel coverage (fig.~\ref{fig:2D}).
 
-Plane-probing algorithms not only provide a normal vector but also position information, which may be useful for many applications in graphics such as polyhedral approximation, surface fairing, volume rendering, etc. The goal of this WP is also to investigate at least one of these applications.   
+\begin{Task}
+  \label{task:normal}
+  Propose a parameter-free normal estimator based on plane-probing algorithms and
+  derive other first-order estimators.  
+\end{Task}
+
+The accuracy of a multigrid-convergent estimator depends on the resolution: the higher the resolution,
+the more accurate the estimator. We will experimentally and theoretically study the estimation accuracy
+for shapes digitized at increasing resolutions. 
+
+\begin{Task}
+  \label{task:conv}
+  Study the estimation accuracy of the proposed estimators for smooth shapes digitized at increasing resolutions. 
+\end{Task}
+
+Plane-probing algorithms not only provide a normal vector but also position information,
+which may be useful for many applications in graphics such as polyhedral approximation,
+ or digital surface visualization. The goal of this WP is also to investigate at least
+one of these applications.   
+
+
+We can approximate a digital surface either by a polyhedral surface whose vertices 
+are a subset of the input data points, as in convex hulls or relative convex hulls (TODO cite Shulz, Klette)
+or a polyhedral surface whose vertices are set to optimized positions so that it is
+as smooth as possible. In the former problem, the facets returned by the
+plane-probing algorithms will play an important role, while in the latter,
+normal estimates are usually a key input of the optimization step (see for instance
+TODO cite David, jaco).  
+
+\begin{Task}
+  \label{task:polyapprox}
+  Design an algorithm that computes a fair polyhedral approximation of a digital surface. 
+\end{Task}
+
+Even if polyedral approximation can be efficiently visualize because of hardware support,
+it may be interesting to directly render the input data. Ray casting can be used to
+visualize digital surfaces. Results will be greatly improved by accurate normal estimates,
+but also by accurate position estimates. In addition, voxel coverage and absorption can
+also be used to remove staircase effects near shape borders in the resulting 2D view.
+
+\begin{Task}
+  \label{task:volrendering}
+  Design an algorithm that directly renders digital surfaces using first-order estimations.  
+\end{Task}
+
+\Risks
+The main risk in this WP is that normal estimators
+directly derived from plane-probing algorithms do not have the multigrid-convergence
+property. In that case, fall-back solutions presented in \sect{sec:methodo} will achieve
+multigrid-convergence without any parameter but at the price of a higher computational
+cost and a lower accuracy in the localization of sharp features. 
+
+\Success
+\begin{itemize}
+  \item A parameter-free and multigrid-convergent normal estimator.
+  \item Implementation of the estimator in \DGtal.
+  \item At least one of the tasks~\ref{task:polyapprox} and \ref{task:volrendering} is completed. 
+\end{itemize}
 
 \newpage
 
