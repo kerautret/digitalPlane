@@ -1,0 +1,21 @@
+\begin{tikzpicture} 
+
+\node[above] at (0,7) {T0};
+\node[above] at (2,7) {T12};
+\node[above] at (4,7) {T24};
+\node[above] at (6,7) {T36};
+\node[above] at (8,7) {T48};   
+
+\node[left] at (-0.5,6) {WP0}; 
+\node[left] at (-0.5,4) {WP1}; 
+\node[left] at (-0.5,2) {WP2}; 
+\node[left] at (-0.5,0) {WP3}; 
+
+\draw[draw,fill,thick,color=blue!30!white] (0,5.5) rectangle (2,6.5) {};
+\draw[draw,fill,thick,color=blue!30!white] (0,3.5) rectangle (4,4.5) {};
+\draw[draw,fill,thick,color=blue!30!white] (2,1.5) rectangle (6,2.5) {};
+\draw[draw,fill,thick,color=blue!30!white] (4,-0.5) rectangle (8,0.5) {};
+
+\draw (-0.5,0) grid[step=2] (8,7);
+
+\end{tikzpicture}

@@ -57,17 +57,19 @@ TODO qqs phrases de presentations pour chacun ?
 \textbf{S. Labb\'{e}} 
 \textbf{J-O. Lachaud}
 
+%TODO research highlights en citant des contributions dans le domaine. 
+
 This team gathers all the expertise required to ensure the success of the project.
 Furthermore, this project will let the team members maintaining their lead in digital surface analysis 
 and more generally in digital geometry and combinatorics on words for digital imagery. 
 
 
-\subsection{Means of achieving the objectives}
+%% \subsection{Means of achieving the objectives}
 
-In this section, we first detail and justify the scientific programme with regard to the project objectives.
-We then describe the requested means. 
+%% In this section, we first detail and justify the scientific programme with regard to the project objectives.
+%% We then describe the requested means. 
 
-\subsubsection{Scientific programme}
+\subsection{Scientific program}
 \label{sec:wp}
 
 \Comments{Set out the scientific programme and justify the work programme's task breakdown with regard to the objectives being pursued.
@@ -88,22 +90,12 @@ to correctly process non-planar parts. This requires not only expertise
 in digital geometry but also in multidimensional continued
 fractions algorithms and combinatorics on words (see \sect{sec:dps} and below).
 
-\newpage
+\subsubsection{WP0: Plane-probing algorithms}
+\label{wpPPA}
 
-\WP{0}{Plane-probing algorithms}
-   {Find the ultimate plane-probing algorithm (G1)}
-   {S. Labb\'{e}, J-O. Lachaud, \textbf{T. Roussillon}}
-\medskip
-
-%% \noindent\textbf{\wpPPA: plane-probing algorithms (year 1).} 
-%% A \emph{digital plane} is an infinite digital set that 
-%% consists of several consecutive and parallel layers of coplanar points. 
-%% It is defined by a normal $\vec{N} \in \Z^3$ and a position $\mu \in \Z$ as follows:  
-%% $\Set := \{ \vec{x} \in \Z^3 | \mu \leq \vec{x} \cdot \vec{N} < \mu + \|\vec{N}\|_1 \}$.
-%% Given a digital plane $\Set \subset \Z^3$ and a starting point $\vec{p} \in \Set$, 
-%% a \emph{plane-probing algorithm} computes the parameters of a digital plane $\Set'$
-%% containing $\vec{p}$ by sparsely probing $\Set$ with the predicate ``is $\vec{x}$ in $\Set$?''. 
-%% The parameters of $\Set$ and $\Set'$ are expected to be equal for any $\vec{p} \in \Set$. 
+%% \WP{Find the ultimate plane-probing algorithm (part of G1)}
+%%    {S. Labb\'{e}, J-O. Lachaud, \textbf{T. Roussillon}}
+%% \medskip
 
 As explained in \sect{sec:dps}, a plane-probing algorithms sparsely probes the data points
 around a starting point to compute a local normal direction. Several algorithms of this kind
@@ -185,18 +177,20 @@ properties but not completing it does not prevent us from developing practical a
       for convex digital surfaces.  
 \end{itemize}
 
+\Members{S. Labb\'{e}, J-O. Lachaud, \textbf{T. Roussillon}}
+  
+\subsubsection{WP1: Pattern generation}
+\label{wpPattern}
 
-\WP{1}{Patterns}
-   {Generate a pattern under shape constraints (G1)}
-   {S. Labb\'{e}, \textbf{T. Roussillon}}
-\medskip
+%% \WP{Generate a pattern under shape constraints (part of G1)}
+%%    {S. Labb\'{e}, \textbf{T. Roussillon}}
+%% \medskip
 
-
-Plane-probing algorithms probes for data points in a sparse way.
-This is perfect for digital plane recognition, but it may badly
-recognize pieces of digital plane on digital surfaces. For
-instance, the algorithm may jump over holes or cracks in the
-surface. Therefore, we have to associate a piece of digital plane
+Plane-probing algorithms probe for data points in a sparse way.
+This is perfect for digital plane recognition, but not for pieces
+of digital plane on digital surfaces. Evolving tetrahedra may jump
+over holes or cracks in the surface for instance. Therefore,
+we have to associate a piece of digital plane
 to the current facet and check whether it fits to the digital surface
 or not.
 
@@ -288,10 +282,14 @@ of digital surfaces thanks to arithmetic and combinatorial properties.
   \item Theoretical guarantees about the shape of the generated pattern. 
 \end{itemize}
 
-\WP{2}{Geometric inference and applications}
-   {Propose a parameter-free, multigrid-convergent normal estimator (G2)}
-   {C. Coeurjolly, J-O. Lachaud, \textbf{T. Roussillon}}
-\medskip
+\Members{S. Labb\'{e}, \textbf{T. Roussillon}}
+
+\subsubsection{WP2: Geometric inference and applications}
+\label{wpEstim}
+
+%%   \WP{Propose a parameter-free, multigrid-convergent normal estimator (G2)}
+%%    {C. Coeurjolly, J-O. Lachaud, \textbf{T. Roussillon}}
+%% \medskip
 
  Most of the time, when we are working with a digital surface, we are 
 interested in the geometry of a continuous shape whose digitization is the input digital data.
@@ -360,24 +358,97 @@ cost and a lower accuracy in the localization of sharp features.
   \item At least one of the tasks~\ref{task:polyapprox} and \ref{task:volrendering} is completed. 
 \end{itemize}
 
-\newpage
+\Members{C. Coeurjolly, J-O. Lachaud, \textbf{T. Roussillon}}
+  
+\subsubsection{WP3: Multiscale analysis}
+\label{wpScale}
 
-\WP{3}{multiscale analysis}
-   {Develop a tool for a multiscale analysis of digital surfaces (G3)}
-   {C. Coeurjolly, B. Kerautret, J-O. Lachaud, \textbf{T. Roussillon}}
-\medskip
+%% \WP{Develop a tool for a multiscale analysis of digital surfaces (G3)}
+%%    {C. Coeurjolly, B. Kerautret, J-O. Lachaud, \textbf{T. Roussillon}}
+%% \medskip
 
-\noindent\textbf{\wpScale: multiscale analysis (years 2-4).} Digital surfaces may be degraded with \emph{noise}, especially in medical imaging. Since noise usually affect only the finest levels of details, the following algorithm is a way of coping with the problem: while there is noise, subsample by 2 the digital surface. At the end, we get a noise-free digital surface, but at a potentially coarser level. Furthermore, in case of non-uniform noise, the same applies only locally, i.e. at each border voxel.  
+Digital surfaces may be degraded with \emph{noise}, especially in medical imaging.
+Since noise usually affect only the finest levels of details, the following algorithm
+is a way of coping with the problem: while there is noise, subsample by 2 the digital surface.
+At the end, we get a noise-free digital surface, but at a potentially coarser level.
+In addition, in case of non-uniform noise, the same applies only locally, \ie at each border voxel.  
 
-The challenge here is to detect noise. This can be done by computing the growth rate of the \emph{number} or \emph{size} of the computed facets for decreasing resolutions (see fig.~\ref{fig:snow} for an example of one such facet) and by comparing it with the theoretical or experimental law for digitization of smooth shapes. A significant difference between the two rates suggest that there is noise. 
-This strategy has been used with success for digital curves \cite{Kerautret2012} and the goal of this WP is to provide the theoretical results and tools required to apply it on digital surfaces. 
+The challenge here is to detect noise. This can be done by computing the growth rate of the
+\emph{number} or \emph{size} of the computed facets for decreasing resolutions
+%(see fig.~\ref{fig:snow} for an example of one such facet)
+and by comparing it with the theoretical or experimental law for digitization of smooth shapes.
+A significative difference between the two rates suggest that there is noise.
+%TODO dire que dans cette partie, il y a des paramètres mais peu sensibles ?
+This strategy has been used with success for digital curves \cite{Kerautret2012}
+and the goal of this WP is to provide the theoretical results and tools required to apply it on digital surfaces. 
 
-%risks: to add in the proposition
-%The local strategy, related to the size of the computed facets, could be difficult to develop. However, we are confident on the feasibility of the global strategy, because computed facets are closely related to convex hull facets and the growth rate of the number of convex hull facets is known for digitization of convex smooth shapes \cite{Barany1998}. 
+TODO illustration 2D ?
 
-\newpage
+First, we will focus on the number of facets returned by plane-probing algorithms.
+This global strategy, which provides a way of retrieving the scale with highest resolution
+where noise is unlikely, is enough in case of uniform noise. 
 
-\subsubsection{Requested means}
+\begin{Task}
+  \label{task:globalmsa}
+  Develop a tool that automatically returns the first noise-free subsample of an input 3D volume.
+\end{Task}
+
+Then, we will locally focus on the size of all facets covering a same data point for various resolutions. 
+
+\begin{Task}
+  \label{task:size}
+  Define the size of a facet returned by plane-probing algorithms. Study the growth rate of the size
+  for smooth parts at various resolution. 
+\end{Task}
+
+This local strategy, better than the previous one in case of non-uniform noise, provides however
+a more complex output because a best scale is computed at each data point.
+We can either simply output this information to feed other tools
+or compute estimates during the scale detection, such as a normal estimator robust to noise.  
+
+\begin{Task}
+  \label{task:localmsa}
+  Develop a tool that automatically adds to a digital surface a scale value or
+  a robust-to-noise normal estimate at each data point. 
+\end{Task}
+%alpha-shape, ball unions
+
+\Risks
+We are confident on the feasibility of the global strategy (task~\ref{task:globalmsa}),
+because computed facets are closely related to convex hull facets in convex parts
+and the growth rate of the number of convex hull facets is known for digitization
+of convex smooth shapes \cite{Barany1998}. 
+Task~\ref{task:localmsa} could be however more difficult to complete
+because it depends on a sound definition of the size of a facet (task~\ref{task:size})
+for which the growth rate is clearly different for smooth parts on one hand
+and noise or small-scale features on the other hand. If it is not the case, we can
+resort to the length of the maximal DSSs along 2D slices as explained in \sect{sec:methodo}.
+
+\Success
+\begin{itemize}
+  \item Implementation of the tools of tasks~\ref{task:globalmsa} and \ref{task:localmsa}
+    in \DGtalTools~ with companion papers in \IPOL.
+\end{itemize}
+
+\Members{C. Coeurjolly, B. Kerautret, J-O. Lachaud, \textbf{T. Roussillon}}
+
+\subsection{Schedule and deliverables}
+\label{sec:schedule}
+
+TODO dependances des taches/WP et gantt ?
+%WP sont ordonnes WP3 et WP2 graphe de dépendances des tâches ?
+%1er WP en 1 an que du court terme
+%les autres WP en 2 ans environ, 
+
+\begin{figure}[htbp]
+  \centering
+  %\includegraphics[width=1\textwidth]{}
+  \input{schedule.tikz}
+  \caption{Gantt diagram for PARADIS' work packages}
+  \label{fig:gantt}
+\end{figure}
+
+\subsection{Requested means}
 \label{sec:ressources}
 
 \Comments{
