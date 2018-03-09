@@ -1,6 +1,6 @@
 doc=main.tex
 pdf=$(doc:.tex=.pdf)
-src=$(doc) section1.tex section2.tex section3.tex mybibliography.bib schedule.tikz
+src=$(doc) section1.tex section2.tex section3.tex mybibliography.bib schedule.tikz tasks.tikz
 
 all: $(pdf)
 

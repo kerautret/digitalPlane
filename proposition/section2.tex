@@ -23,7 +23,7 @@ The project will also involve specialists in digital geometry and combinatorics 
 \begin{table}[h]
 \small
 \centering
-\begin{tabular}{|ccclcc|}
+\begin{tabular}{|cccl|}
 \hline
 Collaborator & Position & Lab & Expertise \\ \hline
 \hline
@@ -321,26 +321,27 @@ one of these applications.
 
 
 We can approximate a digital surface either by a polyhedral surface whose vertices 
-are a subset of the input data points, as in convex hulls or relative convex hulls (TODO cite Shulz, Klette)
-or a polyhedral surface whose vertices are set to optimized positions so that it is
+are a subset of the input data points, as in convex hulls or relative convex hulls
+\cite{Klette2001,Schultz2009} 
+or a quadrangular mesh whose vertices are set to optimized positions so that it is
 as smooth as possible. In the former problem, the facets returned by the
 plane-probing algorithms will play an important role, while in the latter,
 normal estimates are usually a key input of the optimization step (see for instance
-TODO cite David, jaco).  
+\cite{Coeurjolly2017}).  
 
 \begin{Task}
-  \label{task:polyapprox}
-  Design an algorithm that computes a fair polyhedral approximation of a digital surface. 
+  \label{task:approx}
+  Design an algorithm that computes a fair approximation of a digital surface. 
 \end{Task}
 
-Even if polyedral approximation can be efficiently visualize because of hardware support,
+Even if meshes can be efficiently visualized because of hardware support,
 it may be interesting to directly render the input data. Ray casting can be used to
 visualize digital surfaces. Results will be greatly improved by accurate normal estimates,
 but also by accurate position estimates. In addition, voxel coverage and absorption can
 also be used to remove staircase effects near shape borders in the resulting 2D view.
 
 \begin{Task}
-  \label{task:volrendering}
+  \label{task:rendering}
   Design an algorithm that directly renders digital surfaces using first-order estimations.  
 \end{Task}
 
@@ -355,7 +356,7 @@ cost and a lower accuracy in the localization of sharp features.
 \begin{itemize}
   \item A parameter-free and multigrid-convergent normal estimator.
   \item Implementation of the estimator in \DGtal.
-  \item At least one of the tasks~\ref{task:polyapprox} and \ref{task:volrendering} is completed. 
+  \item At least one of the tasks~\ref{task:approx} and \ref{task:rendering} is completed. 
 \end{itemize}
 
 \Members{C. Coeurjolly, J-O. Lachaud, \textbf{T. Roussillon}}
@@ -389,7 +390,7 @@ This global strategy, which provides a way of retrieving the scale with highest 
 where noise is unlikely, is enough in case of uniform noise. 
 
 \begin{Task}
-  \label{task:globalmsa}
+  \label{task:global}
   Develop a tool that automatically returns the first noise-free subsample of an input 3D volume.
 \end{Task}
 
@@ -407,18 +408,18 @@ We can either simply output this information to feed other tools
 or compute estimates during the scale detection, such as a normal estimator robust to noise.  
 
 \begin{Task}
-  \label{task:localmsa}
+  \label{task:local}
   Develop a tool that automatically adds to a digital surface a scale value or
   a robust-to-noise normal estimate at each data point. 
 \end{Task}
 %alpha-shape, ball unions
 
 \Risks
-We are confident on the feasibility of the global strategy (task~\ref{task:globalmsa}),
+We are confident on the feasibility of the global strategy (task~\ref{task:global}),
 because computed facets are closely related to convex hull facets in convex parts
 and the growth rate of the number of convex hull facets is known for digitization
 of convex smooth shapes \cite{Barany1998}. 
-Task~\ref{task:localmsa} could be however more difficult to complete
+Task~\ref{task:local} could be however more difficult to complete
 because it depends on a sound definition of the size of a facet (task~\ref{task:size})
 for which the growth rate is clearly different for smooth parts on one hand
 and noise or small-scale features on the other hand. If it is not the case, we can
@@ -426,7 +427,7 @@ resort to the length of the maximal DSSs along 2D slices as explained in \sect{s
 
 \Success
 \begin{itemize}
-  \item Implementation of the tools of tasks~\ref{task:globalmsa} and \ref{task:localmsa}
+  \item Implementation of the tools of tasks~\ref{task:global} and \ref{task:local}
     in \DGtalTools~ with companion papers in \IPOL.
 \end{itemize}
 
@@ -442,7 +443,14 @@ TODO dependances des taches/WP et gantt ?
 
 \begin{figure}[htbp]
   \centering
-  %\includegraphics[width=1\textwidth]{}
+  \input{tasks.tikz}
+  \caption{Tasks dependancy graph}
+  \label{fig:tasks}
+\end{figure}
+
+
+\begin{figure}[htbp]
+  \centering
   \input{schedule.tikz}
   \caption{Gantt diagram for PARADIS' work packages}
   \label{fig:gantt}
@@ -458,11 +466,26 @@ Description of the context in terms of human and financial resources available t
 
 \Comments{la demande en ressource devra être mieux justifiée (en particulier, l'apport plus concret d'un chercheur en postdoctorat (pas étudiant).}
 
-
 %--------------------------- fonds
 We first request one PhD grant and one master project funding ($\approx$ 111k euros). A same student would basically start working on \wpPPA~during its master project and then continue with \wpEstim~and \wpScale~during its PhD thesis. We also need a postdoctoral student with background in digital geometry, combinatorics on words or both for working on \wpPattern~during two years in order to strengthen the transdisciplinarity of the project ($\approx$ 95k euros). 
 Computers (one for the PI and one for each student) should cost $\approx$ 6k euros. Work meetings and travels for conferences (one international travel per year per persons receiving the ANR funding) should cost $\approx$ 30k euros. 
 To sum up, the total amount is about \textbf{260k euros}, including management fees. 
 
-TODO tableau
 
+\begin{table}[htbp]
+  \caption{Requested means by item of expenditure}
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline 
+    Expense                                      & Amount (in \euro) \\ \hline \hline
+    Staff expenses                               & 205,212.00 \\ \hline
+    Instruments and material costs               & 6,000.00  \\ \hline
+    Building and ground costs                    & 0.00  \\ \hline
+    Outsourcing / subcontracting                 & 0.00 \\ \hline
+    Travel costs                                 & 30,000.00  \\  \hline
+    Administrative management \& structure costs & 19,296.96 \\ \hline
+    Requested                                    & 260,508.96 \\ \hline
+    \hline
+  \end{tabular}
+  \label{tab:grant}
+\end{table}

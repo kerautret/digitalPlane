@@ -1,0 +1,56 @@
+\begin{tikzpicture} 
+\usetikzlibrary{shapes}
+
+\tikzset{task/.style={draw,rectangle,rounded corners=3pt}}
+\tikzset{sol/.style={draw,ellipse,dashed}}
+\tikzset{toSol/.style={->,>=latex,dashed,color=blue!90!white}}
+\tikzset{toTask/.style={->,>=latex}}
+
+\node[left] at (0,8) {WPs}; 
+\node[left] at (0,6) {WP0}; 
+\node[left] at (0,4) {WP1}; 
+\node[left] at (0,2) {WP2}; 
+\node[left] at (0,0) {WP3}; 
+
+\node[right] at (9,8) {fall-back solutions};
+\node[right,sol] (R) at (9,6) {R-algorithm};
+\node[right,sol] (C) at (9,2) { $\nearrow$ thickness };
+\node[right,sol] (S) at (9,0) {2D slices};
+
+\node at (4,8) {tasks};
+\node[draw] (P) at (4,7) {preliminary works};
+
+\node[task] (t0a) at (2,6) {task~\ref{task:reduction}};
+\node[task] (t0b) at (4,6) {task~\ref{task:start}};
+\draw[toTask] (t0a) -- (P);
+\draw[toTask] (t0b) -- (P);
+\draw[toSol] (t0b) -- (R);
+\node[task] (t1a) at (1,4) {task~\ref{task:genmeth}};
+\node[task] (t1b) at (3,4) {task~\ref{task:genexp}};
+\node[task] (t1c) at (5,4) {task~\ref{task:genpat}};
+\draw[toTask] (t1b) -- (t0b);
+\draw[toTask] (t1c) -- (t0b);
+\draw[toSol] (t1c) to[bend right] (R);
+\node[task] (t2a) at (6,2) {task~\ref{task:normal}};
+\node[task] (t2b) at (4,1) {task~\ref{task:conv}};
+\node[task] (t2c) at (6,1) {task~\ref{task:approx}};
+\node[task] (t2d) at (8,1) {task~\ref{task:rendering}};
+\draw[toTask] (t2a) -- (t1c);
+\draw[toSol] (t2a) -- (C);
+\draw[toTask] (t2b) -- (t2a);
+\draw[toTask] (t2c) -- (t2a);
+\draw[toTask] (t2d) -- (t2a);
+\node[task] (t3a) at (1,0) {task~\ref{task:global}};
+\node[task] (t3b) at (3,0) {task~\ref{task:local}};
+\draw[toTask] (t3a) to[bend left] (t1c);
+\draw[toTask] (t3b) to[bend left] (t1c);
+\draw[toSol] (t3a) to[bend right] (S);
+\draw[toSol] (t3b) to[bend right] (S);
+
+%\draw (-0.5,0) grid[step=1] (9,8);
+
+\draw (-1,7.5) -- (13,7.5);
+\draw (0.2,-1.5) -- (0.2,8.5);
+\draw (8.8,-1.5) -- (8.8,8.5);
+
+\end{tikzpicture}
