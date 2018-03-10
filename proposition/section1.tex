@@ -392,18 +392,31 @@ position in the plane and is thus parallel to $\UpperPlane{\mu}{\vec{n}}$.
 
 New plane-probing algorithms have been proposed in \cite{LPRDGCI2016, LPRJMIV2017}. 
 They also iteratively deform an initial tetrahedron and stop when one face is
-parallel to $\UpperPlane{\mu}{\vec{n}}$. 
-However they differ from the first work on several aspects.  %as illustrated on \RefFig{fig:illustration:algo}. 
+parallel to $\UpperPlane{\mu}{\vec{n}}$ (see fig.~\ref{fig:ppa} for an illustration). 
+%
+\begin{figure}[htbp]
+  \centering
+  \subfloat[]{\includegraphics[width=0.17\textwidth]{triangle-1-2-5-0-0}}
+  \subfloat[]{\includegraphics[width=0.17\textwidth]{triangle-1-2-5-0-2}}
+  \subfloat[]{\includegraphics[width=0.17\textwidth]{triangle-1-2-5-0-4}}
+  \subfloat[]{\includegraphics[width=0.17\textwidth]{triangle-1-2-5-0-6}}
+  \subfloat[]{\includegraphics[width=0.17\textwidth]{triangle-1-2-5-0-8}}
+  \caption{The current tetrahedron is depicted in blue. It is initialized at a corner (a) 
+    and it then deformed step by step by the \emph{R-algorithm} proposed in \cite{LPRJMIV2017} (b-d).
+    When the algorithm terminates (e), the normal of the facet not incident to the fixed vertex
+    is equal to the normal of the underlying digital plane, \ie $(1,2,5)$.}
+    \label{fig:ppa}
+\end{figure}
+%
+However, these new algorithms differ from the first work on several aspects.
 First, they are simpler, because they repeat one simple operation instead
 of several possible transformations depending on the current onfiguration
 as in \cite{LPRTCS2016}.  
 Second, one vertex of the evolving tetrahedron is a fixed point lying above the 
-starting point and the opposite triangular facet. The position of the evolving 
-tetrahedron is thus better controlled than in \cite{LPRTCS2016}. 
+starting point and the opposite triangular facet (fig.~\ref{fig:ppa}. The position
+of the evolving tetrahedron is thus better controlled than in \cite{LPRTCS2016}. 
 Last, a geometric criterion is used so that the evolving tetrahedron is not
 too much elongated during the computation.  
-
-TODO: image d'illustration ?
 
 %surface
 In addition, \cite{LPRJMIV2017} show how to use these algorithms

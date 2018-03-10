@@ -1,0 +1,16 @@
+\begin{tikzpicture}
+[x= {(-0.353cm,-0.353cm)}, z={(0cm,1cm)}, y={(1cm,0cm)}]
+\input{pieceOfDigitalPlane-1-2-5-0.tikz}
+\coordinate (V0) at (2,0,1);
+\coordinate (V1) at (2,1,0);
+\coordinate (V2) at (0,1,1);
+\draw[blue] (V0) node{\Large{$\bullet$}};
+\draw[blue] (V1) node{\Large{$\bullet$}};
+\draw[blue] (V2) node{\Large{$\bullet$}};
+\draw[blue,very thick] (V0) -- (V1);
+\draw[blue,very thick] (V1) -- (V2);
+\draw[blue,very thick] (V2) -- (V0);
+\draw[blue,very thick] (V0) -- (1,1,1);
+\draw[blue,very thick] (V1) -- (1,1,1);
+\draw[blue,very thick] (V2) -- (1,1,1);
+\end{tikzpicture}
