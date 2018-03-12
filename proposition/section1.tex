@@ -76,27 +76,27 @@ which is tangent by construction. The growth direction is given by both arithmet
 
 \noindent\textbf{Objectives and expected results.}
 This project aims at analyzing digital surfaces. Three distinct goals can be highlighted:
-\begin{enumerate}
-  \item[(G1)] 
+\begin{enumerate}[label=(G\arabic*)]
+  \item %[(G1)]
 The first goal of this project is to study extra arithmetic and combinatorial properties
 of plane-probing algorithms. We expect to design an ultimate plane-probing algorithm that
 only probes a part of digital surface \emph{as small as possible} to provide a relevant facet.
 A formal definition of what is meant by \emph{small} and a theoretical upper bound should be given.
 In addition, we expect to correctly process non-convex parts by generating an underlying
-minimal and connected piece of digital plane. 
+minimal and connected piece of digital plane.  \label{goalppa} 
 %(see WP0 and WP1 in section~\ref{sec:wp}, describing work packages).
- \item[(G2)]
+ \item %[(G2)] 
 The second goal is to derive \emph{efficient}, \emph{accurate} and \emph{parameter-free} estimators
 of \emph{local} and \emph{first-order} geometric quantities: normal vector (and surfel area as a by-product),
 distance to boundary, voxel coverage (fig.~\ref{fig:2D}). We expect to derive such estimators from
 the above-mentionned plane-probing algorithm and provide a theoretical evaluation of their accuracy
-with respect to resolution.  
+with respect to resolution. \label{goalestim}  
 %(WP2).
- \item[(G3)]
+ \item %[(G3)] 
 The third goal is to provide a method and a tool for an automatic and \emph{multiscale} analysis of digital surfaces,
 based on the number or the size of the computed facets for several subsampled versions of the input 3D volume. 
 We expect to develop a tool that provides, without any parameter, the scale at which noise is unlikely. Based on
-this tool, we may add other features like a 3D normal estimator robust to noise.  
+this tool, we may add other features like a 3D normal estimator robust to noise.  \label{goalscale}
 %(WP3). 
 \end{enumerate}
 
@@ -110,14 +110,13 @@ this tool, we may add other features like a 3D normal estimator robust to noise.
 \label{fig:2D} 
 \end{figure}
 
- % at T+24 ?
 New algorithms, theoretical results and experimental studies will be gathered in papers submitted to
 top venues or in peer-reviewed international journals. Plane-probing algorithms and derived estimators
  will be implemented in \DGtal, tools in \DGtalTools~ with an \IPOL~ companion paper. 
 
-%\todo{expected results and final products}
-
-%1-WP0: algorithm purely local, from any starting point, which leads to a reduced basis and retrieves any normal
+%sqdf \ref{goalppa} qsdf \ref{goalestim}, \ref{goalscale}. 
+ 
+ %1-WP0: algorithm purely local, from any starting point, which leads to a reduced basis and retrieves any normal
 %1-WP1: pattern generation: minimal number of tiles, connected, 
 %2-WP2: estimateur + ordre de convergence theorique + applis ?
 %3-WP3: outils qui prend un volume et sors un sous-échantillon non bruité, ou un ensemble de voxels à différentes tailles (publi IPOL)
@@ -527,9 +526,10 @@ surfaces with the help of plane-probing algorithms.
  
 \noindent\textbf{Risk management.}
 Preliminary works have considerably reduced the project risks but have not eliminated them.
-Main risks are classified below by goal (see \sect{sec:goals}):
-\begin{enumerate}
-  \item[(G1)]
+Main risks are classified below by goal: risks \ref{riskppa}, \ref{riskestim} and \ref{riskscale}
+respectively correspond to goals \ref{goalppa}, \ref{goalestim} and \ref{goalscale}. 
+\begin{enumerate}[label=(R\arabic*)]
+  \item %[(G1)]
 %algos pas parfaits: il en existe actuellement un 
 %motif genere pas bons:
  %- on les genere apres coup en faisant une sorte de croissance de regions
@@ -545,8 +545,8 @@ For instance, we can adopt the approach of \citeauthor*{Charrier2011} \cite{Char
 where the initial isotropic neighborhoods are replaced by the digitization of the facet
 returned by the R-Algorithm at each corner, but leave as they are, otherwise. Extending all
 these pieces, we obtain a tangential cover that is less sensitive to the initial step and
-from which we can deduce an estimation of the normal vector field.  
-\item[(G2)]
+from which we can deduce an estimation of the normal vector field. \label{riskppa} 
+\item %[(G2)]
 %l'estimateur n'est pas convergent: peu probable, mais si ça arrive c'est que les motifs sont trop petits, il ne grandisse pas assez vite par rapport au pas h, dans ce cas on agrandit le motif jusqu'à obtenir m surfels, ou on agrandit jusqu'à avoir une épaisseur <= h, ou on combine des motifs voisins.
 Another risk is that the derived normal estimator is not multigrid-convergent.
 An important condition for such a normal estimator to be multigrid-convergent
@@ -567,7 +567,8 @@ than $\sqrt{3}$ (used for standard digital plane as defined in \Eq{eq:plane}),
 solutions will achieve multigrid-convergence without any parameter but at the price of
 a higher computational cost and a lower accuracy in the localization of sharp features. 
 %citer these muhamad ?
-\item[(G3)]
+ \label{riskestim}
+\item %[(G3)]
 %multiscale analysis
 A multiscale analysis of digital surfaces also depends on the asymptotics of linear parts.
 If the convergence rate is not as much important as in the previous item, it must be slower
@@ -577,5 +578,6 @@ small noise will be not detected. However, we can observe the length of the maxi
 along all the 2D slices of the 3D volume. The objections raised in \sect{sec:estim:ds} for
 normal estimation just not relevant for this application. Due to the previous results in 2D,
 \cite{Kerautret2012}, we can expect similar results in 3D with this approach in spite of a
-trickier implementation.  
+trickier implementation.
+ \label{riskscale}
 \end{enumerate}

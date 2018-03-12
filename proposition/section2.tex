@@ -51,7 +51,7 @@ Collaborator & Position & Lab & Expertise \\ \hline
 %% \normalsize
 %% \end{table}
 
-TODO qqs phrases de presentations pour chacun ?
+TODO qqs phrases de presentations pour chacun 
 \textbf{D. Coeurjolly} 
 \textbf{B. Kerautret} 
 \textbf{S. Labb\'{e}} 
@@ -69,7 +69,7 @@ and more generally in digital geometry and combinatorics on words for digital im
 %% In this section, we first detail and justify the scientific programme with regard to the project objectives.
 %% We then describe the requested means. 
 
-\subsection{Scientific program}
+\subsection{Scientific programme}
 \label{sec:wp}
 
 \Comments{Set out the scientific programme and justify the work programme's task breakdown with regard to the objectives being pursued.
@@ -77,25 +77,57 @@ For each task, describe the objectives, the work programme, deliverables, partne
 Illustrate the programme with a Gantt chart. 
 }
 
-This \textbf{four-year project} will be divided into four work packages (WP).
-The two first corresponds to goal G1, whereas the two last correspond
-respectively to goals G2 and G3 (see \sect{sec:goals} for the goal description).
-We have decided to have two WPs for G1 because this goal has two distinct sides,
-each requiring distinct expertise. On one hand, we want to improve various
-features of plane-probing algorithms, even in the planar case. Due to
-preliminary works, we have in mind many short-term tasks for this.
-On the other hand, we want to associate to the state of a plane-probing
-algorithm a piece of digital plane that fits to the digital surface in order
-to correctly process non-planar parts. This requires not only expertise
-in digital geometry but also in multidimensional continued
-fractions algorithms and combinatorics on words (see \sect{sec:dps} and below).
+PARADIS aims at developing a theoretical and practical framework for the automatic
+analysis of digital surfaces. Our approach will consists in finding digital plane
+segments onto digital surfaces \ref{goalppa} and deriving first-order estimates such
+as normal direction \ref{goalestim}. Digital plane segments will also provide a way
+of detecting meaningful scales automatically \ref{goalscale}.
 
-\subsubsection{WP0: Plane-probing algorithms}
-\label{wpPPA}
+Toward these goals, we propose four work packages (WP) summarized below and
+developed within this section. The first two are devoted to the improvement of
+plane-probing algorithms, which will be our main tool to achieve goals \ref{goalestim}
+and \ref{goalscale} in the last two packages. 
 
-%% \WP{Find the ultimate plane-probing algorithm (part of G1)}
-%%    {S. Labb\'{e}, J-O. Lachaud, \textbf{T. Roussillon}}
-%% \medskip
+\begin{enumerate} [label=(W\arabic*),start=0]
+\item Plane-probing algorithms (year 1). In this WP, we want to
+  improve various features of plane-probing algorithms, even in the
+  planar case. Due to preliminary works, we have in mind many short-term tasks for this.  \label{wp0}
+\item Pattern generation (year 1,2). In this WP, we seek a way to associate
+  to the state of a plane-probing algorithm a piece of digital plane
+  that fits to the digital surface in order to correctly process non-planar parts,
+  especially non-convex parts. This requires not only expertise in
+  digital geometry but also in multidimensional continued fractions
+  algorithms and combinatorics on words (see \sect{sec:dps} and below).  \label{wp1} 
+\item Geometric inference and applications (year 2,3). This WP is devoted
+  to the derivation of efficient, parameter-free, multigrid-convergent estimators.
+  The goal of this WP is also to investigate at one application based on such
+  estimators such as surface fairing or digital surface visualization. \label{wp2} 
+\item Multiscale analysis of digital surface (year 3,4). In this WP, we
+  seek a way to locally detect the best scales of analysis, based on properties
+  of digital plane segments. \label{wp3}
+\end{enumerate}
+
+%% This \textbf{four-year project} will be divided into four work packages (WP).
+%% The two first corresponds to goal G1, whereas the two last correspond
+%% respectively to goals G2 and G3 (see \sect{sec:goals} for the goal description).
+%% We have decided to have two WPs for G1 because this goal has two distinct sides,
+%% each requiring distinct expertise. On one hand, we want to improve various
+%% features of plane-probing algorithms, even in the planar case. Due to
+%% preliminary works, we have in mind many short-term tasks for this.
+%% On the other hand, we want to associate to the state of a plane-probing
+%% algorithm a piece of digital plane that fits to the digital surface in order
+%% to correctly process non-planar parts. This requires not only expertise
+%% in digital geometry but also in multidimensional continued
+%% fractions algorithms and combinatorics on words (see \sect{sec:dps} and below).
+
+%% \subsubsection{WP0: Plane-probing algorithms}
+%% \label{wpPPA}
+
+\WP{0}{Plane-probing algorithms}
+   {Find the ultimate plane-probing algorithm (part of \ref{goalppa})}
+   {S. Labb\'{e}, J-O. Lachaud, \textbf{T. Roussillon}}
+   {technical report at T+12}
+\medskip
 
 As explained in \sect{sec:dps}, a plane-probing algorithms sparsely probes the data points
 around a starting point to compute a local normal direction. Several algorithms of this kind
@@ -177,14 +209,16 @@ properties but not completing it does not prevent us from developing practical a
       for convex digital surfaces.  
 \end{itemize}
 
-\Members{S. Labb\'{e}, J-O. Lachaud, \textbf{T. Roussillon}}
+%\Members{S. Labb\'{e}, J-O. Lachaud, \textbf{T. Roussillon}}
   
-\subsubsection{WP1: Pattern generation}
-\label{wpPattern}
+%% \subsubsection{WP1: Pattern generation}
+%% \label{wpPattern}
 
-%% \WP{Generate a pattern under shape constraints (part of G1)}
-%%    {S. Labb\'{e}, \textbf{T. Roussillon}}
-%% \medskip
+\WP{1}{Pattern generation}
+   {Generate a pattern under shape constraints (part of \ref{goalppa})}
+   {S. Labb\'{e}, \textbf{T. Roussillon}}
+   {software release at T+24}
+\medskip
 
 Plane-probing algorithms probe for data points in a sparse way.
 This is perfect for digital plane recognition, but not for pieces
@@ -229,7 +263,7 @@ from an arbitrary multidimensional continued fractions (MCF) algorithm:
 \end{itemize}
 We believe that these two approaches are closely related, but this requires
 further investigation because they rely on different frameworks. 
-%TODO lien avec Christoffel graph
+TODO lien avec Christoffel graph
 
 
 \begin{Task}
@@ -282,14 +316,16 @@ of digital surfaces thanks to arithmetic and combinatorial properties.
   \item Theoretical guarantees about the shape of the generated pattern. 
 \end{itemize}
 
-\Members{S. Labb\'{e}, \textbf{T. Roussillon}}
+%\Members{S. Labb\'{e}, \textbf{T. Roussillon}}
 
-\subsubsection{WP2: Geometric inference and applications}
-\label{wpEstim}
+%% \subsubsection{WP2: Geometric inference and applications}
+%% \label{wpEstim}
 
-%%   \WP{Propose a parameter-free, multigrid-convergent normal estimator (G2)}
-%%    {C. Coeurjolly, J-O. Lachaud, \textbf{T. Roussillon}}
-%% \medskip
+\WP{2}{Geometric inference and applications}
+   {Propose a parameter-free, multigrid-convergent normal estimator \ref{goalestim}}
+   {C. Coeurjolly, J-O. Lachaud, \textbf{T. Roussillon}}
+   {...}
+\medskip
 
  Most of the time, when we are working with a digital surface, we are 
 interested in the geometry of a continuous shape whose digitization is the input digital data.
@@ -359,14 +395,15 @@ cost and a lower accuracy in the localization of sharp features.
   \item At least one of the tasks~\ref{task:approx} and \ref{task:rendering} is completed. 
 \end{itemize}
 
-\Members{C. Coeurjolly, J-O. Lachaud, \textbf{T. Roussillon}}
+%\Members{C. Coeurjolly, J-O. Lachaud, \textbf{T. Roussillon}}
   
-\subsubsection{WP3: Multiscale analysis}
-\label{wpScale}
+%% \subsubsection{WP3: Multiscale analysis}
+%% \label{wpScale}
 
-%% \WP{Develop a tool for a multiscale analysis of digital surfaces (G3)}
-%%    {C. Coeurjolly, B. Kerautret, J-O. Lachaud, \textbf{T. Roussillon}}
-%% \medskip
+\WP{3}{Multiscale analysis}{Develop a tool for a multiscale analysis of digital surfaces \ref{goalscale}}
+   {C. Coeurjolly, B. Kerautret, J-O. Lachaud, \textbf{T. Roussillon}}
+   {...}
+\medskip
 
 Digital surfaces may be degraded with \emph{noise}, especially in medical imaging.
 Since noise usually affect only the finest levels of details, the following algorithm

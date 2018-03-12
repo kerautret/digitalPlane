@@ -6,6 +6,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{enumitem}
 
 %---------------------------------- refs ---------------------------
 \usepackage[backend=bibtex,citestyle=alphabetic,bibstyle=alphabetic]{biblatex}
@@ -96,22 +97,23 @@
 \newcommand{\Members}{\noindent
   \textbf{Members: }}
 
-%% \newcommand{\WP}[4]{\noindent\fbox{
-%% \begin{minipage}{0.98\linewidth}
-%% \begin{tabular}{rp{1\textwidth}}
-%% \textsc{WP#1: }&    #2\\
-%% \textsc{Main objective: }&    #3\\
-%% \textsc{Members: }&    #4\\
-%% \end{tabular}
-%% \end{minipage}}}
-
-\newcommand{\WP}[2]{\noindent\fbox{
+\newcommand{\WP}[5]{\noindent\fbox{
 \begin{minipage}{0.98\linewidth}
 \begin{tabular}{rp{1\textwidth}}
-\textsc{Main objective: }&    1\\
-\textsc{Members: }&    #2\\
+\textsc{\ref{wp#1}: }&    #2\\
+\textsc{Main objective: }&    #3\\
+\textsc{Members: }&    #4\\
+\textsc{Deliverables: }&    #5\\
 \end{tabular}
 \end{minipage}}}
+
+%% \newcommand{\WP}[2]{\noindent\fbox{
+%% \begin{minipage}{0.98\linewidth}
+%% \begin{tabular}{rp{1\textwidth}}
+%% \textsc{Main objective: }&    1\\
+%% \textsc{Members: }&    #2\\
+%% \end{tabular}
+%% \end{minipage}}}
 
 %work-packages
 \def \wpPPA {WP0}
