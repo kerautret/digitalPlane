@@ -64,12 +64,12 @@ Furthermore, this project will let the team members maintaining their lead in di
 and more generally in digital geometry and combinatorics on words for digital imagery. 
 
 
-%% \subsection{Means of achieving the objectives}
+\subsection{Means of achieving the objectives}
 
 %% In this section, we first detail and justify the scientific programme with regard to the project objectives.
 %% We then describe the requested means. 
 
-\subsection{Scientific programme}
+\subsubsection{Scientific programme}
 \label{sec:wp}
 
 \Comments{Set out the scientific programme and justify the work programme's task breakdown with regard to the objectives being pursued.
@@ -77,11 +77,10 @@ For each task, describe the objectives, the work programme, deliverables, partne
 Illustrate the programme with a Gantt chart. 
 }
 
-PARADIS aims at developing a theoretical and practical framework for the automatic
-analysis of digital surfaces. Our approach will consists in finding digital plane
-segments onto digital surfaces \ref{goalppa} and deriving first-order estimates such
-as normal direction \ref{goalestim}. Digital plane segments will also provide a way
-of detecting meaningful scales automatically \ref{goalscale}.
+PARADIS aims at analyzing digital surfaces. Our approach will consist in finding
+digital plane segments onto digital surfaces \ref{goalppa} and deriving first-order
+estimates such as normal direction \ref{goalestim}. Digital plane segments will
+also provide a way of detecting meaningful scales automatically \ref{goalscale}.
 
 Toward these goals, we propose four work packages (WP) summarized below and
 developed within this section. The first two are devoted to the improvement of
@@ -89,10 +88,10 @@ plane-probing algorithms, which will be our main tool to achieve goals \ref{goal
 and \ref{goalscale} in the last two packages. 
 
 \begin{enumerate} [label=(W\arabic*),start=0]
-\item Plane-probing algorithms (year 1). In this WP, we want to
+\item Plane-probing algorithms (first year). In this WP, we want to
   improve various features of plane-probing algorithms, even in the
   planar case. Due to preliminary works, we have in mind many short-term tasks for this.  \label{wp0}
-\item Pattern generation (year 1,2). In this WP, we seek a way to associate
+\item Pattern generation (first two years). In this WP, we seek a way to associate
   to the state of a plane-probing algorithm a piece of digital plane
   that fits to the digital surface in order to correctly process non-planar parts,
   especially non-convex parts. This requires not only expertise in
@@ -106,6 +105,19 @@ and \ref{goalscale} in the last two packages.
   seek a way to locally detect the best scales of analysis, based on properties
   of digital plane segments. \label{wp3}
 \end{enumerate}
+
+Since there are so many perspectives and paths to follow, this project needs
+to strengthen a team of experts by full-time workers in order to make the best of them.
+We request
+\begin{itemize}
+\item[(MS)] one master project funding to help us on short-term tasks in \ref{wp0},
+\item[(PhD)] one PhD grant for working on \ref{wp1} and \ref{wp2},
+\item[(Postdoc)] one postdoctoral student with background in digital geometry,
+  combinatorics on words or both for working on \ref{wp1} during two years
+  in order to strengthen the transdisciplinarity of the project. 
+\end{itemize}
+%A same student would basically start working on \wpPPA~during its master project and then continue with \wpEstim~and \wpScale~during its PhD thesis.
+
 
 %% This \textbf{four-year project} will be divided into four work packages (WP).
 %% The two first corresponds to goal G1, whereas the two last correspond
@@ -123,10 +135,10 @@ and \ref{goalscale} in the last two packages.
 %% \subsubsection{WP0: Plane-probing algorithms}
 %% \label{wpPPA}
 
-\WP{0}{Plane-probing algorithms}
+\WP{0}{Plane-probing algorithms (T+0-T+12)}
    {Find the ultimate plane-probing algorithm (part of \ref{goalppa})}
-   {S. Labb\'{e}, J-O. Lachaud, \textbf{T. Roussillon}}
-   {technical report at T+12}
+   {S. Labb\'{e}, J-O. Lachaud, T. Roussillon, \textbf{MS}}
+   {Technical report at T+12}
 \medskip
 
 As explained in \sect{sec:dps}, a plane-probing algorithms sparsely probes the data points
@@ -183,13 +195,14 @@ approximated results.
 %TODO ne remet pas en cause la localite.
 %Finally, it remains the \emph{sailent corners}. 
 %how to retrieve complementary facets ?
-TODO: parler des facettes complementaires ?
+%TODO: parler des facettes complementaires ?
 
 \begin{Task}
   \label{task:start}
   Modify the R-algorithm so that it can be run from any starting point. 
 \end{Task}
 
+The master project will focus on this task. %~\ref{task:start}. 
 
 \Risks
 Preliminary works have considerably reduced the risks in this WP. Task~\ref{task:start}
@@ -204,20 +217,24 @@ properties but not completing it does not prevent us from developing practical a
     \item A plane-probing algorithm, which always leads to a
       reduced facet of normal $\vec{n}$ when applied to a digital
       plane $\Plane{\mu}{\vec{n}}$ from any starting points.
-    \item Implementation of the algorithm in \DGtal.   
     \item Theoretical guarantees about the locality of the algorithm
-      for convex digital surfaces.  
+      for planar and convex parts.   
+    \item Implementation of the algorithm in \DGtal.   
 \end{itemize}
+The first two items will have to be included in a technical report at T+12.
+The last one will be part of a software release at T+24, which will include
+the development of \ref{wp1}. 
 
 %\Members{S. Labb\'{e}, J-O. Lachaud, \textbf{T. Roussillon}}
   
 %% \subsubsection{WP1: Pattern generation}
 %% \label{wpPattern}
 
-\WP{1}{Pattern generation}
+\medskip
+\WP{1}{Pattern generation (T+0-T+30)}
    {Generate a pattern under shape constraints (part of \ref{goalppa})}
-   {S. Labb\'{e}, \textbf{T. Roussillon}}
-   {software release at T+24}
+   {S. Labb\'{e}, T. Roussillon, \textbf{Postdoc}}
+   {Technical report at T+12. Software release at T+24}
 \medskip
 
 Plane-probing algorithms probe for data points in a sparse way.
@@ -240,41 +257,49 @@ parts of it, which will lead to a more flexible algorithm.
 
 The challenge in this WP is to generate digital plane segments (DPSs)
 having several properties \cite{Jamet2016}:
-\begin{enumerate}
-\item[(P1)] they must be included in the tangent digital plane;
-\item[(P2)] at least two independent period vectors should be deduced from them
+\begin{enumerate}[label=(P\arabic*)]
+\item they must be included in the tangent digital plane; \label{prop:inside}
+\item at least two independent period vectors should be deduced from them
   so that the whole tangent digital plane is implicitly described by translation
-  (and that is why such DPSs are called \emph{patterns});
-\item[(P3)] they should form a connected set;
-\item[(P4)] they should be as small as possible to avoid redundancy,
+  (and that is why such DPSs are called \emph{patterns}); \label{prop:period}
+\item they should form a connected set; \label{prop:connect}
+\item they should be as small as possible to avoid redundancy,
   \eg $n_i$ surfels of normal vector $\vec{e}_i$, where $n_i$ is the i-th coordinate
-  of $\vec{n}$. 
+  of $\vec{n}$. \label{prop:small}
 \end{enumerate}
-We can add other properties about their shape: symmetry to their central part \cite{Labbe2015},
+We can add other properties about their shape: 
 convexity, smallest possible elongation or maximal distance to the starting point.
 %% It may also contain the standard digitization of the current facet returned by
 %% a plane-probing algorithm. 
 
 As reported in \sect{sec:dps}, there are two main generic methods for generating patterns
 from an arbitrary multidimensional continued fractions (MCF) algorithm:
-\begin{itemize}
-\item[(M1)] the first one is based on dual substitutions, 
-\item[(M2)] the second one is based on a translation-union algorithm.
-\end{itemize}
+\begin{enumerate}[label=(M\arabic*)]
+\item one is based on dual substitutions, \label{m:sub}
+\item another one is based on a translation-union algorithm. \label{m:tu}
+\end{enumerate}
 We believe that these two approaches are closely related, but this requires
 further investigation because they rely on different frameworks. 
-TODO lien avec Christoffel graph
 
+\emph{Christoffel parallelograms}, introduced in \cite{Labbe2015},
+encode a digitization of 3D planar parallelograms. They have strong
+structural properties, similar to those of Christoffel words:
+symmetry of their central part and conjugation with their reversal.
+The concatenation of two Christoffel parallelograms into another one
+is not yet understood, but this question is closely related to MCF
+and pattern generation. 
 
 \begin{Task}
   \label{task:genmeth}
-  Study methods M1 and M2 on arbitrary MCF algorithms and compare them.   
+  Study methods \ref{m:sub} and \ref{m:tu} on arbitrary MCF algorithms,
+  compare them and relate them to Christoffel parallelograms.   
 \end{Task}
 
-Even if MCF algorithms usually guarantee some of the above properties (at least P1 and P2),
+Even if MCF algorithms usually guarantee some of the above properties
+(at least \ref{prop:inside} and \ref{prop:period}),
 they do not take into account the pattern shape. As any other MCF algorithm, the R-algorithm
 also produces a sequence of matrices, denoted by $M_1..M_n$. We believe that the R-algorithm
-is a good candidate for methods M1 and M2 in order to generate patterns with shape
+is a good candidate for methods \ref{m:sub} and \ref{m:tu} in order to generate patterns with shape
 constraints because it returns a reduced triangular facet.
 
 One difficulty is that several substitutions can be associated to the same matrix
@@ -284,21 +309,26 @@ $\Sigma := \{ \sigma_1..\sigma_n \ | \ \sigma_i \text{ is a possible substitutio
 
 \begin{Task}
   \label{task:genexp}
-  Experimentally check if the properties P1-P4 hold for patterns generated from $\Sigma$
-  by methods M1 and M2.  
+  Experimentally check if the properties \ref{prop:inside}-\ref{prop:small}
+  hold for patterns generated from $\Sigma$ by methods \ref{m:sub} and \ref{m:tu}.  
 \end{Task}
 
 Although it is hardly never investigated in the field of MCF algorithms, the choice of a
-substitution can play an important role, especially for P3 and P4. In our geometric setting,
-we can expect a criterion for choosing a convenient substitution at each step. 
+substitution can play an important role, especially for \ref{prop:connect} and \ref{prop:small}.
+In our geometric setting, we can expect a criterion for choosing a convenient substitution at each step. 
 
 \begin{Task}
   \label{task:genpat}
-  Generate a pattern having at least properties P1-P4 in the course of the R-algorithm. 
+  Generate a pattern having at least properties \ref{prop:inside}-\ref{prop:small} in the course of
+  the R-algorithm or another plane-probing algorithm (task~\ref{task:start}. 
 \end{Task}
 
 For this WP, we expect strong and rich interactions between digital geometry, combinatorics on words
-and the field of MCF algorithms as highlighted by the collaborators' expertise.
+and the field of MCF algorithms as highlighted by the collaborators' expertise. The postdoctoral
+student will be involved in all these tasks and will carefully follow and integrate the advances
+of \ref{wp0}. The transdisciplinarity and difficulty of this WP requires an experienced student
+that already has an expert knowledge of at least one field and good technical abilities. This
+position will let him gain new skills in a cutting-edge project and launch its career.  
 
 \Risks
 We do not know if it is possible to generate patterns with all the above properties
@@ -316,15 +346,22 @@ of digital surfaces thanks to arithmetic and combinatorial properties.
   \item Theoretical guarantees about the shape of the generated pattern. 
 \end{itemize}
 
+Preliminary studies and experiments will be included in a technical report at T+12.
+At T+24, an implementation of a plane-probing algorithm \ref{wp0} including a pattern
+generator will be available in \DGtal. 
+%+publis
+
+
 %\Members{S. Labb\'{e}, \textbf{T. Roussillon}}
 
 %% \subsubsection{WP2: Geometric inference and applications}
 %% \label{wpEstim}
 
-\WP{2}{Geometric inference and applications}
+\medskip
+\WP{2}{Geometric inference and applications (T+12-T+30)}
    {Propose a parameter-free, multigrid-convergent normal estimator \ref{goalestim}}
-   {C. Coeurjolly, J-O. Lachaud, \textbf{T. Roussillon}}
-   {...}
+   {C. Coeurjolly, J-O. Lachaud, T. Roussillon, \textbf{PhD}}
+   {Technical report at T+30.}
 \medskip
 
  Most of the time, when we are working with a digital surface, we are 
@@ -354,7 +391,6 @@ Plane-probing algorithms not only provide a normal vector but also position info
 which may be useful for many applications in graphics such as polyhedral approximation,
  or digital surface visualization. The goal of this WP is also to investigate at least
 one of these applications.   
-
 
 We can approximate a digital surface either by a polyhedral surface whose vertices 
 are a subset of the input data points, as in convex hulls or relative convex hulls
@@ -400,6 +436,7 @@ cost and a lower accuracy in the localization of sharp features.
 %% \subsubsection{WP3: Multiscale analysis}
 %% \label{wpScale}
 
+\medskip
 \WP{3}{Multiscale analysis}{Develop a tool for a multiscale analysis of digital surfaces \ref{goalscale}}
    {C. Coeurjolly, B. Kerautret, J-O. Lachaud, \textbf{T. Roussillon}}
    {...}
@@ -468,9 +505,9 @@ resort to the length of the maximal DSSs along 2D slices as explained in \sect{s
     in \DGtalTools~ with companion papers in \IPOL.
 \end{itemize}
 
-\Members{C. Coeurjolly, B. Kerautret, J-O. Lachaud, \textbf{T. Roussillon}}
+%\Members{C. Coeurjolly, B. Kerautret, J-O. Lachaud, \textbf{T. Roussillon}}
 
-\subsection{Schedule and deliverables}
+\subsubsection{Schedule and deliverables}
 \label{sec:schedule}
 
 TODO dependances des taches/WP et gantt ?
@@ -493,7 +530,7 @@ TODO dependances des taches/WP et gantt ?
   \label{fig:gantt}
 \end{figure}
 
-\subsection{Requested means}
+\subsubsection{Requested means}
 \label{sec:ressources}
 
 \Comments{
