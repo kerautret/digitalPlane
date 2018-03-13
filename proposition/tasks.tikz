@@ -6,16 +6,16 @@
 \tikzset{toSol/.style={->,>=latex,dashed,color=blue!90!white}}
 \tikzset{toTask/.style={->,>=latex}}
 
-\node[left] at (0,8) {WPs}; 
-\node[left] at (0,6) {WP0}; 
-\node[left] at (0,4) {WP1}; 
-\node[left] at (0,2) {WP2}; 
-\node[left] at (0,0) {WP3}; 
+\node[left] at (0,8) {WP}; 
+\node[left] at (0,6) {\ref{wp0}}; 
+\node[left] at (0,4) {\ref{wp1}}; 
+\node[left] at (0,2) {\ref{wp2}}; 
+\node[left] at (0,0) {\ref{wp3}}; 
 
 \node[right] at (9,8) {fall-back solutions};
-\node[right,sol] (R) at (9,6) {R-algorithm};
-\node[right,sol] (C) at (9,2) { $\nearrow$ thickness };
-\node[right,sol] (S) at (9,0) {2D slices};
+\node[right,sol] (R) at (9,6) {R-algorithm \ref{riskppa}};
+\node[right,sol] (C) at (9,2) { $\nearrow$ thickness \ref{riskestim}};
+\node[right,sol] (S) at (9,0) {2D slices \ref{riskscale}};
 
 \node at (4,8) {tasks};
 \node[draw] (P) at (4,7) {preliminary works};

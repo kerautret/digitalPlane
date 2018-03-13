@@ -209,7 +209,7 @@ Preliminary works have considerably reduced the risks in this WP. Task~\ref{task
 can be done within one year. If we face to a difficulty that cannot be overcomed,
 we will resort to the R-algorithm as it is described in \cite{LPRJMIV2017} and use it
 to improve the approach of \citeauthor*{Charrier2011} \cite{Charrier2011}, as explained
-in \sect{sec:methodo}. Task~\ref{task:reduction} is very important to rely on provable
+in \ref{riskppa}. Task~\ref{task:reduction} is very important to rely on provable
 properties but not completing it does not prevent us from developing practical algorithms.
 
 \Success
@@ -320,7 +320,7 @@ In our geometric setting, we can expect a criterion for choosing a convenient su
 \begin{Task}
   \label{task:genpat}
   Generate a pattern having at least properties \ref{prop:inside}-\ref{prop:small} in the course of
-  the R-algorithm or another plane-probing algorithm (task~\ref{task:start}. 
+  the R-algorithm or another plane-probing algorithm (task~\ref{task:start}). 
 \end{Task}
 
 For this WP, we expect strong and rich interactions between digital geometry, combinatorics on words
@@ -333,7 +333,7 @@ position will let him gain new skills in a cutting-edge project and launch its c
 \Risks
 We do not know if it is possible to generate patterns with all the above properties
 or an appropriate subset of them in order to correctly process non-convex parts,
-in spite of promising results (TODO fig). Still, we have algorithmic solutions
+in spite of promising results. Still, we have algorithmic solutions
 \cite{LPRJMIV2017} to cope with these problems, which alleviate such risk. 
 On the contrary, a success in this WP would lead to both theoretical results
 on MCF algorithms and related geometric problems, and a speed-up in the analysis
@@ -379,23 +379,26 @@ distance to boundary, voxel coverage (fig.~\ref{fig:2D}).
 \end{Task}
 
 The accuracy of a multigrid-convergent estimator depends on the resolution: the higher the resolution,
-the more accurate the estimator. We will experimentally and theoretically study the estimation accuracy
-for shapes digitized at increasing resolutions. 
+the more accurate the estimator. An important task in this WP is to experimentally and theoretically
+study the estimation accuracy for shapes digitized at increasing resolutions. The theoretical study
+will probably rely on the size of the facets returned by plane-probing algorithms: the bigger the facets,
+the less sensitive to digitization noise the estimator. 
 
 \begin{Task}
   \label{task:conv}
-  Study the estimation accuracy of the proposed estimators for smooth shapes digitized at increasing resolutions. 
+  Study the growth rate of the facets returned by plane-probing algorithms
+  and the estimators accuracy for smooth shapes digitized at increasing resolutions. 
 \end{Task}
 
 Plane-probing algorithms not only provide a normal vector but also position information,
 which may be useful for many applications in graphics such as polyhedral approximation,
- or digital surface visualization. The goal of this WP is also to investigate at least
-one of these applications.   
+surface fairing or digital surface visualization. The goal of this WP is also to investigate
+at least one of these applications.   
 
 We can approximate a digital surface either by a polyhedral surface whose vertices 
-are a subset of the input data points, as in convex hulls or relative convex hulls
+are a subset of the input data points, as in (relative) convex hulls 
 \cite{Klette2001,Schultz2009} 
-or a quadrangular mesh whose vertices are set to optimized positions so that it is
+or by a quadrangular mesh whose vertices are set to optimized positions, so that it is
 as smooth as possible. In the former problem, the facets returned by the
 plane-probing algorithms will play an important role, while in the latter,
 normal estimates are usually a key input of the optimization step (see for instance
@@ -417,19 +420,27 @@ also be used to remove staircase effects near shape borders in the resulting 2D 
   Design an algorithm that directly renders digital surfaces using first-order estimations.  
 \end{Task}
 
+The PhD student will work on all these tasks. This WP, and especially tasks~\ref{task:normal}
+and \ref{task:conv}, will be the core of its thesis project. Tasks \ref{task:approx},
+\ref{task:rendering} and \ref{wp3} will be applications of its main thesis topic.  
+
 \Risks
 The main risk in this WP is that normal estimators
 directly derived from plane-probing algorithms do not have the multigrid-convergence
-property. In that case, fall-back solutions presented in \sect{sec:methodo} will achieve
+property. In that case, fall-back solutions presented in \ref{riskestim} will achieve
 multigrid-convergence without any parameter but at the price of a higher computational
 cost and a lower accuracy in the localization of sharp features. 
 
 \Success
 \begin{itemize}
   \item A parameter-free and multigrid-convergent normal estimator.
-  \item Implementation of the estimator in \DGtal.
   \item At least one of the tasks~\ref{task:approx} and \ref{task:rendering} is completed. 
+  \item Implementation of the estimator in \DGtal.
 \end{itemize}
+
+The first two items will have to be included in a technical report at T+30.
+The last one will be part of a software release at T+48, which will include
+the outcome of \ref{wp3}. 
 
 %\Members{C. Coeurjolly, J-O. Lachaud, \textbf{T. Roussillon}}
   
@@ -437,9 +448,10 @@ cost and a lower accuracy in the localization of sharp features.
 %% \label{wpScale}
 
 \medskip
-\WP{3}{Multiscale analysis}{Develop a tool for a multiscale analysis of digital surfaces \ref{goalscale}}
-   {C. Coeurjolly, B. Kerautret, J-O. Lachaud, \textbf{T. Roussillon}}
-   {...}
+\WP{3}{Multiscale analysis (T+24-T+46)}
+   {Develop a tool for a multiscale analysis of digital surfaces \ref{goalscale}}
+   {C. Coeurjolly, B. Kerautret, J-O. Lachaud, T. Roussillon, \textbf{PhD}}
+   {Software release at T+48.}
 \medskip
 
 Digital surfaces may be degraded with \emph{noise}, especially in medical imaging.
@@ -469,21 +481,14 @@ where noise is unlikely, is enough in case of uniform noise.
 \end{Task}
 
 Then, we will locally focus on the size of all facets covering a same data point for various resolutions. 
-
-\begin{Task}
-  \label{task:size}
-  Define the size of a facet returned by plane-probing algorithms. Study the growth rate of the size
-  for smooth parts at various resolution. 
-\end{Task}
-
-This local strategy, better than the previous one in case of non-uniform noise, provides however
-a more complex output because a best scale is computed at each data point.
-We can either simply output this information to feed other tools
-or compute estimates during the scale detection, such as a normal estimator robust to noise.  
+This local strategy is better than the previous one in case of non-uniform noise but provides however
+a more complex output because the best scale is computed at each data point.
+We can either simply output this information to feed high-level tools or compute estimates during
+the scale detection, such as a normal estimator robust to noise.  
 
 \begin{Task}
   \label{task:local}
-  Develop a tool that automatically adds to a digital surface a scale value or
+  Develop a tool that automatically adds to a digital surface a scale value and
   a robust-to-noise normal estimate at each data point. 
 \end{Task}
 %alpha-shape, ball unions
@@ -494,41 +499,52 @@ because computed facets are closely related to convex hull facets in convex part
 and the growth rate of the number of convex hull facets is known for digitization
 of convex smooth shapes \cite{Barany1998}. 
 Task~\ref{task:local} could be however more difficult to complete
-because it depends on a sound definition of the size of a facet (task~\ref{task:size})
+because it depends on a sound definition of the size of a facet (task~\ref{task:conv})
 for which the growth rate is clearly different for smooth parts on one hand
 and noise or small-scale features on the other hand. If it is not the case, we can
-resort to the length of the maximal DSSs along 2D slices as explained in \sect{sec:methodo}.
+resort to the length of the maximal DSSs along 2D slices as explained in \ref{riskscale}.
 
 \Success
-\begin{itemize}
-  \item Implementation of the tools of tasks~\ref{task:global} and \ref{task:local}
-    in \DGtalTools~ with companion papers in \IPOL.
-\end{itemize}
+%\begin{itemize}
+%\item
+  Implementation of the tools of tasks~\ref{task:global} and \ref{task:local}
+    in \DGtalTools~ with companion papers in \IPOL~ at T+48.
+%\end{itemize}
 
+    
 %\Members{C. Coeurjolly, B. Kerautret, J-O. Lachaud, \textbf{T. Roussillon}}
 
 \subsubsection{Schedule and deliverables}
 \label{sec:schedule}
 
-TODO dependances des taches/WP et gantt ?
-%WP sont ordonnes WP3 et WP2 graphe de dépendances des tâches ?
-%1er WP en 1 an que du court terme
-%les autres WP en 2 ans environ, 
+Fig.~\ref{fig:tasks} show the dependency graph of all the project tasks.
+All the tasks are gathered in the center of the picture. They are row-aligned by WP,
+\ie all the tasks of a same line belong to the same WP. 
+The solid arrows represent the dependency of a task toward another,
+\eg task~\ref{task:genpat} depends on \ref{task:start}. 
+The dashed arrows are used to connect the main tasks to their fall-back solutions. 
+
+We clearly see in fig.~\ref{fig:tasks} why WP are ordered in time TODO.
 
 \begin{figure}[htbp]
   \centering
   \input{tasks.tikz}
-  \caption{Tasks dependancy graph}
+  \caption{Dependency graph of PARADIS' tasks}
   \label{fig:tasks}
 \end{figure}
 
 
+Fig.~\ref{fig:gantt} show the Gantt chart of the project schedule.
+The first WP is one-year long whereas the next ones are two-year long
+
 \begin{figure}[htbp]
   \centering
   \input{schedule.tikz}
-  \caption{Gantt diagram for PARADIS' work packages}
+  \caption{Gantt chart for PARADIS' work packages}
   \label{fig:gantt}
 \end{figure}
+
+
 
 \subsubsection{Requested means}
 \label{sec:ressources}
