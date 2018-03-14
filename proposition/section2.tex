@@ -116,7 +116,6 @@ We request
   combinatorics on words or both for working on \ref{wp1} during two years
   in order to strengthen the transdisciplinarity of the project. 
 \end{itemize}
-%A same student would basically start working on \wpPPA~during its master project and then continue with \wpEstim~and \wpScale~during its PhD thesis.
 
 
 %% This \textbf{four-year project} will be divided into four work packages (WP).
@@ -326,9 +325,12 @@ In our geometric setting, we can expect a criterion for choosing a convenient su
 For this WP, we expect strong and rich interactions between digital geometry, combinatorics on words
 and the field of MCF algorithms as highlighted by the collaborators' expertise. The postdoctoral
 student will be involved in all these tasks and will carefully follow and integrate the advances
-of \ref{wp0}. The transdisciplinarity and difficulty of this WP requires an experienced student
-that already has an expert knowledge of at least one field and good technical abilities. This
-position will let him gain new skills in a cutting-edge project and launch its career.  
+of \ref{wp0}.
+
+%% TRIS deplacer apres ``requested means''
+%% The transdisciplinarity and difficulty of this WP requires an experienced student
+%% that already has an expert knowledge of at least one field and good technical abilities. This
+%% position will let him gain new skills in a cutting-edge project and launch its career.  
 
 \Risks
 We do not know if it is possible to generate patterns with all the above properties
@@ -517,34 +519,48 @@ resort to the length of the maximal DSSs along 2D slices as explained in \ref{ri
 \subsubsection{Schedule and deliverables}
 \label{sec:schedule}
 
-Fig.~\ref{fig:tasks} show the dependency graph of all the project tasks.
-All the tasks are gathered in the center of the picture. They are row-aligned by WP,
+Fig.~\ref{fig:tasks} shows the dependency graph of all the project tasks, which
+are gathered in the center of the picture. They are row-aligned by WP,
 \ie all the tasks of a same line belong to the same WP. 
 The solid arrows represent the dependency of a task toward another,
-\eg task~\ref{task:genpat} depends on \ref{task:start}. 
-The dashed arrows are used to connect the main tasks to their fall-back solutions. 
-
-We clearly see in fig.~\ref{fig:tasks} why WP are ordered in time TODO.
+\eg task~\ref{task:genpat} depends on task~\ref{task:start}. 
+The dashed arrows are used to connect the main tasks to their fall-back solutions,
+described in \sect{sec:methodo}. 
 
 \begin{figure}[htbp]
   \centering
   \input{tasks.tikz}
-  \caption{Dependency graph of PARADIS' tasks}
+  \caption{Dependency graph of the project tasks. See \sect{sec:schedule} for details.}
   \label{fig:tasks}
 \end{figure}
 
+We clearly see in fig.~\ref{fig:tasks} that \ref{wp0} and \ref{wp1} can be started
+at the beginning of the project, whereas \ref{wp2} and \ref{wp3}, which greatly depend
+on tasks~\ref{task:start} and \ref{task:genpat}, respectively in \ref{wp0} and \ref{wp1}
+must be delayed. \ref{wp3} will start after \ref{wp0} and \ref{wp1}, but \ref{wp2} will
+start earlier, because we will first focus on convex parts and only task~\ref{task:start}
+in \ref{wp0} is required for that.
 
-Fig.~\ref{fig:gantt} show the Gantt chart of the project schedule.
-The first WP is one-year long whereas the next ones are two-year long
+To sum up, fig.~\ref{fig:gantt} shows the Gantt chart of the project schedule.
+The WPs are listed on the vertical axis and time intervals on the horizontal axis.
+The width of the horizontal dark blue bars show the duration of each WP. The first WP,
+which mainly consists of short-term tasks is one-year long whereas the next ones are
+two-year long. Deliverables are located at the finish date of each WP. They will be
+provided in the form of technical reports at T+12 and T+30, and in the form of software
+release at T+24 and T+48.
 
 \begin{figure}[htbp]
   \centering
   \input{schedule.tikz}
-  \caption{Gantt chart for PARADIS' work packages}
+  \caption{Gantt chart for PARADIS' work packages. See \sect{sec:schedule} for details.}
   \label{fig:gantt}
 \end{figure}
 
-
+In addition, collaborators hired during the project are depicted with dashed grey rectangles.
+The postdoctoral student will be hired for working on \ref{wp1} at the beginning of the project.
+The master student will work during the first year and the PhD student will be hired
+after one year. If the master student demonstrate strong skills, it will be an excellent applicant
+for the PhD grant.
 
 \subsubsection{Requested means}
 \label{sec:ressources}
@@ -556,10 +572,53 @@ Description of the context in terms of human and financial resources available t
 
 \Comments{la demande en ressource devra être mieux justifiée (en particulier, l'apport plus concret d'un chercheur en postdoctorat (pas étudiant).}
 
-%--------------------------- fonds
-We first request one PhD grant and one master project funding ($\approx$ 111k euros). A same student would basically start working on \wpPPA~during its master project and then continue with \wpEstim~and \wpScale~during its PhD thesis. We also need a postdoctoral student with background in digital geometry, combinatorics on words or both for working on \wpPattern~during two years in order to strengthen the transdisciplinarity of the project ($\approx$ 95k euros). 
-Computers (one for the PI and one for each student) should cost $\approx$ 6k euros. Work meetings and travels for conferences (one international travel per year per persons receiving the ANR funding) should cost $\approx$ 30k euros. 
-To sum up, the total amount is about \textbf{260k euros}, including management fees. 
+The total required amount for PARADIS is about \textbf{260k \euro}, including management fees.
+This section details our needs, which are summed up in table~\ref{tab:grant}.
+
+\textbf{Staff ($\approx$ 205k \euro).} As described in the scientific program (\sect{sec:wp} and \sect{sec:schedule}),
+we request one PhD grant and one master project funding ($\approx$ 111k \euro).
+A same student would basically start working on \ref{wp0} during its master project and then
+continue with \ref{wp2} and \ref{wp3} during its PhD thesis.
+We also need a postdoctoral student for working on \ref{wp1} during two years ($\approx$ 95k \euro). 
+The transdisciplinarity, difficulty and importance of \ref{wp1} requires an experienced student
+that already has good technical abilities and an expert knowledge of at least digital geometry
+or combinatorics on words. This position will let him gain new skills in a cutting-edge project
+and launch its career. On the project side, this full-time worker will strengthen the synergy and
+convergence of the team skills. 
+
+\textbf{Travel costs ($\approx$ 30k \euro).}
+We also request funds for one international travel (2,000 \euro~on average)
+per year for the PI (4 years), the PhD student (3 years) and the postdoctoral student (2 years)
+but only one during the whole project for the four other collaborators due to their lower involvement.
+We estimate this cost at 2,000 x (4 years-PI + 3 years-PhD + 2 years-Postdoc + 4 collaborators) = 26,000 \euro. 
+
+In addition, we would like to promote frequent face-to-face interactions between the team members.
+We plan work meetings twice a year during two years with
+S. Labb\'{e} \ref{wp0}\ref{wp1} (LABRI, Bordeaux) and
+with B. Kerautret \ref{wp3} (LORIA, Nancy),
+but during four years
+with J-O. Lachaud \ref{wp0}\ref{wp2}\ref{wp3} (LAMA, Chamb\'{e}ry).
+We estimate the cost of a work meeting at 275 \euro~per person
+for Lyon-Bordeaux and for Lyon-Nancy,
+but only 60 \euro~for Lyon-Chamb\'{e}ry.
+With three travelers on average per work meeting, we estimate the total cost at:
+
+\begin{tabular}{lrr}
+  (Lyon-Bordeaux) & 275 x 2 years x 3 travelers on average =& 1,650 \euro~\\ 
+  (Lyon-Nancy) & 275 x 2 years x 3 travelers on average =& 1,650 \euro~\\
+  (Lyon-Chamb\'{e}ry) & 60 x 4 years x 3 travelers on average =& 720 \euro~\\
+  Total & ~ & 4,200 \euro~\\
+\end{tabular}
+%% \begin{itemize}
+%%   \item [~]  = 1,650 \euro~ 
+%%   \item [$+$] 275 x 2 years x 3 travelers on average = 1,650 \euro
+%%   \item [$+$] 60 x 4 years x 3 travelers on average = 720 \euro
+%%   \item [$=$] 4,200 \euro. 
+%% \end{itemize}
+
+\textbf{Material costs ($\approx$ 6k \euro).}
+We request four standard computers (1500 \euro) for the PI and each student to work on.
+We estimate this cost at 1,500 \euro~x 4 = 6000 \euro. 
 
 
 \begin{table}[htbp]
@@ -570,10 +629,11 @@ To sum up, the total amount is about \textbf{260k euros}, including management f
     Expense                                      & Amount (in \euro) \\ \hline \hline
     Staff expenses                               & 205,212.00 \\ \hline
     Instruments and material costs               & 6,000.00  \\ \hline
-    Building and ground costs                    & 0.00  \\ \hline
-    Outsourcing / subcontracting                 & 0.00 \\ \hline
-    Travel costs                                 & 30,000.00  \\  \hline
-    Administrative management \& structure costs & 19,296.96 \\ \hline
+%%    Building and ground costs                    & 0.00  \\ \hline
+%%    Outsourcing / subcontracting                 & 0.00 \\ \hline
+    Travel costs                                 & 30,200.00  \\  \hline
+    SubTotal                                     & 241,412.00 \\ \hline \hline
+    Administrative management \& structure costs & 19,296.96 \\ \hline \hline
     Requested                                    & 260,508.96 \\ \hline
     \hline
   \end{tabular}

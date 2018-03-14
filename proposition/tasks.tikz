@@ -3,7 +3,7 @@
 
 \tikzset{task/.style={draw,rectangle,rounded corners=3pt}}
 \tikzset{sol/.style={draw,ellipse,dashed}}
-\tikzset{toSol/.style={->,>=latex,dashed,color=blue!90!white}}
+\tikzset{toSol/.style={->,>=latex,dashed,color=black!80!white}}
 \tikzset{toTask/.style={->,>=latex}}
 
 \node[left] at (0,8) {WP}; 
@@ -18,12 +18,12 @@
 \node[right,sol] (S) at (9,0) {2D slices \ref{riskscale}};
 
 \node at (4,8) {tasks};
-\node[draw] (P) at (4,7) {preliminary works};
+%\node[draw] (P) at (4,7) {preliminary works};
 
 \node[task] (t0a) at (2,6) {task~\ref{task:reduction}};
 \node[task] (t0b) at (4,6) {task~\ref{task:start}};
-\draw[toTask] (t0a) -- (P);
-\draw[toTask] (t0b) -- (P);
+%\draw[toTask] (t0a) -- (P);
+%\draw[toTask] (t0b) -- (P);
 \draw[toSol] (t0b) -- (R);
 \node[task] (t1a) at (1,4) {task~\ref{task:genmeth}};
 \node[task] (t1b) at (3,4) {task~\ref{task:genexp}};
@@ -36,6 +36,7 @@
 \node[task] (t2c) at (6,1) {task~\ref{task:approx}};
 \node[task] (t2d) at (8,1) {task~\ref{task:rendering}};
 \draw[toTask] (t2a) -- (t1c);
+\draw[toTask] (t2a) to[bend right] (t0b);
 \draw[toSol] (t2a) -- (C);
 \draw[toTask] (t2b) -- (t2a);
 \draw[toTask] (t2c) -- (t2a);
