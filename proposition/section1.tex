@@ -7,8 +7,27 @@
 \Comments{Present the objectives and the research hypotheses ; present the scientific and technical barriers to be lifted ; present the expected results; if applicable describe any final products developed.}
 
 \noindent\textbf{Context.}
-3D volumes come from the segmentation of magnetic resonance, X-ray tomographic or micro-tomographic images. 
-They are also generated in scientific modelling and by voxel editors. 
+\dav{Thanks to non-invasive acquisition devices such as magnetic
+  resonance, X-ray tomography or micro-tomography, processing the
+  geometry of subsets or partitions in volumetric images is crucial in
+  many applications such as Material Sciences or Medical Imaging
+  (\emph{e.g}
+  \cite{Hildebrand1999,dcoeurjo_flin_ImPro,dardenne2009variational}). Many
+  volumetric acquisition devices generate regularly spaced data and we
+  have to process the geometry of regions defined as subsets in these
+  3-D images.}  \dav{Alternatively, modeling mathematical objects or
+  complex natural phenomena on voxel grids often lead to efficient
+  solutions
+  \cite{wojtan2007animating,jones2010directable,marechal2010heat}):
+  one can exploit the regularity of the grid as a support for the
+  numerical simulation schemes, or us the grid as an efficient
+  datastructure to represent complex geometrical objects \cite{kampe2013sg,Villanueva:2016:SSS:2856400.2856420,JaspeVillanueva2017SSVDAG}.}
+
+\dav{\sout{3D \dav{binary} volumes come from the segmentation of magnetic resonance, X-ray tomographic or micro-tomographic images. 
+They are also generated in scientific modelling and by voxel
+editors. }}
+
+
 This project is about the geometry of volume boundaries, called \emph{digital surfaces} (fig.~\ref{fig:snow}). 
 Keeping the digital nature of the data is an advantage
 to use efficient spatial data structures such as voxel octree, 
@@ -210,7 +229,6 @@ the least squares best fitting plane to a point set within a neighborhood
 around the point of interest \cite{Hoppe1992}.
 Other fitting surfaces have been used too, such as jets, \ie truncated Taylor expansion
 of a surface expression \cite{Cazals2005,Cazals2008}. 
-
 All fitting methods first consist in collecting the points used for the fitting.
 In the mesh case, a breadth-first search visit the neighbors until enough points
 have been collected. In the point-cloud case, we typically resort to the k-nearest-neighbors
@@ -243,13 +261,35 @@ computing integrals over the intersection between the ball and the volume
 bounded by the mesh \cite{Pottmann2009}. The covariance matrix of the intersection set 
 provides a way to estimate principal curvatures, principal directions and normal direction.
 A digital variant has been proposed by \citeauthor*{Lachaud2017} \cite{Lachaud2017}.
-
-Note that the ball radius is a user-defined parameter in these methods. The above-mentionned
-digital variants \cite{Cuel2015,Lachaud2017} are multigrid-convergent for digitization
-of smooth shapes if the radius is conveniently chosen with respect to the grid step.
+%
+Note that the ball radius is a user-defined parameter in these
+methods. The above-mentionned digital variants
+\cite{Cuel2015,Lachaud2017} are multigrid-convergent for digitization
+of smooth shapes if the radius is conveniently chosen with respect to
+the grid step. \dav{In dimension 2, multigrid convergent
+  parameter-free integral invariant curvature estimators can be
+  derived \cite{Coeurjolly2014IIfree} but  extension to 3-D surfaces
+  is not trivial (see below).}
+%setting the ball radius from the
+%  digital object boundary characteristics. Heuristics have been given
+%  in 3-D but it is still an open problem whether multigrid convergent
+%  and parameter-free curvature or normal vector estimators exist in 3-D.}
 
 \noindent\textbf{Convolution.}
-TODO ?
+\dav{Starting from raw normal vector estimations (\emph{e.g.} unit
+  vectors perpendicular to surfels), several approaches refine the
+  estimation by convoluting of the raw normals using a given smoothing
+  kernel. On digital surfaces, Gaussian or isotropic kernel in ambient
+  space have been considered
+  \cite{francon,Fourey2009,Esbelin2011,Esbelin2016} with the following
+  drawbacks: the user must specify the kernel parameters and size, and
+  the smoothing is usually isotropic and may smooth out singularities
+  (or features) of the surface. However, if the kernel size is a function of
+  the  gridstep, multigrid convergence can be obtained \cite{REFF}. We
+also mention mesh denoising techniques, which also output a smooth normal vector
+field, based on more advanced local filters such as the bilateral one
+\cite{fleishman2003bilateral,zheng2011bilateral}. }
+
 %pas d'isotropie, donc filtres
 %bilateral mesh denoising
 %\cite{Fourey2009}
@@ -261,6 +301,19 @@ Boulch and Marlet consider many random triples of data points in a neighborhood
 and bin their normal direction into a spherical histogram \cite{Boulch2012}.
 Maximal vote provides the normal estimate. However, their method has many input parameters,
 the first of which is the size or radius of the neighborhood. 
+
+\dav{\noindent\textbf{Variational approaches}.  We conclude this
+  overview by variational approaches aiming to denoise a surface or a
+  normal vector field while preserving some features. Most techniques
+  start from a raw (isotropic) estimation of the normal vector field
+  and minimize an energy function to obtain a close piecewise smooth
+  regularization of the input field. The literature is large on this
+  subject, see \cite{CoeurjollyFGL16,zhang2015variational} for recent
+  papers. These techniques can be seen as post-processes of a raw
+  estimate and require complex schemes to solve the variational
+  problem. Applied to digital surfaces, we obtain very robust and
+  smooth normal vector field but the algorithm is time consuming and
+  we are losing pointwise multigrid convergence.}
 
 \subsubsection{Parameter-free normal estimators on digital surfaces}
 \label{sec:estim:ds}
