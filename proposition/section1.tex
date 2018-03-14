@@ -170,6 +170,16 @@ we focus in this state of the art on user-defined parameters and, for digital su
 we check if the estimator is \emph{multigrid-convergent}, \ie the smaller the grid step,
 the higher the resolution, the more accurate the estimator. 
 
+\begin{figure}[htbp]
+  \centering
+  \subfloat[]{\includegraphics[width=3.5cm]{multi-ellipse-0}}
+  \subfloat[]{\includegraphics[width=3.5cm]{multi-ellipse-1}}
+  \subfloat[]{\includegraphics[width=3.5cm]{multi-ellipse-2}}
+  \subfloat[]{\includegraphics[width=3.5cm]{multi-ellipse-4}}
+  \caption{bklablal....}
+  \label{fig:multi}
+\end{figure}
+
 
 %% \noindent\textbf{Digital surface and multigrid convergence.}
 
@@ -281,14 +291,16 @@ the grid step. \dav{In dimension 2, multigrid convergent
   estimation by convoluting of the raw normals using a given smoothing
   kernel. On digital surfaces, Gaussian or isotropic kernel in ambient
   space have been considered
-  \cite{francon,Fourey2009,Esbelin2011,Esbelin2016} with the following
-  drawbacks: the user must specify the kernel parameters and size, and
-  the smoothing is usually isotropic and may smooth out singularities
-  (or features) of the surface. However, if the kernel size is a function of
-  the  gridstep, multigrid convergence can be obtained \cite{REFF}. We
-also mention mesh denoising techniques, which also output a smooth normal vector
-field, based on more advanced local filters such as the bilateral one
-\cite{fleishman2003bilateral,zheng2011bilateral}. }
+  \cite{papierthese,Fourey2009,Esbelin2011,Esbelin2016} with the
+  following drawbacks: the user must specify the kernel parameters and
+  size, and the smoothing is usually isotropic and may smooth out
+  singularities (or features) of the surface. However, if the kernel
+  size is a function of the gridstep, multigrid convergence can be
+  obtained in 2-D \cite{Esbelin2011}. We also mention mesh denoising
+  techniques, which also output a smooth normal vector field, based on
+  more advanced local filters such as the bilateral one leading to an
+  anisotropic smoothing of the normal vector field
+  \cite{fleishman2003bilateral,zheng2011bilateral}. }
 
 %pas d'isotropie, donc filtres
 %bilateral mesh denoising
@@ -313,7 +325,7 @@ the first of which is the size or radius of the neighborhood.
   estimate and require complex schemes to solve the variational
   problem. Applied to digital surfaces, we obtain very robust and
   smooth normal vector field but the algorithm is time consuming and
-  we are losing pointwise multigrid convergence.}
+  we are losing the pointwise multigrid convergence property.}
 
 \subsubsection{Parameter-free normal estimators on digital surfaces}
 \label{sec:estim:ds}
