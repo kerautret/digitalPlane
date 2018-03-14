@@ -12,10 +12,67 @@ Specify the project's capacity to promote the development of a topic or the youn
 - L'impact du projet manque de précision tant au niveau scientifique qu'applicatif.
 }
 
-%instrument JCJC
-%Defi 7, axe4, secondairement axe1. 
+%dissemination strategry
+%publier
+\noindent\textbf{Dissemination strategy.}
+PARADIS aims at proposing a new framework for the analysis of digital surfaces.
+As such, it is a fundamental research project with expected results in digital
+geometry, combinatorics on words, geometry and image processing. Hence,
+its first outcomes will be communications and publications in highly ranked
+international conferences and journals. In order to have a broad impact, we
+will target top conferences gathering different communities, \eg
+the Eurographics Symposium on Geometry Processing (SGP),
+the Conference on Computer Vision and Pattern Recognition (CVPR),
+but also smaller and very specialized events such as the Conference
+of Discrete Geometry for Computer Imagery (DGCI) or the Conference on Words (Words). 
+We believe that this communication strategy will sow the seeds for future collaboration
+beyond the project.
+%TODO dire qu'on est capable, et que les communautes sont ouvertes a ces travaux ?
 
-This project combines both a local characterization of digital surfaces 
+To enhance the dissemination, publications of preprints in open access archive
+will also be considered. For instance, IEEE (\eg, Pattern Analysis and Machine Intelligence,
+Transactions on Image Processing) and Elsevier (\eg Computer Vision and Image Understanding,
+Theoretical Computer Science) allow for the free access of the author's versions of the preprint.
+Wiley, publisher of Computer Graphics Forum (SGP), permit the authors to share their pre-print after
+a 12-month embargo period. A similar policy applies to Springer, \eg Journal of Mathematical
+Imaging and Vision (JMIV), Lectures Notes on Computer Sciences (DGCI, Words). The Computer Vision
+Foundation automatically gives open access to papers published in major vision conferences, such as CVPR. 
+
+Another strategy is to target open journals. {\IPOL} is a peer-reviewed journal, which promotes
+reproducible research in image processing and 3D. Note that D. Coeurjolly, B. Kerautret and J-O. Lachaud
+belong to the editorial board of {\IPOL}. B. Kerautret has also been the editor of a special issue on
+digital geometry in 2011 and has made {\DGtal} be usable on the {\IPOL} plateform for this occasion. 
+We plan to release our last software pieces both as a {\DGtal} tool and an {\IPOL} paper
+(see \sect{sec:wp} and fig.~\ref{fig:gantt}).
+
+%montrer qu'on va gagner en efficacite, rentabilite dans le future
+%DGtal, DGtalTools
+More generally, we will make our methods available in {\DGtal} 
+%the open-source C++ library {\DGtal}
+and in the open-source mathematical software system {\sage}
+in order to both facilitate the collaborations between the team members
+and easily reuse our works for future applications.
+Note that the current main editors of {\DGtal} are {D. Coeurjolly} and
+{J.-O. Lachaud}, while {B. Kerautret} and the PI are active developers.
+S. Labb\'{e} is the main developer of the \texttt{sage/combinat/words} package
+and has its own optional package \texttt{slabbe}.
+
+New contributions to the geometry package of
+{\DGtal} are planned as two deliverables: one includes an algorithm for
+digital plane segment recognition at T+24, the other includes core classes
+for a multiscale analysis of digital surfaces at T+48. A tool will be build
+upon theses bricks and added to {\DGtalTools}, a companion project of
+{\DGtal} (see \sect{sec:wp} and fig.~\ref{fig:gantt}).  
+{\DGtal} is a powerful tool to disseminate our results to a wider community,
+especially since its software award of the Symposium on Geometry Processing in 2016.
+
+
+TO CONTINUE
+
+%programme challenge/ theme
+%Defi 7, axe4, secondairement axe1. 
+\noindent\textbf{Positionning.}
+PARADIS combines both a local characterization of digital surfaces 
 and a toolkit development for the analysis of interfaces in 3D digital images, 
 possibly degraded with noise. 
 As a consequence, it fits to the principal component ``Research and innovation''
@@ -26,13 +83,7 @@ In this challenge, we target the research theme $\sharp$4 about data, knowledge,
 because the call text explicitly mention fundamental research projects in digital image processing in this theme. However, some aspects of the project (\wpPattern) are part of the research theme $\sharp$1, 
 which is complementary to the theme ``Mathematics''.    
 
-We also target the young researcher funding instrument (\emph{JCJC}) 
-to let the PI work in a small team of experts, strengthened by students, so that
-he develops an innovative research theme introducing arithmetic into geometry processing and
-reaps the benefits of its preliminary work \cite{LPRJMIV2017}. 
-%\todo{+++}
-
-
+%impacts
 %impacts scientifiques
 This work was not the main goal but a side task of previous collaborative projects: 
 DigitalSnow ANR-11-BS02-009 and CoMeDiC ANR-15-CE40-0006. 
@@ -46,10 +97,32 @@ and 3D image analysis (geometric measurements, surface deformation),
 whereas noise detection (\wpScale) may become a key step of 3D image processing pipelines.  
 Thus, this project may have long-term impacts on industries that use, produce or sell such software tools. 
 
-%montrer qu'on va gagner en efficacite, rentabilite dans le future
-%DGtal, DGtalTools
-In order to ease the use of our methods in applications for the future, we will make them available in the open-source C++ library \DGtal~and in the open-source mathematical software system \sage~(\wpPattern). \DGtal~is a powerful diffusion tool because it is common in the digital geometry community and become known by other communities since its software award of the Symposium on Geometry Processing in 2016. 
-%publier 
-We will strive to publish our results in top venues in digital geometry or geometry processing, 
-in peer-reviewed international journals or in \IPOL, which promotes reproducible research in image processing 
-and provides an online demonstration facility. 
+%% Peut-on s'inspirer de ça  ?
+%% \Paragraph{Dissemination to other academic or industrial partners.} At the
+%% end of the project, an important objective would be to set up
+%% prototypes and demonstration software in order to showcase the appeal
+%% of effective digital calculus to academic and industrial partners. As
+%% mentioned in subtask 2.2, DEC for digital geometry processing would
+%% have direct impact on the \textsc{digitalfoam} research project with
+%% chemists in Lyon. Even if this project ends on December 2015,
+%% collaboration will continue after this date. Within the labex
+%% \textsc{PRIMES} (Physique, Radiobiologie, Imagerie Médicale et
+%% Simulation) to which the LIRIS members belong to, applications to
+%% medical imaging processes can be also mentioned.
+
+%% Many academic and industrial partners working in conjunctions with various members of the project are
+%% likely to be interested in a stable and effective variational framework for many
+%% applications, for instance in medical imaging, computer vision, materials science and more. We 
+%% view the dissemination of the result of the project in industry as an important goal to
+%% achieve before the end of the project.
+
+
+%instrument JCJC
+%development of a topic
+We also target the young researcher funding instrument (\emph{JCJC}) 
+to let the PI work in a small team of experts, strengthened by students, so that
+he develops an innovative research theme introducing arithmetic into geometry processing and
+reaps the benefits of its preliminary work \cite{LPRJMIV2017}. 
+
+
+
