@@ -231,7 +231,12 @@ the higher the resolution, the more accurate the estimator.
 \subsubsection{Normal estimation on point clouds, meshes and digital surfaces}
 \label{sec:estim:all}
 
-TODO: dire quel est l'interet d'estimer des normales ?
+%interet des normales
+Numerous algorithms rely on the quality of the normal estimation in point clouds, such as
+surface reconstruction, scene understanding or point-based rendering to name a few.
+In surface fairing or mesh denoising, a common approach is to first compute a relevant
+normal field and then evolve the mesh to match the smoothed normals.
+Hence, a lot of normal estimation methods have been proposed. 
 
 \noindent\textbf{Fitting.}
 \citeauthor*{Hoppe1992} estimate the normal at a given data point by computing
