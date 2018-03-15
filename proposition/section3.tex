@@ -111,6 +111,8 @@ discrete calculus, which is a powerful framework for solving discrete variationa
 problems in image and geometry processing, for subsets of the digital space $\Z^n$, 
 such as digital surfaces. In this project, a normal field is estimated to define
 well-chosen metrics for discrete calculus that make it converge toward continuous values.
+%une phrase plus application ?
+%Based on this idea, we have for instance defined a multigrid convergent Laplace-Beltrami on digital surfaces.   
 
 We think that it is now time to completely address these issues and investigate
 the new perspectives that the proposed solutions open. 
@@ -123,38 +125,97 @@ whereas noise detection \ref{wp3} may become a key step of 3D image processing p
 Thus, PARADIS may have long-term impacts on industries that use, produce or sell such software tools. 
 
 
+%- L'adéquation du projet n'est pas suffisamment justifiée par rapport à l'axe et le défi portés par ce comité. 
 %programme challenge/ theme
-%Defi 7, axe4, secondairement axe1. 
+%Defi 7 (B7), axe4,
+%secondairement axe1 ``Socles fondements du numérique'', complementaire a hors défi (B10), axe1 (=Mathematics). 
 \noindent\textbf{Positionning.}
-PARADIS combines both a local characterization of digital surfaces 
-and a toolkit development for the analysis of interfaces in 3D digital images, 
-possibly degraded with noise. 
+%% le traitement de grandes masses de données produites par l’observation
+%% scientifique en biologie, en physique, en astrophysique, etc. le calcul intensif pour la simulation
+%% dans la plupart des disciplines, les objets connectés pour l’observation scientifique, etc
+%%
+%% Le défi « Société de l'information et de la communication » s'inscrit ainsi dans une
+%% double priorité : penser le numérique au service de la société et concevoir et développer le
+%% numérique de demain via l'évolution de concepts, de méthodes et d'outils. Il s’articule en 7
+PARADIS proposes a new framework for the analysis of interfaces in 3D digital images,
+possibly degraded with noise. These data are massively acquired in many fields,
+such as material sciences or medical imaging. 
 As a consequence, it fits to the principal component ``Research and innovation''
 of the 2018 work program of the French National Research Agency 
 and more specifically to the 7th societal challenge ``Information and Communication Societies''
 of the generic call (B7).    
 
-%% le traitement de grandes masses de données produites par l’observation
-%% scientifique en biologie, en physique, en astrophysique, etc. le calcul intensif pour la simulation
-%% dans la plupart des disciplines, les objets connectés pour l’observation scientifique, etc
-
-%% Le défi « Société de l'information et de la communication » s'inscrit ainsi dans une
-%% double priorité : penser le numérique au service de la société et concevoir et développer le
-%% numérique de demain via l'évolution de concepts, de méthodes et d'outils. Il s’articule en 7
 %% axes :
 
-In this challenge, we target the research theme $\sharp$4 about data, knowledge, multimedia content, AI, 
-because the call text explicitly mention fundamental research projects in digital image processing in this theme. However, some aspects of the project (\wpPattern) are part of the research theme $\sharp$1, 
-which is complementary to the theme ``Mathematics''.    
+%% B7 axe 4
+%% la définition et l’étude des processus et des
+%% technologies permettant d’analyser, de lier et de raisonner sur des données, le traitement
+%% des données massives, et enfin le traitement des contenus multimédias. Les propositions
+%% attendues contribueront au développement de toutes les communautés s’appuyant sur la
+%% science des données - Data Science –.
+
+%% Les propositions peuvent s’inscrire au cœur des Sciences et Technologies de l’Information
+%% et de la Communication, par exemple en traitement d’image, de vidéos, de la parole, du
+%% langage naturel, ou dans un contexte interdisciplinaire impliquant informaticiens,
+%% statisticiens ou spécialistes des humanités numériques. Elles doivent proposer, concevoir
+%% et analyser des méthodes permettant de stocker, indexer, annoter et analyser les données
+%% et les contenus pour en extraire des connaissances.
+
+%% Les projets de recherche fondamentale sur le traitement d’images 2D/3D, de la vidéo, de
+%% la parole, de la musique, de l’audio, ainsi que sur le traitement automatique des langues
+%% (TAL) et la langue des signes sont attendus dans cet axe.
+
+In this challenge, we target the research theme $\sharp$4 
+``Data,  knowledge,  big  data,  multimedia  content  and  artificial 
+intelligence'' (B7 - Theme 4) because the call text 
+\href{http://www.agence-nationale-recherche.fr/fileadmin/documents/2017/ANR-Work-Programme-2018-Appendix.pdf}{appendix}
+explicitly mention research projects in image processing in this theme (p. 55):
+\begin{quote}
+Basic research projects on processing 2D/3D
+images [\ldots] are expected in this theme.
+\end{quote}
+%data: extract from data, dta vizualization, 
+
+%% B7 axe 1
+%% Les recherches fondamentales attendues dans cet axe doivent : i) clairement être en adéquation avec le défi "Société de
+%% l'information et de la communication" et ii) ne doivent pas relever *explicitement* d’un
+%% autre axe du défi.
+
+Even if some aspects of the project \ref{wp1} are part of the research theme $\sharp$1
+``Foundations of digital technology'', which is complementary to the theme ``Mathematics'',
+we choose the theme $\sharp$4 because 3D image processing is the motivation and the
+first field of application of the project. In addition, it would not be possible to
+submit to this theme, because the call text
+\href{http://www.agence-nationale-recherche.fr/fileadmin/documents/2017/ANR-Work-Programme-2018-Appendix.pdf}{appendix}
+excludes topics cited in another theme (p. 50, Sic): 
+\begin{quote}
+The basic research  expected  for this theme must [\ldots] not relate \textbf{explicitly}
+to  another theme in the challenge.
+\end{quote}
+
+%% B.10 - Axe 1 : « Mathématiques » : axe complémentaire à l’axe « Socle fondements du
+%% numérique » du défi « Société de l'information et de la communication »
+%% Cet axe englobe essentiellement le champ des mathématiques « pures » (secteur ERC
+%% PE01) : logique, algèbre, théorie des nombres, géométrie, topologie, algèbre et groupes de
+%% Lie, analyse, algèbres d’opérateurs et analyse fonctionnelle, aspects théoriques des EDP...
+%% Les projets de mathématiques appliquées, à caractère théorique, ne relevant pas des défis de
+%% société, sont aussi attendus dans cet axe.
 
 
 
 %instrument JCJC
 %development of a topic
 We also target the young researcher funding instrument (\emph{JCJC}) 
-to let the PI work in a small team of experts, strengthened by students, so that
-he develops an innovative research theme introducing arithmetic into geometry processing and
-reaps the benefits of its preliminary work \cite{LPRJMIV2017}. 
+to let the PI work in a small team of experts, strengthened by students,
+so that reaps the benefits of its preliminary works. % \cite{LPRJMIV2017}.
+Thanks to this project, he will develop an innovative research theme
+introducing arithmetic into geometry processing. 
+Arithmetic and combinatorics on words are a way of taking profit of the
+specificity of digital surfaces in order to design an efficient,
+parameter-free and provably accurate normal estimator. We expect to
+develop central tools for the analysis of digital surfaces and the processing
+of digital data. 
+
 
 
 
