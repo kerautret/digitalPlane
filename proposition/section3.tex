@@ -17,26 +17,25 @@ Specify the project's capacity to promote the development of a topic or the youn
 \noindent\textbf{Dissemination strategy.}
 PARADIS aims at proposing a new framework for the analysis of digital surfaces.
 As such, it is a fundamental research project with expected results in digital
-geometry, combinatorics on words, geometry and image processing. Hence,
-its first outcomes will be communications and publications in highly ranked
-international conferences and journals. In order to have a broad impact, we
-will target top conferences gathering different communities, \eg
-the Eurographics Symposium on Geometry Processing (SGP),
+geometry, combinatorics on words, geometry processing and computer vision. Hence,
+its first outcomes will be publications in highly ranked international journals,
+\eg Transactions on Image Processing (TIP), Computer Vision and Image Understanding (CVIU),
+Journal of Mathematical Imaging and Vision (JMIV), Theoretical Computer Science (TCS), etc.
+In order to have a broad impact, we will target top conferences gathering different communities,
+\eg the Eurographics Symposium on Geometry Processing (SGP),
 the Conference on Computer Vision and Pattern Recognition (CVPR),
 but also smaller and very specialized events such as the Conference
 of Discrete Geometry for Computer Imagery (DGCI) or the Conference on Words (Words). 
 We believe that this communication strategy will sow the seeds for future collaboration
 beyond the project.
-%TODO dire qu'on est capable, et que les communautes sont ouvertes a ces travaux ?
 
 To enhance the dissemination, publications of preprints in open access archive
-will also be considered. For instance, IEEE (\eg, Pattern Analysis and Machine Intelligence,
-Transactions on Image Processing) and Elsevier (\eg Computer Vision and Image Understanding,
-Theoretical Computer Science) allow for the free access of the author's versions of the preprint.
+will also be considered. For instance, Elsevier, \eg CVIU, and IEEE, \eg TIP,
+allow for the free access of the author's versions of the preprint.
 Wiley, publisher of Computer Graphics Forum (SGP), permit the authors to share their pre-print after
-a 12-month embargo period. A similar policy applies to Springer, \eg Journal of Mathematical
-Imaging and Vision (JMIV), Lectures Notes on Computer Sciences (DGCI, Words). The Computer Vision
-Foundation automatically gives open access to papers published in major vision conferences, such as CVPR. 
+a 12-month embargo period. A similar policy applies to Springer, \eg JMIV,
+Lectures Notes on Computer Sciences (DGCI, Words). The Computer Vision Foundation
+automatically gives open access to papers published in major vision conferences, such as CVPR. 
 
 Another strategy is to target open journals. {\IPOL} is a peer-reviewed journal, which promotes
 reproducible research in image processing and 3D. Note that D. Coeurjolly, B. Kerautret and J-O. Lachaud
@@ -63,66 +62,160 @@ digital plane segment recognition at T+24, the other includes core classes
 for a multiscale analysis of digital surfaces at T+48. A tool will be build
 upon theses bricks and added to {\DGtalTools}, a companion project of
 {\DGtal} (see \sect{sec:wp} and fig.~\ref{fig:gantt}).  
-{\DGtal} is a powerful tool to disseminate our results to a wider community,
-especially since its software award of the Symposium on Geometry Processing in 2016.
+
+%TODO dire qu'on est capable, et que les communautes sont ouvertes a ces travaux ?
+
+The PI has already published related papers in digital geometry and computer vision,
+\eg \cite{LPRTCS2016,LPRDGCI2016,LPRJMIV2017}. 
+Yet, the PI and its collaborators have not published so much in geometry processing until now,
+\eg \cite{Coeurjolly2017}.
+The SGP software award that has been given to {\DGtal} in 2016 indicates that the
+geometry processing community is open to relevant and interesting work about digital surfaces
+and that the team has the potential to publish in these venues.
 
 
-TO CONTINUE
+%- L'impact du projet manque de précision tant au niveau scientifique qu'applicatif.
+\noindent\textbf{Scientific impact.}
+PARADIS aims at proposing new geometric estimators on digital surfaces and
+specifically seeks a parameter-free and adaptive normal estimator.
+%interet des normales
+As for point-clouds or meshes (\sect{sec:art}), numerous high-level tasks
+rely on the quality of the normal estimation on digital surfaces: rendering,
+surface fairing, surface deformation for physical simulation or tracking,
+scene understanding, precise geometric measurements, primitive extraction, etc. 
+%interet du adaptatif et sans parametres
+In this project, we search for an estimator that is (i) efficient to compute,
+(ii) parameter-free and (iii) accurate, \ie it preserves sharp features and
+is multigrid-convergent. These characteristics are very important for the
+applications. Accuracy is an indispensable condition to guarentee the final
+results and being parameter-free is a feature that is often sought by users,
+which prefer tools working out of the box.
 
+As a consequence, this project will benefit all high-level tasks based on a
+normal field onto a digital surface. In \ref{wp2}, we plan to focus on applications
+that not only rely on a normal field but also on position information:
+polyhedral approximation, surface fairing and rendering. Among many other
+applications, we detail below two examples related to previous collaborative projects: 
+DigitalSnow ANR-11-BS02-009 and CoMeDiC ANR-15-CE40-0006. PARADIS is indeed based
+based on preliminary works, which were not the main goal but side tasks of these projects.
+
+DigitalSnow aimed at modeling snow metamorphism from 3D images of real snow
+microstructures acquired using X-ray tomography techniques (fig.~\ref{fig:snow}).
+In this project, a normal field is required to move the ``ice-air'' interface
+in the normal direction at a velocity that depends on physical parameters,
+on the geometry or both. A normal field provides also a way of measuring 
+the faceting effect observable on snow grains under a strong temperature gradient.  
+
+The CoMeDiC project aimed at filling the gap between standard calculus and
+discrete calculus, which is a powerful framework for solving discrete variational
+problems in image and geometry processing, for subsets of the digital space $\Z^n$, 
+such as digital surfaces. In this project, a normal field is estimated to define
+well-chosen metrics for discrete calculus that make it converge toward continuous values.
+%une phrase plus application ?
+%Based on this idea, we have for instance defined a multigrid convergent Laplace-Beltrami on digital surfaces.   
+
+We think that it is now time to completely address these issues and investigate
+the new perspectives that the proposed solutions open. 
+PARADIS has therefore an impact at least as wide as the one of the above-mentioned
+projects. 
+
+More precisely, accurate estimations \ref{wp2} will impact computer graphics
+(surface fairing, rendering) and 3D image analysis (geometric measurements, surface deformation), 
+whereas noise detection \ref{wp3} may become a key step of 3D image processing pipelines.  
+Thus, PARADIS may have long-term impacts on industries that use, produce or sell such software tools. 
+
+
+%- L'adéquation du projet n'est pas suffisamment justifiée par rapport à l'axe et le défi portés par ce comité. 
 %programme challenge/ theme
-%Defi 7, axe4, secondairement axe1. 
+%Defi 7 (B7), axe4,
+%secondairement axe1 ``Socles fondements du numérique'', complementaire a hors défi (B10), axe1 (=Mathematics). 
 \noindent\textbf{Positionning.}
-PARADIS combines both a local characterization of digital surfaces 
-and a toolkit development for the analysis of interfaces in 3D digital images, 
-possibly degraded with noise. 
+%% le traitement de grandes masses de données produites par l’observation
+%% scientifique en biologie, en physique, en astrophysique, etc. le calcul intensif pour la simulation
+%% dans la plupart des disciplines, les objets connectés pour l’observation scientifique, etc
+%%
+%% Le défi « Société de l'information et de la communication » s'inscrit ainsi dans une
+%% double priorité : penser le numérique au service de la société et concevoir et développer le
+%% numérique de demain via l'évolution de concepts, de méthodes et d'outils. Il s’articule en 7
+PARADIS proposes a new framework for the analysis of interfaces in 3D digital images,
+possibly degraded with noise. These data are massively acquired in many fields,
+such as material sciences or medical imaging. 
 As a consequence, it fits to the principal component ``Research and innovation''
 of the 2018 work program of the French National Research Agency 
 and more specifically to the 7th societal challenge ``Information and Communication Societies''
 of the generic call (B7).    
-In this challenge, we target the research theme $\sharp$4 about data, knowledge, multimedia content, AI, 
-because the call text explicitly mention fundamental research projects in digital image processing in this theme. However, some aspects of the project (\wpPattern) are part of the research theme $\sharp$1, 
-which is complementary to the theme ``Mathematics''.    
 
-%impacts
-%impacts scientifiques
-This work was not the main goal but a side task of previous collaborative projects: 
-DigitalSnow ANR-11-BS02-009 and CoMeDiC ANR-15-CE40-0006. 
-We think that it is now time to completely address this issue 
-and investigate the new perspectives that the proposed solutions open. 
-This project has therefore a scientific impact at least as wide as the one of the above-mentioned projects. 
-%impacts eco, socio, culturels
-More precisely, accurate estimations (\wpEstim)
-will impact computer graphics (surface fairing, volume rendering)
-and 3D image analysis (geometric measurements, surface deformation), 
-whereas noise detection (\wpScale) may become a key step of 3D image processing pipelines.  
-Thus, this project may have long-term impacts on industries that use, produce or sell such software tools. 
+%% axes :
 
-%% Peut-on s'inspirer de ça  ?
-%% \Paragraph{Dissemination to other academic or industrial partners.} At the
-%% end of the project, an important objective would be to set up
-%% prototypes and demonstration software in order to showcase the appeal
-%% of effective digital calculus to academic and industrial partners. As
-%% mentioned in subtask 2.2, DEC for digital geometry processing would
-%% have direct impact on the \textsc{digitalfoam} research project with
-%% chemists in Lyon. Even if this project ends on December 2015,
-%% collaboration will continue after this date. Within the labex
-%% \textsc{PRIMES} (Physique, Radiobiologie, Imagerie Médicale et
-%% Simulation) to which the LIRIS members belong to, applications to
-%% medical imaging processes can be also mentioned.
+%% B7 axe 4
+%% la définition et l’étude des processus et des
+%% technologies permettant d’analyser, de lier et de raisonner sur des données, le traitement
+%% des données massives, et enfin le traitement des contenus multimédias. Les propositions
+%% attendues contribueront au développement de toutes les communautés s’appuyant sur la
+%% science des données - Data Science –.
 
-%% Many academic and industrial partners working in conjunctions with various members of the project are
-%% likely to be interested in a stable and effective variational framework for many
-%% applications, for instance in medical imaging, computer vision, materials science and more. We 
-%% view the dissemination of the result of the project in industry as an important goal to
-%% achieve before the end of the project.
+%% Les propositions peuvent s’inscrire au cœur des Sciences et Technologies de l’Information
+%% et de la Communication, par exemple en traitement d’image, de vidéos, de la parole, du
+%% langage naturel, ou dans un contexte interdisciplinaire impliquant informaticiens,
+%% statisticiens ou spécialistes des humanités numériques. Elles doivent proposer, concevoir
+%% et analyser des méthodes permettant de stocker, indexer, annoter et analyser les données
+%% et les contenus pour en extraire des connaissances.
+
+%% Les projets de recherche fondamentale sur le traitement d’images 2D/3D, de la vidéo, de
+%% la parole, de la musique, de l’audio, ainsi que sur le traitement automatique des langues
+%% (TAL) et la langue des signes sont attendus dans cet axe.
+
+In this challenge, we target the research theme $\sharp$4 
+``Data,  knowledge,  big  data,  multimedia  content  and  artificial 
+intelligence'' (B7 - Theme 4) because the call text 
+\href{http://www.agence-nationale-recherche.fr/fileadmin/documents/2017/ANR-Work-Programme-2018-Appendix.pdf}{appendix}
+explicitly mention research projects in image processing in this theme (p. 55):
+\begin{quote}
+Basic research projects on processing 2D/3D
+images [\ldots] are expected in this theme.
+\end{quote}
+%data: extract from data, dta vizualization, 
+
+%% B7 axe 1
+%% Les recherches fondamentales attendues dans cet axe doivent : i) clairement être en adéquation avec le défi "Société de
+%% l'information et de la communication" et ii) ne doivent pas relever *explicitement* d’un
+%% autre axe du défi.
+
+Even if some aspects of the project \ref{wp1} are part of the research theme $\sharp$1
+``Foundations of digital technology'', which is complementary to the theme ``Mathematics'',
+we choose the theme $\sharp$4 because 3D image processing is the motivation and the
+first field of application of the project. In addition, it would not be possible to
+submit to this theme, because the call text
+\href{http://www.agence-nationale-recherche.fr/fileadmin/documents/2017/ANR-Work-Programme-2018-Appendix.pdf}{appendix}
+excludes topics cited in another theme (p. 50, Sic): 
+\begin{quote}
+The basic research  expected  for this theme must [\ldots] not relate \textbf{explicitly}
+to  another theme in the challenge.
+\end{quote}
+
+%% B.10 - Axe 1 : « Mathématiques » : axe complémentaire à l’axe « Socle fondements du
+%% numérique » du défi « Société de l'information et de la communication »
+%% Cet axe englobe essentiellement le champ des mathématiques « pures » (secteur ERC
+%% PE01) : logique, algèbre, théorie des nombres, géométrie, topologie, algèbre et groupes de
+%% Lie, analyse, algèbres d’opérateurs et analyse fonctionnelle, aspects théoriques des EDP...
+%% Les projets de mathématiques appliquées, à caractère théorique, ne relevant pas des défis de
+%% société, sont aussi attendus dans cet axe.
+
 
 
 %instrument JCJC
 %development of a topic
 We also target the young researcher funding instrument (\emph{JCJC}) 
-to let the PI work in a small team of experts, strengthened by students, so that
-he develops an innovative research theme introducing arithmetic into geometry processing and
-reaps the benefits of its preliminary work \cite{LPRJMIV2017}. 
+to let the PI work in a small team of experts, strengthened by students,
+so that reaps the benefits of its preliminary works. % \cite{LPRJMIV2017}.
+Thanks to this project, he will develop an innovative research theme
+introducing arithmetic into geometry processing. 
+Arithmetic and combinatorics on words are a way of taking profit of the
+specificity of digital surfaces in order to design an efficient,
+parameter-free and provably accurate normal estimator. We expect to
+develop central tools for the analysis of digital surfaces and the processing
+of digital data. 
+
 
 
 
