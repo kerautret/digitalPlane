@@ -192,7 +192,8 @@ points to the starting point?
 what is the minimal part $\Part \subset \Plane{\mu}{\vec{n}}$ for which the
 R-algorithm returns the normal $\vec{n}$ when applied to $\Part$?
 can we characterize the behavior of the R-algorithm on a convex or arbitrary
-part of a digital surface?
+part of a digital surface?\todo{deplacer les taches en chapeau de
+  paragraphe ou alors changer le style}
 
 \begin{Task}
   \label{task:reduction}
@@ -421,19 +422,23 @@ We can approximate a digital surface either by a polyhedral surface whose vertic
 are a subset of the input data points, as in (relative) convex hulls 
 \cite{Klette2001,Schultz2009} 
 or by a quadrangular mesh whose vertices are set to optimized positions, so that it is
-as smooth as possible. In the former problem, the facets returned by the
+as smooth as possible \cite{Coeurjolly2017}. In the former problem, the facets returned by the
 plane-probing algorithms will play an important role, while in the latter,
-normal estimates are usually a key input of the optimization step (see for instance
-\cite{Coeurjolly2017}).  
+normal estimates are usually a key input of the an \dav{energy
+  function minimization leading to regularized vertex positions.}  
 
 \begin{Task}
   \label{task:approx}
   Design an algorithm that computes a fair approximation of a digital surface. 
 \end{Task}
 
-Even if meshes can be efficiently visualized because of hardware support,
-it may be interesting to directly render the input data. Ray casting can be used to
-visualize digital surfaces. Results will be greatly improved by accurate normal estimates,
+Even if meshes can be efficiently visualized because of hardware
+support \dav{(Graphical Processing Units)},
+it may be interesting to directly render the input data. \dav{Voxel
+  based rendering techniques (\emph{e.g.}
+  \cite{DBLP:conf/si3d/CrassinNLE09,}) can be used to
+visualize digital surfaces equipped with a piecewise smooth normal
+vector field}. Results will be greatly improved by accurate normal estimates,
 but also by accurate position estimates. In addition, voxel coverage and absorption can
 also be used to remove staircase effects near shape borders in the resulting 2D view.
 
