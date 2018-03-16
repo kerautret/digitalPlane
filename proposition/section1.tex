@@ -597,28 +597,28 @@ properties of such a piece of digital plane is currently unknown and needs to be
 
 \Comments{Describe the methods and technical decisions, risks and fall-back solutions envisaged.}
 
-In this section, based on the previous discussion, a short overview of
-the project methodology is given. The main risks are highlighted (more
-details will be given in the next section).  
+Based on the previous discussion, we give a brief description of the project methodology.
+The main risks are highlighted with their fall-back solutions (more details in the next section).  
 
 \noindent\textbf{Methodology overview.}
 %plane-probing algorithms sont une bonne approche pour etre tangent, local, sans parametre,
-This project aims at developing a theoretical and practical framework for the automatic
+PARADIS aims at proposing a theoretical and practical framework for the automatic
 analysis of digital surfaces. We believe that plane-probing algorithms give the right
 direction to follow, because they provide a way to obtain a relevant piece of digital
-plane that fits to the digital surface and a normal estimation without any parameter. 
+plane that locally fits to the digital surface without any parameter. The normal direction
+to this digital plane segment is expected to preserve sharp features and to be multigrid-convergent.
+%and accurate even at low resolution.
 
 The preliminary works \cite{LPRTCS2016, LPRDGCI2016, LPRJMIV2017}
-currently suffer some limitations, but we already know several ways of coping with
-these problems. More details will be given in \sect{sec:wp}. 
-
+currently suffer some limitations, but we already know several ways of
+solving these problems. More details will be given in \sect{sec:wp}. 
 %substitution bonne approche pour generer un motif au cours de l'algorithme
 One issue arises when processing non-planar parts, especially non-convex ones.
 In such cases, a sparse probing is not enough to correctly identify the underlying geometry
 as reported in \cite{LPRJMIV2017}.
 We believe that generating a piece of digital plane in the course of the computation will
 not only solve this problem but also give new insights on the combinatorial structure
-of DPSs.
+of DPSs. 
 %This knowledge will be useful for both algorithm optimization
 %and asymptotic analysis of linear parts.   
 
@@ -626,14 +626,14 @@ of DPSs.
 An important achievement will be to derive a multigrid-convergent normal estimator.
 Another one will be to develop an automatic tool that selects a locally noise-free scale.
 Both achievements will be based on an asymptotic analysis of linear parts. Such analysis
-will require a good understanding of the combinatorial structure of DPSs but also a
-good understanding of the link between facets computed by plane-probing algorithms and
+will require a good understanding of the combinatorial structure of DPSs
+but also a good understanding of the link between facets computed by plane-probing algorithms and
 facets of (relative) convex hull. This approach has been adopted with success for digital
 curves \cite{Lachaud2012} and we believe that it can be similarly applied to digital
 surfaces with the help of plane-probing algorithms.
  
 \noindent\textbf{Risk management.}
-Preliminary works have considerably reduced the project risks but have not eliminated them.
+Preliminary works have considerably reduced the risks but have not eliminated them.
 Main risks are classified below by goal: risks \ref{riskppa}, \ref{riskestim} and \ref{riskscale}
 respectively correspond to goals \ref{goalppa}, \ref{goalestim} and \ref{goalscale}. 
 \begin{enumerate}[label=(R\arabic*)]
@@ -645,47 +645,47 @@ respectively correspond to goals \ref{goalppa}, \ref{goalestim} and \ref{goalsca
 First, we may struggle to find the ultimate plane-probing algorithm or fail to do so.
 If it happens, we will resort to the \emph{R-algorithm} \cite{LPRJMIV2017}, which
 has interesting properties related to the locality of the probing, or a combination
-of different but complementary algorithms to make the best of them as suggested in
-\cite{LPRJMIV2017}. We will lack provable properties but we will be able to still
+of different but complementary plane-probing algorithms to make the best of them
+as suggested in \cite{LPRJMIV2017}. We will lack provable properties but we will be able to still
 develop practical algorithms in order to derive a parameter-free normal estimator.
 %general approach
 For instance, we can adopt the approach of \citeauthor*{Charrier2011} \cite{Charrier2011}
-where the initial isotropic neighborhoods are replaced by the digitization of the facet
-returned by the R-Algorithm at each corner, but leave as they are, otherwise. Extending all
-these pieces, we obtain a tangential cover that is less sensitive to the initial step and
-from which we can deduce an estimation of the normal vector field. \label{riskppa} 
+where we replace the initial isotropic neighborhoods by the digitization of the facets
+returned by the R-Algorithm. Extending all these pieces of digital plane, we will obtain a
+tangential cover that may be less sensitive to the initial step and from which we can
+deduce an estimation of the normal vector field that better captures the geometry of
+the digital surface near sharp edges and corners than the original method. \label{riskppa} 
 \item %[(G2)]
 %l'estimateur n'est pas convergent: peu probable, mais si ça arrive c'est que les motifs sont trop petits, il ne grandisse pas assez vite par rapport au pas h, dans ce cas on agrandit le motif jusqu'à obtenir m surfels, ou on agrandit jusqu'à avoir une épaisseur <= h, ou on combine des motifs voisins.
 Another risk is that the derived normal estimator is not multigrid-convergent.
-An important condition for such a normal estimator to be multigrid-convergent
-is that computed facets get smaller as the grid step $h$ tends toward zero,
-but not too quickly so that the uniform noise of the point positions,
-which is in $O(h)$, becomes negligible with respect to the facet size. 
+An important condition is that DPSs get smaller as the grid step $h$ tends toward zero,
+but not too quickly so that the uniform noise in the data points,
+which is in $O(h)$, becomes negligible with respect to the DPSs size. 
 %% This may happen if the computed facets get smaller too quickly with respect to the grid step $h$,
 %% as $h$ tends toward zero, because the uniform noise in the position of the data points
 %% is not negligible before the facet size. 
 If this is not the case, at least two solutions can be envisaged. 
 We can simply use our method to automatically set the input size
 parameter of an existing multigrid-convergent method, as discussed in \sect{sec:estim:ds}.
-Otherwise, we can discretize the computed facet (see \sect{sec:dps}) and make grow these
-DPSs using a recognition algorithm where the maximal admissible error (or thickness) can
-be controlled such as \cite{Charrier2008}. Setting this parameter to a constant greater
-than $\sqrt{3}$ (used for standard digital plane as defined in \Eq{eq:plane}),
-\eg $2\sqrt{3}$, might be enough to get a better asymptotic behavior. These fall-back
-solutions will achieve multigrid-convergence without any parameter but at the price of
-a higher computational cost and a lower accuracy in the localization of sharp features. 
+Otherwise, we can make grow these DPSs using a recognition algorithm where the maximal
+admissible error (or thickness) can be controlled, such as \cite{Charrier2008}.
+Setting this parameter to a constant greater than $\sqrt{3}$ (used for standard digital
+plane as defined in \Eq{eq:plane}), \eg $2\sqrt{3}$, might be enough to get a better
+asymptotic behavior. These fall-back solutions will achieve multigrid-convergence
+without any parameter but at the price of a higher computational cost and a lower accuracy
+in the localization of sharp features. 
 %citer these muhamad ?
  \label{riskestim}
 \item %[(G3)]
 %multiscale analysis
-A multiscale analysis of digital surfaces also depends on the asymptotics of linear parts.
-If the convergence rate is not as much important as in the previous item, it must be slower
-than $O(h)$ to be able to distinguish noise or small-scale feature from smooth parts.
+A multiscale analysis of digital surfaces also depends on the asymptotics of planar parts.
+If the convergence rate is not as important as in the previous item, it must be slower
+than $O(h)$ to be able to distinguish noise or high-frequency features from low-frequency features. 
 In this case, we cannot use thicker pieces of digital surfaces as explained above, since
-small noise will be not detected. However, we can observe the length of the maximal DSSs
+noise will be not detected below some amplitude. However, we can observe the length of the maximal DSSs
 along all the 2D slices of the 3D volume. The objections raised in \sect{sec:estim:ds} for
-normal estimation just not relevant for this application. Due to the previous results in 2D,
-\cite{Kerautret2012}, we can expect similar results in 3D with this approach in spite of a
-trickier implementation.
+normal estimation are just not relevant for this application. In view of the quality of the results
+obtained in 2D \cite{Kerautret2012}, we can expect a similar quality in 3D with this approach
+in spite of a trickier implementation.
  \label{riskscale}
 \end{enumerate}
