@@ -7,32 +7,48 @@
 \Comments{Present the objectives and the research hypotheses ; present the scientific and technical barriers to be lifted ; present the expected results; if applicable describe any final products developed.}
 
 \noindent\textbf{Context.}
-\dav{Thanks to non-invasive acquisition devices such as magnetic
-  resonance, X-ray tomography or micro-tomography, processing the
-  geometry of subsets or partitions in volumetric images is crucial in
-  many applications such as Material Sciences or Medical Imaging
-  (\emph{e.g}
-  \cite{Hildebrand1999,dcoeurjo_flin_ImPro,dardenne2009variational}). Many
-  volumetric acquisition devices generate regularly spaced data and we
-  have to process the geometry of regions defined as subsets in these
-  3-D images.}  \dav{Alternatively, modeling mathematical objects or
-  complex natural phenomena on voxel grids often lead to efficient
-  solutions
-  \cite{wojtan2007animating,jones2010directable,marechal2010heat}):
-  one can exploit the regularity of the grid as a support for the
-  numerical simulation schemes, or us the grid as an efficient
-  datastructure to represent complex geometrical objects \cite{kampe2013sg,Villanueva:2016:SSS:2856400.2856420,JaspeVillanueva2017SSVDAG}.}
+In numerous fields of application, such as material sciences
+or medical imaging, non-invasive acquisition devices such as magnetic
+resonance, X-ray tomography or micro-tomography are required for
+observation, measurements or diagnostic aids
+(\eg \cite{Hildebrand1999,dcoeurjo_flin_ImPro}). %,dardenne2009variational}).
+These acquisition devices usually generate volumic data, \ie
+3D images, composed of regularly spaced data in a cuboidal domain.
+3D volumes come from the segmentation of such 3D images.
+They are also generated in scientific modelling because
+numerous simulation schemes rely on the regularity of the data support
+(\eg \cite{wojtan2007animating,jones2010directable,marechal2010heat}).
 
-\dav{\sout{3D \dav{binary} volumes come from the segmentation of magnetic resonance, X-ray tomographic or micro-tomographic images. 
-They are also generated in scientific modelling and by voxel
-editors. }}
+%% TRIS: je crois avoir garder l'esprit, mais j'ai reformule pour
+%% pour éviter les répétition et mieux coller avec le reste
+
+%% Thanks to non-invasive acquisition devices such as magnetic
+%% resonance, X-ray tomography or micro-tomography, processing
+%% subsets or partitions in 3D  binary volumes is crucial in
+%% numerous fields of application, such as material sciences
+%% or medical imaging (\eg \cite{Hildebrand1999,dcoeurjo_flin_ImPro,dardenne2009variational}).
+%% Many volumetric acquisition devices generate regularly spaced
+%% data and we have to process the geometry of regions defined as subsets in these
+%%   3-D images.}  \dav{Alternatively, modeling mathematical objects or
+%%   complex natural phenomena on voxel grids often lead to efficient
+%%   solutions
+%%   \cite{wojtan2007animating,jones2010directable,marechal2010heat}):
+%%   one can exploit the regularity of the grid as a support for the
+%%   numerical simulation schemes, or us the grid as an efficient
+%%   datastructure to represent complex geometrical objects \cite{kampe2013sg,Villanueva:2016:SSS:2856400.2856420,JaspeVillanueva2017SSVDAG}.}
+
+%% \dav{\sout{3D \dav{binary} volumes come from the segmentation of magnetic resonance, X-ray tomographic or micro-tomographic images. 
+%% They are also generated in scientific modelling and by voxel
+%% editors. }}
 
 
-This project is about the geometry of volume boundaries, called \emph{digital surfaces} (fig.~\ref{fig:snow}). 
+PARADIS is a project about the geometry of volume boundaries,
+called \emph{digital surfaces} (fig.~\ref{fig:snow}). 
 Keeping the digital nature of the data is an advantage
-to use efficient spatial data structures such as voxel octree, 
+to do integer-only and exact computations,
 to perform constructive solid geometry operations,
-to do integer-only and exact computations, etc.
+or to use efficient spatial data structures
+(\eg \cite{kampe2013sg,Villanueva:2016:SSS:2856400.2856420,JaspeVillanueva2017SSVDAG}).
 A drawback is its poor geometry, because at any resolution a digital surface is only 
 made up of quadrangular surface element (\emph{surfel} for short) 
 whose normal vector is parallel to one axis. 
@@ -68,7 +84,9 @@ such as normal vector direction.
 %
 \caption{``ice-air'' interface in a micro-tomographic image of
   snow\protect\footnotemark. Local normal vectors are estimated
-  at each corner (a) by computing relevant facets (b).} 
+  at each corner (a) by computing relevant facets (b). This
+  preliminary work does not extend the estimation to each surfel
+  (see \sect{sec:estim:ds}). } 
 \label{fig:snow} 
 \end{figure}
 \footnotetext{obtained by the 3SR Lab and CEN/CNRM - GAME URA 1357/M\'{e}t\'{e}o-France - CNRS, 
@@ -94,10 +112,10 @@ on-the-fly how to probe the digital surface and make grow a piece of digital pla
 which is tangent by construction. The growth direction is given by both arithmetic and geometric properties.
 
 \noindent\textbf{Objectives and expected results.}
-This project aims at analyzing digital surfaces. Three distinct goals can be highlighted:
+PARADIS aims at analyzing digital surfaces. Three distinct goals can be highlighted:
 \begin{enumerate}[label=(G\arabic*)]
   \item %[(G1)]
-The first goal of this project is to study extra arithmetic and combinatorial properties
+The first one is to study extra arithmetic and combinatorial properties
 of plane-probing algorithms. We expect to design an ultimate plane-probing algorithm that
 only probes a part of digital surface \emph{as small as possible} to provide a relevant facet.
 A formal definition of what is meant by \emph{small} and a theoretical upper bound should be given.
@@ -131,7 +149,8 @@ this tool, we may add other features like a 3D normal estimator robust to noise.
 
 New algorithms, theoretical results and experimental studies will be gathered in papers submitted to
 top venues or in peer-reviewed international journals. Plane-probing algorithms and derived estimators
- will be implemented in \DGtal, tools in \DGtalTools~ with an \IPOL~ companion paper. 
+will be implemented in the open-source C++ library {\DGtal}, whereas the tool will be added to {\DGtalTools},
+a companion project of {\DGtal}, with an {\IPOL} paper for coding details.  
 
 %sqdf \ref{goalppa} qsdf \ref{goalestim}, \ref{goalscale}. 
  
