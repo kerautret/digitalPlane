@@ -184,8 +184,19 @@ not only on digital surfaces, but also on meshes and point clouds.
 %% with the exception of \cite{Lachaud2007}, which is parameter-free and used in 3d estimators
 %% \cite{Lenoir1996,Tellier1999,Lachaud2003}. 
 
+\todo[inline]{Sébastien dit: L'utilisation de l'expression "state of the art"
+est incorrecte dans le paragraphe suivant et pourrait laisser croire qu'on n'a
+pas compris la question. Le
+\url{https://en.wikipedia.org/wiki/State_of_the_art}, c'est ce qui se fait de
+mieux dans la littérature par rapport à ce que nous on regarde. Ceci dit, la
+première phrase plus haut ("In this section...") est correcte. Mais, ensuite,
+on parle que ce ce que nous proposons, possiblement pas assez de ce qui se fait
+deja dans le domaine pour resoudre ce genre de question et en quoi on est
+different/mieux. Je crois que ce serait bien ici d'annoncer les sections 1.2.1,
+1.2.2 et 1.2.3 et mentionner qu'elles répondent bien à ce qui est attendu: "In each of the three following sections, we describe the state of the art and explain the originality and relevance of our project."}
+
 Since one goal of the project is to propose an accurate and parameter-free normal estimator,
-we focus in this state of the art on user-defined parameters and we check if
+we focus in this {\color{red} state of the art} on user-defined parameters and we check if
 the estimator preserves sharp features and, for digital surfaces only, is
 \emph{multigrid-convergent}, \ie the smaller the grid step,
 the higher the resolution, the more accurate the estimator (fig.~\ref{fig:multi}). 
@@ -270,7 +281,7 @@ around the point of interest \cite{Hoppe1992}.
 Other fitting surfaces have been used too, such as jets, \ie truncated Taylor expansion
 of a surface expression \cite{Cazals2005,Cazals2008}. 
 All fitting methods first consist in collecting the points used for the fitting.
-In the mesh case, a breadth-first search visit the neighbors until enough points
+In the mesh case, a breadth-first search visits the neighbors until enough points
 have been collected. In the point-cloud case, we typically resort to the k-nearest-neighbors
 strategy. In both cases, the number of points to collect is usually a user-defined parameter.
 Even if some heuristics are proposed to select it automatically \cite{Hoppe1992,Cazals2005},
@@ -283,6 +294,8 @@ near edges.
 %of \cite{Cazals2005}[Theorem 3] to digital surface shows that a polynomial fitting of degree $n$
 %estimates the coefficients of the unit normal vector in $O(h^n)$.
 %TRIS probablement faux
+
+\todo[inline]{"first use", "propose", "propose", "has been proposed": Choisir si on parle de la littérature au passé ou au présent et être cohérent. (Perso, je prefere le passe).}
 
 \noindent\textbf{Voronoi diagram.}
 Instead of approximating the tangent space, another familly of methods focuses on the
@@ -360,8 +373,8 @@ discussed and the algorithm is time consuming.
 %%   we are losing the pointwise multigrid convergence property.}
 
 \noindent\textbf{Randomized Hough Transform.}
-To end, let us mention also probabilistic methods based on the Randomized Hough Transform.
-Boulch and Marlet consider many random triples of data points in a neighborhood
+Finally, let us mention also probabilistic methods based on the Randomized Hough Transform.
+Boulch and Marlet considered many random triples of data points in a neighborhood
 and bin their normal direction into a spherical histogram \cite{Boulch2012}.
 Maximal vote provides the normal estimate. However, their method has many input parameters,
 the first of which is the size or radius of the neighborhood. 
@@ -436,7 +449,7 @@ It is defined by a (nonzero) normal $\vec{n} \in \Z^3$ and a position $\mu \in \
 \end{equation}
 
 Given a finite digital set $\Set$, the \emph{recognition problem} consists in providing
-$\mu$ and $\vec{n}$ such that $\Set \subseteq \Plane{\mu}{\vec{n}}$ if any.
+$\mu$ and $\vec{n}$ such that $\Set \subseteq \Plane{\mu}{\vec{n}}$ if they exist.
 Note that such a recognition problem can have zero or infinitely many solutions.
 One solution can be found in linear time, \ie in $O(|\Set|)$, by linear programming
 and all solutions can be found in $O(|\Set|\log{(|\Set|)})$ by computational geometry tools.
@@ -457,7 +470,7 @@ should be taken into account during the recognition process to obtain DPSs tange
 surface. In addition, as noted \cite{Charrier2011}, most inextensible digital planar sets are not
 characteristics of the local geometry of the shape and finding the smallest subset which covers
 the digital surface has been shown to be NP-complete \cite{Sivignon2009}.
-Segmentation methods usually make grow a point set from a seed by a breadth-first search according
+Segmentation methods usually make a point set grow from a seed by a breadth-first search according
 to some heuristics and decide whether the current set is a piece of digital plane or not
 (see for instance \cite{Klette2001} or \cite{Sivignon2004}). 
 %\cite{Provot2009} un peu different car parametre de bruit
