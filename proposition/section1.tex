@@ -185,9 +185,10 @@ not only on digital surfaces, but also on meshes and point clouds.
 %% \cite{Lenoir1996,Tellier1999,Lachaud2003}. 
 
 Since one goal of the project is to propose an accurate and parameter-free normal estimator,
-we focus in this state of the art on user-defined parameters and, for digital surfaces only,
-we check if the estimator is \emph{multigrid-convergent}, \ie the smaller the grid step,
-the higher the resolution, the more accurate the estimator. 
+we focus in this state of the art on user-defined parameters and we check if
+the estimator preserves sharp features and, for digital surfaces only, is
+\emph{multigrid-convergent}, \ie the smaller the grid step,
+the higher the resolution, the more accurate the estimator (fig.~\ref{fig:multi}). 
 
 \begin{figure}[htbp]
   \centering
@@ -195,7 +196,12 @@ the higher the resolution, the more accurate the estimator.
   \subfloat[]{\includegraphics[width=3.5cm]{multi-ellipse-1}}
   \subfloat[]{\includegraphics[width=3.5cm]{multi-ellipse-2}}
   \subfloat[]{\includegraphics[width=3.5cm]{multi-ellipse-4}}
-  \caption{bklablal....}
+  \caption{Digitization of a 2D ellipse (a) at smaller and smaller grid steps $h$ (b-d).
+    A multigrid-convergent estimator is such that the estimated quantity at a point of a
+    digital curve or surface gets closer to the one of the underlying continuous shape
+    at a close enough point as $h$ tends to zero. Note that the length of the digital
+    contour is an estimator that is not multigrid convergent since it returns the perimeter
+    of the bounding box. TODO improve fig}
   \label{fig:multi}
 \end{figure}
 
@@ -251,7 +257,7 @@ the higher the resolution, the more accurate the estimator.
 \label{sec:estim:all}
 
 %interet des normales
-Numerous algorithms rely on the quality of the normal estimation in point clouds, such as
+Numerous tasks rely on the quality of the normal estimation in point clouds, such as
 surface reconstruction, scene understanding or point-based rendering to name a few.
 In surface fairing or mesh denoising, a common approach is to first compute a relevant
 normal field and then evolve the mesh to match the smoothed normals.
@@ -266,8 +272,10 @@ of a surface expression \cite{Cazals2005,Cazals2008}.
 All fitting methods first consist in collecting the points used for the fitting.
 In the mesh case, a breadth-first search visit the neighbors until enough points
 have been collected. In the point-cloud case, we typically resort to the k-nearest-neighbors
-strategy. In both cases, the number of points to collect is usually a user-defined parameter,
-even if some heuristics are proposed to select it automatically \cite{Hoppe1992,Cazals2005}.  
+strategy. In both cases, the number of points to collect is usually a user-defined parameter.
+Even if some heuristics are proposed to select it automatically \cite{Hoppe1992,Cazals2005},
+these methods tend to smooth sharp features, and thus fail to correctly estimate normals
+near edges.  
 
 %\cite{Provot2011} ?
 
@@ -297,39 +305,59 @@ provides a way to estimate principal curvatures, principal directions and normal
 A digital variant has been proposed by \citeauthor*{Lachaud2017} \cite{Lachaud2017}.
 %
 Note that the ball radius is a user-defined parameter in these
-methods. The above-mentionned digital variants
-\cite{Cuel2015,Lachaud2017} are multigrid-convergent for digitization
-of smooth shapes if the radius is conveniently chosen with respect to
-the grid step. \dav{In dimension 2, multigrid convergent
-  parameter-free integral invariant curvature estimators can be
-  derived \cite{Coeurjolly2014IIfree} but  extension to 3-D surfaces
-  is not trivial (see below).}
+methods. In addition, the ball radius is usually the same for
+the whole digital surface and completely ignore its features.
+The above-mentionned digital variants \cite{Cuel2015,Lachaud2017}
+are multigrid-convergent for digitization of smooth shapes if
+the radius is conveniently chosen with respect to
+the grid step.
+%% TRIS: je trouve cet ajout poins pertinent (curvature estimator) et redondant avec la suite
+%% \dav{In dimension 2, multigrid convergent
+%%   parameter-free integral invariant curvature estimators can be
+%%   derived \cite{Coeurjolly2014IIfree} but  extension to 3-D surfaces
+%%   is not trivial (see below).}
 %setting the ball radius from the
 %  digital object boundary characteristics. Heuristics have been given
 %  in 3-D but it is still an open problem whether multigrid convergent
 %  and parameter-free curvature or normal vector estimators exist in 3-D.}
 
 \noindent\textbf{Convolution.}
-\dav{Starting from raw normal vector estimations (\emph{e.g.} unit
-  vectors perpendicular to surfels), several approaches refine the
-  estimation by convoluting of the raw normals using a given smoothing
-  kernel. On digital surfaces, Gaussian or isotropic kernel in ambient
-  space have been considered
-  \cite{papierthese,Fourey2009,Esbelin2011,Esbelin2016} with the
-  following drawbacks: the user must specify the kernel parameters and
-  size, and the smoothing is usually isotropic and may smooth out
-  singularities (or features) of the surface. However, if the kernel
-  size is a function of the gridstep, multigrid convergence can be
-  obtained in 2-D \cite{Esbelin2011}. We also mention mesh denoising
-  techniques, which also output a smooth normal vector field, based on
-  more advanced local filters such as the bilateral one leading to an
-  anisotropic smoothing of the normal vector field
-  \cite{fleishman2003bilateral,zheng2011bilateral}. }
+Starting from raw normal vector estimations (\eg unit
+vectors perpendicular to surfels), several approaches refine the
+estimation by convoluting the raw normals using a given smoothing
+kernel. This technique has been proposed on digital curves
+\cite{Esbelin2011,Esbelin2016} and surfaces
+\cite{papierthese,Fourey2009} with the following drawbacks:
+the user must specify the kernel parameters, including its size,
+and the treatement, which is usually isotropic, smoothes out
+sharp features. However, if the kernel size is some function of the
+grid step, multigrid convergence can be obtained in 2D \cite{Esbelin2011}.
+In mesh denoising, more advanced local filters, such as the bilateral one,
+are used to preserve sharp edges and corners, but several parameters
+are user-defined \cite{fleishman2003bilateral,zheng2011bilateral}.
 
-%pas d'isotropie, donc filtres
-%bilateral mesh denoising
-%\cite{Fourey2009}
-%\cite{Esbelin2011,Esbelin2016})
+\noindent\textbf{Variational approaches}. Another but similar approach
+consists in minimizing a global energy function instead of applying a
+local, iterative scheme. These techniques start from a raw estimation
+of the normal vector field and use a complex variational scheme to obtain
+a piecewise smooth regularization of the input field. The literature is
+vast on this subject, see for instance \cite{zhang2015variational}. 
+Applied to digital surfaces, robust and piecewise smooth normal vector fields
+are obtained \cite{CoeurjollyFGL16}, but the multigrid convergence is not
+discussed and the algorithm is time consuming. 
+
+%% We conclude this
+%%   overview by variational approaches aiming to denoise a surface or a
+%%   normal vector field while preserving some features. Most techniques
+%%   start from a raw (isotropic) estimation of the normal vector field
+%%   and minimize an energy function to obtain a close piecewise smooth
+%%   regularization of the input field. The literature is large on this
+%%   subject, see \cite{CoeurjollyFGL16,zhang2015variational} for recent
+%%   papers. These techniques can be seen as post-processes of a raw
+%%   estimate and require complex schemes to solve the variational
+%%   problem. Applied to digital surfaces, we obtain very robust and
+%%   smooth normal vector field but the algorithm is time consuming and
+%%   we are losing the pointwise multigrid convergence property.}
 
 \noindent\textbf{Randomized Hough Transform.}
 To end, let us mention also probabilistic methods based on the Randomized Hough Transform.
@@ -338,25 +366,18 @@ and bin their normal direction into a spherical histogram \cite{Boulch2012}.
 Maximal vote provides the normal estimate. However, their method has many input parameters,
 the first of which is the size or radius of the neighborhood. 
 
-\dav{\noindent\textbf{Variational approaches}.  We conclude this
-  overview by variational approaches aiming to denoise a surface or a
-  normal vector field while preserving some features. Most techniques
-  start from a raw (isotropic) estimation of the normal vector field
-  and minimize an energy function to obtain a close piecewise smooth
-  regularization of the input field. The literature is large on this
-  subject, see \cite{CoeurjollyFGL16,zhang2015variational} for recent
-  papers. These techniques can be seen as post-processes of a raw
-  estimate and require complex schemes to solve the variational
-  problem. Applied to digital surfaces, we obtain very robust and
-  smooth normal vector field but the algorithm is time consuming and
-  we are losing the pointwise multigrid convergence property.}
 
-\subsubsection{Parameter-free normal estimators on digital surfaces}
+\subsubsection{Parameter-free and adaptive normal estimators on digital surfaces}
 \label{sec:estim:ds}
 
-All previous methods require at least one parameter that controls the size of the neighborhood.
-On the other hand, the specificity of digital surfaces makes the development of parameter-free
-estimators possible. The trick is to perform a uniform fitting of the data points by a plane.
+All reviewed methods have drawbacks. The few methods that perform an anisotropic
+treatment to preserve features may be complex to implement, time-consuming, with
+many user-defined parameters. The simplest methods have at least one parameter
+that controls the size of the neighborhood for the whole data set and smooth out
+sharp features.  
+
+On the other hand, the specificity of digital surfaces makes the design of parameter-free
+and adaptive estimators possible. The trick is to perform a uniform fitting of the data points by a plane.
 In addition, instead of specifying the number of data points \emph{a priori}, they are added
 step by step, while a maximal admissible error is not reached. This threshold is not a user-defined
 parameter, but a known constant, because the data points follow a known uniform noise model
@@ -394,10 +415,12 @@ computations with the same parameter value, as done in \cite{Lachaud2017}.
 Finally, another possible approach is to mimic the 2D tool box by computing the set of
 digital plane segments (DPSs) that locally fits to the digital surface. This approach
 has been used for surface area estimation \cite{Klette2001}, reversible polyhedrisation
-\cite{Sivignon2004} and normal estimation \cite{Charrier2011}.
-The challenge is to find how to scan the digital surface to efficiently recognize relevant DPSs. 
-
-TODO: discuter \cite{Charrier2011} et en donner des limitations ?
+\cite{Sivignon2004} and normal estimation \cite{Charrier2011}. In the latter approach,
+DPSs are initialized by a maximal circular neighborhood around a seed and then extended
+without updating their normal vector. Even if it is a consistent definition of maximality,
+this approach badly recover the geometry of the digital surface near sharp edges and corners. 
+The challenge is to find how to scan the digital surface to efficiently recognize DPSs
+whose size and shape adapt to the local geometry. 
 
 \subsubsection{Digital plane segments: recognition and generation}
 \label{sec:dps}
@@ -420,9 +443,9 @@ and all solutions can be found in $O(|\Set|\log{(|\Set|)})$ by computational geo
 See \cite{Brimkov2007} for a review on digital planarity.
 
 However, we usually want to add data points step by step and incrementally update the solution
-or the set of solutions. In this on-line framework, algorithms with optimal bounds are difficult
-to implement and are in all probability slow in practive due to a high constant (see for instance
-\cite{Buzer2003}).
+or the set of solutions. In this on-line framework, optimal algorithms are difficult
+to implement and are in all probability slow in practice due to a high constant in the asymptotic
+upper bound (see for instance \cite{Buzer2003}).
 On the other hand, there exists fast geometrical algorithms but with higher theoretical bounds,
 \eg \cite{Gerard2005, Charrier2008, Veelaert2012}.
 %\cite{Gerard2009} preimage
@@ -434,7 +457,6 @@ should be taken into account during the recognition process to obtain DPSs tange
 surface. In addition, as noted \cite{Charrier2011}, most inextensible digital planar sets are not
 characteristics of the local geometry of the shape and finding the smallest subset which covers
 the digital surface has been shown to be NP-complete \cite{Sivignon2009}.
-
 Segmentation methods usually make grow a point set from a seed by a breadth-first search according
 to some heuristics and decide whether the current set is a piece of digital plane or not
 (see for instance \cite{Klette2001} or \cite{Sivignon2004}). 
