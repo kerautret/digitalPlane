@@ -1,11 +1,11 @@
-\section{Project organisation and means implemented}
+\section{Project organization and means implemented}
 \label{sec:org}
 
 \subsection{Scientific coordinator and its team}
 
 \Comments{
   In the case of a Young Researchers Project (JCJC), 
-Present the scientific coordinator and his/her role in the project, present his/her position within the organisation of the host laboratory 
+Present the scientific coordinator and his/her role in the project, present his/her position within the organization of the host laboratory 
 Present the scientific coordinator’s team, its quality and complementarity
 }
 
@@ -139,10 +139,10 @@ We request
 
 
 %% This \textbf{four-year project} will be divided into four work packages (WP).
-%% The two first corresponds to goal G1, whereas the two last correspond
+%% The first two correspond to goal G1, whereas the last two correspond
 %% respectively to goals G2 and G3 (see \sect{sec:goals} for the goal description).
 %% We have decided to have two WPs for G1 because this goal has two distinct sides,
-%% each requiring distinct expertise. On one hand, we want to improve various
+%% each requiring distinct expertise. On the one hand, we want to improve various
 %% features of plane-probing algorithms, even in the planar case. Due to
 %% preliminary works, we have in mind many short-term tasks for this.
 %% On the other hand, we want to associate to the state of a plane-probing
@@ -202,12 +202,12 @@ part of a digital surface?\todo{deplacer les taches en chapeau de
 
 Another task in this WP is related to the starting point. In \cite{LPRJMIV2017},
 it must be a \emph{reentrant corner}. This restriction avoids degenerate cases, but
-limit the pratical usage of the algorithm for digital surface analysis
+limit the practical usage of the algorithm for digital surface analysis
 (see fig.~\ref{fig:snow}). Raising this restriction to points whose neighboring
 surfels form a flat part along one or two axis is however just a technical
 problem that can be quickly solved. A more important challenge is that the R-algorithm
 stops prematurately and outputs only an approximation of the normal vector for some
-well-indentified starting points, which are not located deeply enough in the digital
+well-identified starting points, which are not located deeply enough in the digital
 surface. Even if we know how to detect and remove approximated results
 \emph{a posteriori} \cite{LPRJMIV2017}, it would be quite interesting to translate
 the starting point to deeper and deeper positions in order to avoid producing any
@@ -323,7 +323,7 @@ is a good candidate for methods \ref{m:sub} and \ref{m:tu} in order to generate 
 constraints because it returns a reduced triangular facet.
 
 One difficulty is that several substitutions can be associated to the same matrix
-(but a substitution has one incidence matrix). First, we may consider all the possible
+(but reciprocally a substitution has only one incidence matrix). First, we may consider all the possible
 substitution sequences
 $\Sigma := \{ \sigma_1..\sigma_n \ | \ \sigma_i \text{ is a possible substitution for } M_i \}$.
 
@@ -424,7 +424,7 @@ are a subset of the input data points, as in (relative) convex hulls
 or by a quadrangular mesh whose vertices are set to optimized positions, so that it is
 as smooth as possible \cite{Coeurjolly2017}. In the former problem, the facets returned by the
 plane-probing algorithms will play an important role, while in the latter,
-normal estimates are usually a key input of the an \dav{energy
+normal estimates are usually a key input of the \dav{energy
   function minimization leading to regularized vertex positions.}  
 
 \begin{Task}
