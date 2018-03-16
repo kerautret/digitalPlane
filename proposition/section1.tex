@@ -476,12 +476,11 @@ in advance and must be coupled with another recognition algorithm to conclude
 at the last step.  
 
 \noindent\textbf{Preliminary results: plane-probing algorithms.}
-An opportunity to make a breakthrough in this issue is the recent development
-by the principal investigator and its collaborators of \emph{plane-probing
-algorithms} \cite{LPRTCS2016, LPRDGCI2016, LPRJMIV2017}. 
-Given a digital plane $\Plane{\mu}{\vec{n}} \subset Z^3$
+A novel approach has been proposed by the principal investigator and its collaborators
+\cite{LPRTCS2016, LPRDGCI2016, LPRJMIV2017}. 
+Given a digital plane $\Plane{\mu}{\vec{n}} \subset \Z^3$
 and a starting point $\vec{p} \in \Set$, 
-a plane-probing algorithm computes the parameters of a digital plane $\Plane{\mu'}{\vec{n}'}$
+a \emph{plane-probing algorithm} computes the parameters of a digital plane $\Plane{\mu'}{\vec{n}'}$
 containing $\vec{p}$ by sparsely probing $\Plane{\mu}{\vec{n}}$ with the predicate
 ``is $\vec{x}$ in $\Plane{\mu}{\vec{n}}$?''. The parameters of $\Plane{\mu}{\vec{n}}$
 and $\Plane{\mu'}{\vec{n}'}$ are expected to be equal when the algorithm terminates.
@@ -496,7 +495,7 @@ with only unimodular transformations. Each transformation is decided by looking
 mostly at a few points around the tetrahedron. These points are chosen so that
 the transformed tetrahedron lies in $\Plane{\mu}{\vec{n}}$, with the same volume,
 but closer to the upper plane
-$\UpperPlane{\mu}{\vec{n}} := \{ x \in R^3 \ | \ x \cdot \vec{n} = \mu + \|\vec{n}\|_1 \}$.
+$\UpperPlane{\mu}{\vec{n}} := \{ x \in \R^3 \ | \ x \cdot \vec{n} = \mu + \|\vec{n}\|_1 \}$.
 At the end of this iterative process, one face of the tetrahedron has an extremal
 position in the plane and is thus parallel to $\UpperPlane{\mu}{\vec{n}}$.
 
@@ -512,7 +511,7 @@ parallel to $\UpperPlane{\mu}{\vec{n}}$ (see fig.~\ref{fig:ppa} for an illustrat
   \subfloat[]{\includegraphics[width=0.17\textwidth]{triangle-1-2-5-0-6}}
   \subfloat[]{\includegraphics[width=0.17\textwidth]{triangle-1-2-5-0-8}}
   \caption{The current tetrahedron is depicted in blue. It is initialized at a corner (a) 
-    and it then deformed step by step by the \emph{R-algorithm} proposed in \cite{LPRJMIV2017} (b-d).
+    and it is then deformed step by step by the \emph{R-algorithm} proposed in \cite{LPRJMIV2017} (b-e).
     When the algorithm terminates (e), the normal of the facet not incident to the fixed vertex
     is equal to the normal of the underlying digital plane, \ie $(1,2,5)$.}
     \label{fig:ppa}
@@ -523,16 +522,16 @@ First, they are simpler, because they repeat one simple operation instead
 of several possible transformations depending on the current onfiguration
 as in \cite{LPRTCS2016}.  
 Second, one vertex of the evolving tetrahedron is a fixed point lying above the 
-starting point and the opposite triangular facet (fig.~\ref{fig:ppa}. The position
+starting point and the opposite triangular facet (fig.~\ref{fig:ppa}). The position
 of the evolving tetrahedron is thus better controlled than in \cite{LPRTCS2016}. 
 Last, a geometric criterion is used so that the evolving tetrahedron is not
 too much elongated during the computation.  
 
 %surface
 In addition, \cite{LPRJMIV2017} show how to use these algorithms
-for digital surface analysis. In this preliminary work, one drawback is
-the processing of non-planar parts, especially non-convex parts. This case
-requires to associate a piece of digital plane to the tetrahedron.
+for digital surface analysis. One drawback of this preliminary work
+is the processing of non-convex parts. This case requires to associate
+a piece of digital plane to the tetrahedron.
 
 %% by discretizing its triangular facet
 %% not incident to the fixed point. Generating a relevant piece of digital plane
@@ -578,8 +577,8 @@ because they precisely find a way of building a polyhedron that can be
 discretized into the input 3D volume according to this model.
 %The resulting polyhedron has some very small facets and its vertices have rational coordinates.
 In the framework of \cite{LPRJMIV2017}, this model, which generates a point set
-centered around the $m$-simplex, requires to shift the triangle by half of the
-plane thickness.
+centered around the $m$-simplex, requires to shift the triangular facet by half of the
+digital plane thickness.
 
 However, plane-probing algorithms allow to use totally different generation algorithms
 based on multidimensional continued fractions (MCF), \eg \cite{Fernique2009,Jamet2016}. 
@@ -588,11 +587,9 @@ the next one, just as MCF algorithms generate a sequence of matrices, each one m
 a vector to the next one. As a result, we can either adopt a translation-union approach \cite{Jamet2016}
 or use (dual) substitutions \cite{Fernique2009} in order to generate a piece
 of digital plane whose geometry follows the matrix sequence. The topological and geometrical
-properties of such a piece of digital plane is unknown and should be investigated. 
+properties of such a piece of digital plane is currently unknown and needs to be investigated. 
 
-TODO: image d'illustration avec matrix sequence ?
-
-%TODO points/tuiles ?
+%TODO: image d'illustration avec matrix sequence ?
 
 
 \subsection{Methodology and risk management}
