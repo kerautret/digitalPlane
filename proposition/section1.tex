@@ -210,7 +210,7 @@ the higher the resolution, the more accurate the estimator (fig.~\ref{fig:multi}
   %% \subfloat[]{\includegraphics[width=3.5cm]{multi-ellipse-1}}
   %% \subfloat[]{\includegraphics[width=3.5cm]{multi-ellipse-2}}
   %% \subfloat[]{\includegraphics[width=3.5cm]{multi-ellipse-4}}
-  \caption{Digitization of a 2D ellipse at a grid step $h$ taking decreasing values (a-c).
+  \caption{Digitization of a 2D ellipse at a grid step $h$ taking decreasing values.
     A multigrid-convergent estimator is such that the estimated quantity at a point of a
     digital curve or surface gets closer to the one of the underlying continuous shape
     at a close enough point as $h$ tends to zero. Note that the length of the digital
@@ -402,13 +402,23 @@ in case of digital surfaces. In 2D, methods based on digital straight segments (
 this approach.
 
 The set of maximal DSSs, \ie inextensible straight parts, can be computed by one scan of the
-digital curve \cite{Feschet1999,Feschet2005} and provides a parameter-free and multigrid-convergent
-tangent (and normal) estimator \cite{Lachaud2007}.
-This estimator preserves the inflexion points because maximal DSSs are closely related to
-local convexity \cite{Roussillon2011} and normal integration over the digital curve yields
-a multigrid-convergent length estimator \cite{Coeurjolly2004}. 
+digital curve \cite{Feschet1999,Feschet2005} and provides a multigrid-convergent
+normal estimator \cite{Lachaud2007} (and normal integration over the digital curve yields
+also a multigrid-convergent length estimator \cite{Coeurjolly2004}). In addition to
+convergence, this normal estimator has several other sought-after properties:
+it preserves sharp features (fig.~\ref{fig:corner}) and local convexity \cite{Roussillon2011},
+without any input parameter. 
 In addition, asymptotic properties of maximal DSSs can be used to estimate the local amount
 of noise along the digital curve \cite{Kerautret2012}.  
+\begin{figure}[htbp]
+  \centering
+  \subfloat[]{\includegraphics[width=0.3\textwidth]{square-g02-arith}}\hspace{0.05\textwidth}
+  \subfloat[]{\includegraphics[width=0.3\textwidth]{square-g02-p50}}\hspace{0.05\textwidth}
+  %\subfloat[]{\includegraphics[width=0.3\textwidth]{}} %TODO conv 3D
+  \caption{Maximal DSSs provides a multigrid-convergent normal estimator that preserves sharp features (a). 
+  Almost all other methods, such as convolution of the raw normals, smooth them out (b). }
+  \label{fig:corner}
+\end{figure}
 
 In higher dimension, to the best of our knowledge, only one parameter-free normal estimator
 has been proposed in 3D \cite{Lenoir1996,Tellier1999} and extended to nD \cite{Lachaud2003}.
