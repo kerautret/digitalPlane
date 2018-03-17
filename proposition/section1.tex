@@ -203,16 +203,20 @@ the higher the resolution, the more accurate the estimator (fig.~\ref{fig:multi}
 
 \begin{figure}[htbp]
   \centering
-  \subfloat[]{\includegraphics[width=3.5cm]{multi-ellipse-0}}
-  \subfloat[]{\includegraphics[width=3.5cm]{multi-ellipse-1}}
-  \subfloat[]{\includegraphics[width=3.5cm]{multi-ellipse-2}}
-  \subfloat[]{\includegraphics[width=3.5cm]{multi-ellipse-4}}
-  \caption{Digitization of a 2D ellipse (a) at smaller and smaller grid steps $h$ (b-d).
+  \subfloat[$h=0.8$]{\includegraphics[width=0.25\textwidth]{conv08}}\hspace{0.05\textwidth}
+  \subfloat[$h=0.5$]{\includegraphics[width=0.25\textwidth]{conv05}}\hspace{0.05\textwidth}
+  \subfloat[$h=0.2$]{\includegraphics[width=0.25\textwidth]{conv02}}
+  %% \subfloat[]{\includegraphics[width=3.5cm]{multi-ellipse-0}}
+  %% \subfloat[]{\includegraphics[width=3.5cm]{multi-ellipse-1}}
+  %% \subfloat[]{\includegraphics[width=3.5cm]{multi-ellipse-2}}
+  %% \subfloat[]{\includegraphics[width=3.5cm]{multi-ellipse-4}}
+  \caption{Digitization of a 2D ellipse at a grid step $h$ taking decreasing values (a-c).
     A multigrid-convergent estimator is such that the estimated quantity at a point of a
     digital curve or surface gets closer to the one of the underlying continuous shape
     at a close enough point as $h$ tends to zero. Note that the length of the digital
-    contour is an estimator that is not multigrid convergent since it returns the perimeter
-    of the bounding box. TODO improve fig}
+    contour, which is equal to the perimeter of its bounding box (in dashed lines),
+    is not multigrid-convergent, since it does not tend to the perimeter of the ellipse,
+    but to the perimeter of its bounding box.}
   \label{fig:multi}
 \end{figure}
 
