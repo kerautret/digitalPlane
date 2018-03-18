@@ -12,7 +12,7 @@ or medical imaging, non-invasive acquisition devices such as magnetic
 resonance, X-ray tomography or micro-tomography are required for
 observation, measurements or diagnostic aids
 (\eg \cite{Hildebrand1999,dcoeurjo_flin_ImPro}). %,dardenne2009variational}).
-These acquisition devices usually generate volumic data, \ie
+These acquisition devices usually generate large data sets, \ie
 3D images, composed of regularly spaced data in a cuboidal domain.
 3D volumes come from the segmentation of such 3D images.
 They are also generated in scientific modelling because
@@ -42,25 +42,23 @@ numerous simulation schemes rely on the regularity of the data support
 %% editors. }}
 
 
-PARADIS is a project about the geometry of volume boundaries,
+PARADIS is a project about geometry of volume boundaries,
 called \emph{digital surfaces} (fig.~\ref{fig:snow}). 
 Keeping the digital nature of the data is an advantage
 to do integer-only and exact computations,
 to perform constructive solid geometry operations,
 or to use efficient spatial data structures
 (\eg \cite{kampe2013sg,Villanueva:2016:SSS:2856400.2856420,JaspeVillanueva2017SSVDAG}).
-A drawback is its poor geometry, because at any resolution a digital surface is only 
+A drawback is its poor geometry, because a digital surface is only 
 made up of quadrangular surface element (\emph{surfel} for short) 
-whose normal vector is parallel to one axis. 
+whose normal vector is parallel to one axis whatever the resolution. 
 Many tasks in computer graphics, vision and 3D image analysis require a richer geometry: 
 rendering, surface deformation for simulation or tracking, precise geometric measurements, etc.
 To perform relevant geometric tasks and 
 to benefit from the above-mentioned advantages in the same time, 
 we need to enhance the geometry of digital surfaces by estimating extra data for each surfel. 
-This project focuses on estimations of local and first-order geometric quantities
-such as normal vector direction.
-%%, distance to boundary, coverage of the inner and outer incident voxels 
-%%(see fig.~\ref{fig:2D} for a 2D illustration).  
+\textbf{This project focuses on estimations of local and first-order geometric quantities
+such as normal vector direction.}
 
 \begin{figure}[hb]
   \centering
@@ -96,32 +94,37 @@ shared during ANR-11-BS02-009 DigitalSnow project.}
 The surface geometry within a patch around each surfel should be gathered to provide such estimations
 -- \eg by polynomial fitting \cite{Cazals2005,Cazals2008}.
 Almost all methods require at least one parameter that controls the size of the patch.  
-On the other hand, this project aims at providing \emph{accurate} and \emph{parameter-free} estimators
+On the contrary, this project aims at providing \emph{accurate} and \emph{parameter-free} estimators
 based on a surface patch with \emph{adaptive} size.
-%Note that accuracy will be evaluated in a \emph{multigrid-convervence} framework as described in section \ref{sec:wp}, WP2. 
 Since we are looking for first-order estimations, the patch will be typically a piece of digital plane
-that locally fits to the digital surface. %(fig.~\ref{sub:pattern}).
+that locally fits the digital surface. %(fig.~\ref{sub:pattern}).
 A challenge is to cover the whole digital surface by maximal pieces of digital plane. 
-What makes the problem hard is that there is a combinatorial explosion
+Such a cover will not only provide a normal vector field, but will also provide, if computed
+for several subsampled versions of the input 3D volume, a way of determining the scale 
+at which noise is unlikely: a high number of very small segments indicate noise, whereas
+smooth parts are decomposed into a smaller set of larger segments.    
+
+What is challenging is that there is a combinatorial explosion
 of maximal pieces of digital plane \cite{Sivignon2009} and that among them,
-not all are tangent to the digital surface in a point set framework.  
-An opportunity to make a breakthrough in this issue is the recent development
-by the principal investigator and its collaborators of \emph{plane-probing}
-algorithms \cite{LPRTCS2016, LPRDGCI2016, LPRJMIV2017}. These algorithms decide
-on-the-fly how to probe the digital surface and make grow a piece of digital plane,
+not all are tangent to the digital surface.  
+An opportunity to make a breakthrough regarding this issue is to consider the recent development
+of \emph{plane-probing} algorithms \cite{LPRTCS2016, LPRDGCI2016, LPRJMIV2017},
+proposed by the principal investigator and its collaborators.
+These algorithms allow to decide
+on-the-fly how to probe the digital surface and make grow a digital plane segment,
 which is tangent by construction. The growth direction is given by both arithmetic and geometric properties.
 
 \noindent\textbf{Objectives and expected results.}
-PARADIS aims at analyzing digital surfaces. Three distinct goals can be highlighted:
+PARADIS aims at analyzing digital surfaces with the help of plane-probing algorithms. 
+Three distinct goals can be highlighted:
 \begin{enumerate}[label=(G\arabic*)]
   \item %[(G1)]
 The first one is to study extra arithmetic and combinatorial properties
 of plane-probing algorithms. We expect to design an ultimate plane-probing algorithm that
 only probes a part of digital surface \emph{as small as possible} to provide a relevant facet.
-A formal definition of what is meant by \emph{small} and a theoretical upper bound should be given.
+A formal definition of what is meant by \emph{small} and a theoretical upper bound will be provided.
 In addition, we expect to correctly process non-convex parts by generating an underlying
 minimal and connected piece of digital plane.  \label{goalppa} 
-%(see WP0 and WP1 in section~\ref{sec:wp}, describing work packages).
  \item %[(G2)] 
 The second goal is to derive \emph{efficient}, \emph{accurate} and \emph{parameter-free} estimators
 of \emph{local} and \emph{first-order} geometric quantities: normal vector (and surfel area as a by-product),
@@ -133,7 +136,8 @@ with respect to resolution. \label{goalestim}
 The third goal is to provide a method and a tool for an automatic and \emph{multiscale} analysis of digital surfaces,
 based on the number or the size of the computed facets for several subsampled versions of the input 3D volume. 
 We expect to develop a tool that provides, without any parameter, the scale at which noise is unlikely. Based on
-this tool, we may add other features like a 3D normal estimator robust to noise.  \label{goalscale}
+this tool, we may add other features like a 3D normal estimator robust to noise, \ie able to ignore some of
+the residual variation that does not represent underlying structure.  \label{goalscale}
 %(WP3). 
 \end{enumerate}
 
@@ -143,11 +147,11 @@ this tool, we may add other features like a 3D normal estimator robust to noise.
 \subfloat[]{ \includegraphics[width=0.13\textwidth,page=2]{square.pdf} } \hspace{0.05\textwidth}
 \subfloat[]{ \includegraphics[width=0.13\textwidth,page=3]{square.pdf} } \hspace{0.05\textwidth}
 \subfloat[]{ \includegraphics[width=0.13\textwidth,page=4]{square.pdf} } 
- \caption{2D illustration of a digital surface: voxels are big squares whose center is depicted by a black (resp. white) disk if it lies inside (resp. outside) the volume; surfels are elongated dark rectangles. We want to estimate a relevant normal vector at a given surfel (b), but also locally reconstruct a boundary perpendicular to this normal vector in order to derive distance and coverage estimations (c-d).} 
+ \caption{2D illustration of a digital surface: voxels are big squares whose center is depicted by a black (resp. white) disk if it lies inside (resp. outside) the volume; surfels are elongated dark rectangles. We want to estimate a relevant normal vector at a given surfel (b), but also to locally reconstruct a boundary perpendicular to this normal vector in order to derive distance and coverage estimations (c-d).} 
 \label{fig:2D} 
 \end{figure}
 
-New algorithms, theoretical results and experimental studies will be gathered in papers submitted to
+New algorithms, theoretical results and experimental studies will be disseminated through papers submitted to
 top venues or in peer-reviewed international journals. Plane-probing algorithms and derived estimators
 will be implemented in the open-source C++ library {\DGtal}, whereas the tool will be added to {\DGtalTools},
 a companion project of {\DGtal}, with an {\IPOL} paper for coding details.  
