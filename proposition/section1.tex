@@ -404,7 +404,7 @@ this approach.
 The set of maximal DSSs, \ie inextensible straight parts, can be computed by one scan of the
 digital curve \cite{Feschet1999,Feschet2005} and provides a multigrid-convergent
 normal estimator \cite{Lachaud2007} (and normal integration over the digital curve yields
-also a multigrid-convergent length estimator \cite{Coeurjolly2004}). In addition to
+a multigrid-convergent length estimator \cite{Coeurjolly2004}). In addition to
 convergence, this normal estimator has several other sought-after properties:
 it preserves sharp features (fig.~\ref{fig:corner}) and local convexity \cite{Roussillon2011},
 without any input parameter. 
@@ -412,11 +412,13 @@ In addition, asymptotic properties of maximal DSSs can be used to estimate the l
 of noise along the digital curve \cite{Kerautret2012}.  
 \begin{figure}[htbp]
   \centering
-  \subfloat[]{\includegraphics[width=0.3\textwidth]{square-g02-arith}}\hspace{0.05\textwidth}
-  \subfloat[]{\includegraphics[width=0.3\textwidth]{square-g02-p50}}\hspace{0.05\textwidth}
-  %\subfloat[]{\includegraphics[width=0.3\textwidth]{}} %TODO conv 3D
-  \caption{Maximal DSSs provides a multigrid-convergent normal estimator that preserves sharp features (a). 
-  Almost all other methods, such as convolution of the raw normals, smooth them out (b). }
+  \subfloat[]{\includegraphics[width=0.28\textwidth]{square-g02-arith}}
+  \subfloat[]{\includegraphics[width=0.28\textwidth]{square-g02-p50}}
+  \subfloat[]{\includegraphics[width=0.3\textwidth]{cube}}
+  \caption{Maximal DSSs provide multigrid-convergent normal estimates that preserves sharp features (a). 
+    Almost all other methods, such as convolution of the raw normals, smooth them out as shown in (b) and (c).
+    Finding a parameter-free, multigrid-convergent normal estimator that preserves sharp features is still a
+    challenge in 3D.}
   \label{fig:corner}
 \end{figure}
 
