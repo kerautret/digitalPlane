@@ -477,28 +477,28 @@ One solution can be found in linear time, \ie in $O(|\Set|)$, by linear programm
 and all solutions can be found in $O(|\Set|\log{(|\Set|)})$ by computational geometry tools.
 See \cite{Brimkov2007} for a review on digital planarity.
 
-However, we usually want to add data points step by step and incrementally update the solution
+However, one usually wants to add data points step by step and incrementally update the solution
 or the set of solutions. In this on-line framework, optimal algorithms are difficult
 to implement and are in all probability slow in practice due to a high constant in the asymptotic
 upper bound (see for instance \cite{Buzer2003}).
-On the other hand, there exists fast geometrical algorithms but with higher theoretical bounds,
+On the other hand, there are fast geometrical algorithms but with higher theoretical bounds,
 \eg \cite{Gerard2005, Charrier2008, Veelaert2012}.
 %\cite{Gerard2009} preimage
 %\cite{Stojmenovic1991} separation
 %Provot2006, largeur
 
-Actually, the main challenge is not so much to recognize DPSs, but more to find which data points
+Actually, the main challenge is not really to recognize DPSs, but more to find which data points
 should be taken into account during the recognition process to obtain DPSs tangent to the digital
-surface. In addition, as noted \cite{Charrier2011}, most inextensible digital planar sets are not
+surface. In addition, as noted in \cite{Charrier2011}, most inextensible digital planar sets are not
 characteristics of the local geometry of the shape and finding the smallest subset which covers
 the digital surface has been shown to be NP-complete \cite{Sivignon2009}.
 Segmentation methods usually make a point set grow from a seed by a breadth-first search according
 to some heuristics and decide whether the current set is a piece of digital plane or not
-(see for instance \cite{Klette2001} or \cite{Sivignon2004}). 
+(see, for instance, \cite{Klette2001} or \cite{Sivignon2004}). 
 %\cite{Provot2009} un peu different car parametre de bruit
 The results are however highly dependent on the chosen heuristics.   
 
-Until recently, artihmetic properties of digital planes did not help so much.
+Until recently, artihmetic properties of digital planes have not helped so much.
 Pionneering incremental recognition algorithms based on arithmetic properties
 \cite{Debled1994,Mesmoudi2002} are neither as easy-to-implement nor as fast as
 purely geometric ones, such as \cite{Gerard2005}.  
@@ -507,11 +507,10 @@ based on multidimensional continued fractions and desubstitution on words,
 is quite interesting from a theoretical point of view. However, their algorithm,
 which reduces a piece of digital surface until no transformation is possible,
 is not of practical interest because it requires the whole point set to be known
-in advance and must be coupled with another recognition algorithm to conclude
-at the last step.  
+in advance and must be coupled with another recognition algorithm at the last step.  
 
 \noindent\textbf{Preliminary results: plane-probing algorithms.}
-A novel approach has been proposed by the principal investigator and its collaborators
+A novel approach was proposed by the principal investigator and its collaborators
 \cite{LPRTCS2016, LPRDGCI2016, LPRJMIV2017}. 
 Given a digital plane $\Plane{\mu}{\vec{n}} \subset \Z^3$
 and a starting point $\vec{p} \in \Set$, 
@@ -524,8 +523,8 @@ and $\Plane{\mu'}{\vec{n}'}$ are expected to be equal when the algorithm termina
 What makes plane-probing algorithms promising is that they decide on-the-fly how
 to probe the digital surface and make grow a piece of digital plane, which is
 tangent by construction. 
-The first algorithm of this kind has been proposed in \cite{LPRTCS2016}.
-Its principle is to deform an initial unit tetrahedron based at the starting point
+The first algorithm of this category has been proposed in \cite{LPRTCS2016}.
+Its principle is to deform an initial unit tetrahedron set at the starting point
 with only unimodular transformations. Each transformation is decided by looking
 mostly at a few points around the tetrahedron. These points are chosen so that
 the transformed tetrahedron lies in $\Plane{\mu}{\vec{n}}$, with the same volume,
@@ -534,7 +533,7 @@ $\UpperPlane{\mu}{\vec{n}} := \{ x \in \R^3 \ | \ x \cdot \vec{n} = \mu + \|\vec
 At the end of this iterative process, one face of the tetrahedron has an extremal
 position in the plane and is thus parallel to $\UpperPlane{\mu}{\vec{n}}$.
 
-New plane-probing algorithms have been proposed in \cite{LPRDGCI2016, LPRJMIV2017}. 
+New plane-probing algorithms were proposed in \cite{LPRDGCI2016, LPRJMIV2017}. 
 They also iteratively deform an initial tetrahedron and stop when one face is
 parallel to $\UpperPlane{\mu}{\vec{n}}$ (see fig.~\ref{fig:ppa} for an illustration). 
 %
@@ -563,41 +562,14 @@ Last, a geometric criterion is used so that the evolving tetrahedron is not
 too much elongated during the computation.  
 
 %surface
-In addition, \cite{LPRJMIV2017} show how to use these algorithms
-for digital surface analysis. One drawback of this preliminary work
-is the processing of non-convex parts. This case requires to associate
-a piece of digital plane to the tetrahedron.
-
-%% by discretizing its triangular facet
-%% not incident to the fixed point. Generating a relevant piece of digital plane
-%% in the course of the computation may be a neater and more efficient
-%% solution.  
-
-%% Although it is a preliminary work with
-%% several drawbacks that we expect to overcome in this project, some fall-back
-%% solutions are detailed. 
-
-%% For instance, a procedure for detecting planarity defects
-%% is detailed.  and in case of non-convex configuration and propose several strategy 
-%% We show how to detect convex/concave/inflexion zones onto a digital surfacewe show  , we also For some well-identified starting points, this algo- rithm stops and outputs only an approximation of the normal to P. We show how to detect such bad starting points and how to connect them to their corresponding facet
-
-%reduction
-%% For one variant, called $R$-algorithm, we experimentally observe
-%% that the returned basis is reduced at least after every two steps and it is always reduced
-%% when the algorithm terminates. This conjecture is not proved yet and it is one of our
-%% future work to prove it.
+In addition, these algorithms are used for digital surface analysis in \cite{LPRJMIV2017}.
+One drawback of this preliminary work is the processing of non-convex parts.
+This case requires to associate a piece of digital plane to the tetrahedron.
 
 \noindent\textbf{Discretization and generation.}
 %generation de plans
-%% Due to the analytical definition of digital plane (see \Eq{eq:plane}), it is
-%% trivial to generate an arbitrary piece of digital plane. Indeed, it is enough to scan all
-%% the digital point of a given domain and for each of them to check whether
-%% it belongs to the digital plane or not. However the topological and
-%% arithmetical properties of standard digital planes defined in \Eq{eq:plane}
-%% make generation algorithms more efficient, using breadth-first
-%% traversal and incremental computations.
 Due to the analytical definition of digital plane, its topological and
-arithmetical properties, we can efficiently generate an arbitrary piece
+arithmetical properties, one can efficiently generate an arbitrary piece
 of digital plane using breadth-first traversal and incremental computations.
 However, if the piece of digital plane is required to be projected into a
 given polygon or simply a triangle as in \cite{LPRJMIV2017}, this approach
@@ -606,7 +578,7 @@ is not always possible, because acute angles can make the digital set disconnect
 %discretisation de polygone en 3D
 The standard analytical model provides a consistent way to discretize a $m$-simplex
 in $n$D with topological guarentees, \ie into a $(n-1)$-connected, tunnel-free
-and bubble-free point set \cite{Andres2003}. This model has been successfully
+and bubble-free point set \cite{Andres2003}. This model was successfully
 used for reversible polyhedrisation by \citeauthor*{Sivignon2004} \cite{Sivignon2004},
 because they precisely find a way of building a polyhedron that can be
 discretized into the input 3D volume according to this model.
@@ -615,14 +587,14 @@ In the framework of \cite{LPRJMIV2017}, this model, which generates a point set
 centered around the $m$-simplex, requires to shift the triangular facet by half of the
 digital plane thickness.
 
-However, plane-probing algorithms allow to use totally different generation algorithms
+Plane-probing algorithms allow to use totally different generation algorithms
 based on multidimensional continued fractions (MCF), \eg \cite{Fernique2009,Jamet2016}. 
 They indeed generate a sequence of unimodular matrices, each one mapping a tetrahedron to
 the next one, just as MCF algorithms generate a sequence of matrices, each one mapping
-a vector to the next one. As a result, we can either adopt a translation-union approach \cite{Jamet2016}
+a vector to the next one. As a result, one can either adopt a translation-union approach \cite{Jamet2016}
 or use (dual) substitutions \cite{Fernique2009} in order to generate a piece
 of digital plane whose geometry follows the matrix sequence. The topological and geometrical
-properties of such a piece of digital plane is currently unknown and needs to be investigated. 
+properties of such a piece of digital plane is currently unknown, though.  
 
 %TODO: image d'illustration avec matrix sequence ?
 
