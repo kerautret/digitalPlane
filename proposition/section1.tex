@@ -172,15 +172,15 @@ a companion project of {\DGtal}, with an {\IPOL} paper for coding details.
 
 \Comments{Emphasise the ambitious nature of the proposal and the novelty of the research in relation to the state of the art ; show the possible contributions of project partners to the state of the art ; present any preliminary results. In the case of a project proposal following up on previous project(s) already funded by ANR or by another body, provide a summary of the results achieved and clearly describe the new issues raised and the new objectives set out in the light of the earlier project.}
 
-In this section, we underline the novelty of the proposed approach in relation to the state of the art.  
+In each of the three following sections, we describe the state of the art and explain the originality and relevance of our project.
+%In this section, we underline the novelty of the proposed approach in relation to the state of the art.  
 We focus on the estimation of the normal direction, which is the most challenging task with the biggest impact. 
-Other first-order quantities are either obtained as a by-product of the normal estimation (\eg surfel area)
+Other first-order quantities are either obtained as a by-product of the normal estimation (\eg surfel area \cite{Lachaud2016})
 or carry position information already approximated by the digital surface itself (\eg distance to boundary).
-%In this last case, it seems unlikely that the accuracy could be improved by an order of magnitude. 
 
 In addition, a digital surface is a quadrangular mesh. The vertex set consists of evenly spaced data points
 whose coordinates are (half-)integer. This specific point cloud approximates a continuous 2-manifold under a
-uniform noise model due to discretisation errors. That is why we review the most common methods for normal estimation
+uniform noise model due to discretization errors. That is why, we review the most common methods for normal estimation
 not only on digital surfaces, but also on meshes and point clouds.
 %TODO nombreuses applications de normal estimation ce qui explique qu'il y ait beaucoup de travaux.  
 
@@ -188,21 +188,21 @@ not only on digital surfaces, but also on meshes and point clouds.
 %% with the exception of \cite{Lachaud2007}, which is parameter-free and used in 3d estimators
 %% \cite{Lenoir1996,Tellier1999,Lachaud2003}. 
 
-\todo[inline]{Sébastien dit: L'utilisation de l'expression "state of the art"
-est incorrecte dans le paragraphe suivant et pourrait laisser croire qu'on n'a
-pas compris la question. Le
-\url{https://en.wikipedia.org/wiki/State_of_the_art}, c'est ce qui se fait de
-mieux dans la littérature par rapport à ce que nous on regarde. Ceci dit, la
-première phrase plus haut ("In this section...") est correcte. Mais, ensuite,
-on parle que ce ce que nous proposons, possiblement pas assez de ce qui se fait
-deja dans le domaine pour resoudre ce genre de question et en quoi on est
-different/mieux. Je crois que ce serait bien ici d'annoncer les sections 1.2.1,
-1.2.2 et 1.2.3 et mentionner qu'elles répondent bien à ce qui est attendu: "In each of the three following sections, we describe the state of the art and explain the originality and relevance of our project."}
+%% \todo[inline]{Sébastien dit: L'utilisation de l'expression "state of the art"
+%% est incorrecte dans le paragraphe suivant et pourrait laisser croire qu'on n'a
+%% pas compris la question. Le
+%% \url{https://en.wikipedia.org/wiki/State_of_the_art}, c'est ce qui se fait de
+%% mieux dans la littérature par rapport à ce que nous on regarde. Ceci dit, la
+%% première phrase plus haut ("In this section...") est correcte. Mais, ensuite,
+%% on parle que ce ce que nous proposons, possiblement pas assez de ce qui se fait
+%% deja dans le domaine pour resoudre ce genre de question et en quoi on est
+%% different/mieux. Je crois que ce serait bien ici d'annoncer les sections 1.2.1,
+%% 1.2.2 et 1.2.3 et mentionner qu'elles répondent bien à ce qui est attendu: "In each of the three following sections, we describe the state of the art and explain the originality and relevance of our project."}
+%%TRIS: OK je crois avoir corriger en fonction de ce que tu dis
 
-Since one goal of the project is to propose an accurate and parameter-free normal estimator,
-we focus in this {\color{red} state of the art} on user-defined parameters and we check if
-the estimator preserves sharp features and, for digital surfaces only, is
-\emph{multigrid-convergent}, \ie the smaller the grid step,
+Since one of the goals of the project is to propose an accurate and parameter-free normal estimator,
+we focus on user-defined parameters and we check if the estimator preserves sharp features and,
+for digital surfaces only, is \emph{multigrid-convergent}, \ie the smaller the grid step,
 the higher the resolution, the more accurate the estimator (fig.~\ref{fig:multi}). 
 
 \begin{figure}[htbp]
@@ -275,59 +275,61 @@ the higher the resolution, the more accurate the estimator (fig.~\ref{fig:multi}
 \subsubsection{Normal estimation on point clouds, meshes and digital surfaces}
 \label{sec:estim:all}
 
+%%tenses
+%%present rapporter ce qu'un auteur pense, ecrit, fait generaux
+%%past ce qu'un auteur a fait, trouve
+%%present perfect ce qui se fait dans une communaute
+%%http://ueberfachliche-kompetenzen.ethz.ch/dopraedi/pdfs/Mayer/guidelines_review_article.pdf
+
 %interet des normales
-Numerous tasks rely on the quality of the normal estimation in point clouds, such as
+Numerous tasks rely on the quality of normal estimation in point clouds, such as
 surface reconstruction, scene understanding or point-based rendering to name a few.
 In surface fairing or mesh denoising, a common approach is to first compute a relevant
 normal field and then evolve the mesh to match the smoothed normals.
 Hence, a lot of normal estimation methods have been proposed. 
 
 \noindent\textbf{Fitting.}
-\citeauthor*{Hoppe1992} estimate the normal at a given data point by computing
+\citeauthor*{Hoppe1992} \cite{Hoppe1992} estimated the normal at a given data point by computing
 the least squares best fitting plane to a point set within a neighborhood
-around the point of interest \cite{Hoppe1992}.
-Other fitting surfaces have been used too, such as jets, \ie truncated Taylor expansion
+around the point of interest.
+Other fitting surfaces have also been used, such as jets, \ie truncated Taylor expansion
 of a surface expression \cite{Cazals2005,Cazals2008}. 
 All fitting methods first consist in collecting the points used for the fitting.
 In the mesh case, a breadth-first search visits the neighbors until enough points
-have been collected. In the point-cloud case, we typically resort to the k-nearest-neighbors
-strategy. In both cases, the number of points to collect is usually a user-defined parameter.
-Even if some heuristics are proposed to select it automatically \cite{Hoppe1992,Cazals2005},
-these methods tend to smooth sharp features, and thus fail to correctly estimate normals
+have been collected. In the point-cloud case, one typically resorts to the k-nearest-neighbors
+strategy. In both cases, the number of points to collect is usually a user-defined parameter,
+even if some heuristics have been proposed to select it automatically \cite{Hoppe1992,Cazals2005}.
+All fitting methods tend to smooth sharp features, and thus fail to correctly estimate normals
 near edges.  
 
-%\cite{Provot2011} ?
+%%TRIS ok j'ai pris en compte cette remarque (cf. debut de section pour la convention utilisee)
+%% \todo[inline]{"first use", "propose", "propose", "has been proposed": Choisir si on parle de la littérature au passé ou au présent et être cohérent. (Perso, je prefere le passe).}
 
-%In 3d, a straightforward application
-%of \cite{Cazals2005}[Theorem 3] to digital surface shows that a polynomial fitting of degree $n$
-%estimates the coefficients of the unit normal vector in $O(h^n)$.
-%TRIS probablement faux
 
-\todo[inline]{"first use", "propose", "propose", "has been proposed": Choisir si on parle de la littérature au passé ou au présent et être cohérent. (Perso, je prefere le passe).}
 
 \noindent\textbf{Voronoi diagram.}
-Instead of approximating the tangent space, another familly of methods focuses on the
-Voronoi diagram to estimate at best the orthogonal space. \citeauthor*{Amenta1999} first use the
-furthest vertex of the Voronoi cell to estimate the normals of point clouds \cite{Amenta1999}.
-In order to get more stable estimates, \citeauthor*{Alliez2007} propose to apply linear fitting
-to the Voronoi cell or to the union of Voronoi cells into a neighborhood \cite{Alliez2007}. 
-\citeauthor*{Merigot2011} propose an improvement %, called Voronoi Covariance Measure (VCM),
+Instead of approximating the tangent space, another familly of methods is based on the
+Voronoi diagram to estimate at best the orthogonal space. \citeauthor*{Amenta1999} \cite{Amenta1999}
+first used the furthest vertex of the Voronoi cell to estimate the normals of point clouds.
+In order to get more stable estimates, \citeauthor*{Alliez2007} \cite{Alliez2007} proposed to apply linear fitting
+to the Voronoi cell or to the union of Voronoi cells into a neighborhood. 
+\citeauthor*{Merigot2011} \cite{Merigot2011} proposed an improvement %, called Voronoi Covariance Measure (VCM),
 by taking a weighted average of covariance matrices of Voronoi cells instead of
-taking the covariance matrix of their union \cite{Merigot2011}. In their method,
+taking the covariance matrix of their union. In their method,
 only the intersection between the Voronoi diagram and a ball around the data point
-are taken into account in order to get purely local information about the surface geometry.
-A digital variant has been proposed by \citeauthor*{Cuel2015} \cite{Cuel2015}. 
+is taken into account in order to get purely local information about the surface geometry.
+A digital variant was proposed by \citeauthor*{Cuel2015} \cite{Cuel2015}. 
 
 \noindent\textbf{Integral invariants.}
 In the mesh case, another method sums up the surface geometry within a ball by 
 computing integrals over the intersection between the ball and the volume
 bounded by the mesh \cite{Pottmann2009}. The covariance matrix of the intersection set 
 provides a way to estimate principal curvatures, principal directions and normal direction.
-A digital variant has been proposed by \citeauthor*{Lachaud2017} \cite{Lachaud2017}.
+A digital variant was proposed by \citeauthor*{Lachaud2017} \cite{Lachaud2017}.
 %
 Note that the ball radius is a user-defined parameter in these
 methods. In addition, the ball radius is usually the same for
-the whole digital surface and completely ignore its features.
+the whole digital surface and completely ignores the features.
 The above-mentionned digital variants \cite{Cuel2015,Lachaud2017}
 are multigrid-convergent for digitization of smooth shapes if
 the radius is conveniently chosen with respect to
@@ -363,9 +365,9 @@ local, iterative scheme. These techniques start from a raw estimation
 of the normal vector field and use a complex variational scheme to obtain
 a piecewise smooth regularization of the input field. The literature is
 vast on this subject, see for instance \cite{zhang2015variational}. 
-Applied to digital surfaces, robust and piecewise smooth normal vector fields
-are obtained \cite{CoeurjollyFGL16}, but the multigrid convergence is not
-discussed and the algorithm is time consuming. 
+Applied to digital surfaces, a stable and piecewise smooth normal vector field
+was obtained \cite{CoeurjollyFGL16} by a time-consuming algorithm and without
+any guarantee of convergence. 
 
 %% We conclude this
 %%   overview by variational approaches aiming to denoise a surface or a
@@ -382,8 +384,8 @@ discussed and the algorithm is time consuming.
 
 \noindent\textbf{Randomized Hough Transform.}
 Finally, let us mention also probabilistic methods based on the Randomized Hough Transform.
-Boulch and Marlet considered many random triples of data points in a neighborhood
-and bin their normal direction into a spherical histogram \cite{Boulch2012}.
+Boulch and Marlet \cite{Boulch2012} considered many random triples of data points in a neighborhood
+and bin their normal direction into a spherical histogram.
 Maximal vote provides the normal estimate. However, their method has many input parameters,
 the first of which is the size or radius of the neighborhood. 
 
