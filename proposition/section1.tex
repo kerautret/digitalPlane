@@ -411,7 +411,7 @@ The set of maximal DSSs, \ie inextensible straight parts, can be computed by one
 digital curve \cite{Feschet1999,Feschet2005} and provides a multigrid-convergent
 normal estimator \cite{Lachaud2007} (and normal integration over the digital curve yields
 a multigrid-convergent length estimator \cite{Coeurjolly2004}). In addition to
-convergence, this normal estimator has several other sought-after properties:
+convergence, this normal estimator has several sought-after properties:
 it preserves sharp features (fig.~\ref{fig:corner}) and local convexity \cite{Roussillon2011},
 without any input parameter. 
 In addition, asymptotic properties of maximal DSSs can be used to estimate the local amount
@@ -436,8 +436,8 @@ an artificial spatial variability because two neighbor surfels only
 share one slice over two. 
 
 Given an estimator with an input size parameter, a general strategy to automatically and adaptively select
-the parameter value consists in taking the size of maximal DSSs. 
-The idea of such hybrid method has been used first in \cite{Devieilleville2009}
+the parameter value consists in considering the size of maximal DSSs. 
+The idea of such a hybrid method was first used in \cite{Devieilleville2009}
 for a comparative study of 2D normal estimators and then in \cite{Coeurjolly2014IIfree}
 for mean curvature estimation by integral invariants.
 In 2D, this strategy is quite interesting for higher-order estimators such as curvature,
@@ -448,14 +448,14 @@ and the cost of the original estimator without any optimization trick that takes
 computations with the same parameter value, as done in \cite{Lachaud2017}. 
 
 Finally, another possible approach is to mimic the 2D tool box by computing the set of
-digital plane segments (DPSs) that locally fits to the digital surface. This approach
+digital plane segments (DPSs) that locally fits the digital surface. This approach
 has been used for surface area estimation \cite{Klette2001}, reversible polyhedrisation
 \cite{Sivignon2004} and normal estimation \cite{Charrier2011}. In the latter approach,
 DPSs are initialized by a maximal circular neighborhood around a seed and then extended
 without updating their normal vector. Even if it is a consistent definition of maximality,
-this approach badly recover the geometry of the digital surface near sharp edges and corners. 
+this approach badly recovers the geometry of the digital surface near sharp edges and corners. 
 The challenge is to find how to scan the digital surface to efficiently recognize DPSs
-whose size and shape adapt to the local geometry. 
+whose size and shape reveal the local geometry. 
 
 \subsubsection{Digital plane segments: recognition and generation}
 \label{sec:dps}
