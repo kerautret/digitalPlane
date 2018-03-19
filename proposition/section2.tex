@@ -290,83 +290,89 @@ the development of \ref{wp1}.
 
 Plane-probing algorithms probe for data points in a sparse way.
 This is perfect for digital plane recognition, but not for pieces
-of digital plane on digital surfaces. Evolving tetrahedra may jump
-over holes or cracks in the surface for instance. Therefore,
-we have to associate a piece of digital plane
-to the current facet and check whether it fits to the digital surface
-or not.
+of digital plane on digital surfaces. In these cases, the tetrahedra
+may jump over holes or cracks in the surface. Therefore, we have to
+associate a piece of digital plane to the current facet and check
+whether it fits the digital surface or not.
 
 Instead of digitizing the current facet, we choose to generate a piece
-of digital plane closely related to the matrix sequence computed by
-the plane-probing algorithms (see \sect{sec:dps}). We believe that
-this approach will not only provide a hierarchy of pieces of digital
+of digital plane based on the matrix sequence computed by
+plane-probing algorithms (see \sect{sec:dps}). We believe that
+this approach will not only provides a hierarchy of pieces of digital
 plane with controlled shape, but also a deep understanding of the
 combinatorial structure of digital planes. If this combinatorial
-structure is completely understood, it will be possible to implicitely
+structure is completely understood, then it will be possible to implicitely
 describe various pieces of digital plane by exchanging some well-identified
-parts of it, which will lead to a more flexible algorithm. 
+parts of it. Thus, a more flexible algorithm will be expected.  
 
-The challenge in this WP is to generate digital plane segments (DPSs)
-having several properties \cite{Jamet2016}:
+The challenge in this WP is to generate digital plane segments, also called
+\emph{patterns}, having several properties \cite{Jamet2016}:
 \begin{enumerate}[label=(P\arabic*)]
 \item they must be included in the tangent digital plane; \label{prop:inside}
 \item at least two independent period vectors should be deduced from them
   so that the whole tangent digital plane is implicitly described by translation
-  (and that is why such DPSs are called \emph{patterns}); \label{prop:period}
+  (and that is why such digital plane segments are called patterns); \label{prop:period}
 \item they should form a connected set; \label{prop:connect}
 \item they should be as small as possible to avoid redundancy,
-  \eg $n_i$ surfels of normal vector $\vec{e}_i$, where $n_i$ is the i-th coordinate
-  of $\vec{n}$. \label{prop:small}
+  \eg for all $i=\{1,2,3\}$, only $n_i$ surfels of normal vector $\vec{e}_i$,
+  where $n_i$ is the i-th coordinate of $\vec{n}$ and $\vec{e}_i$ is the unit
+  vector having its i-th coordinate equal to $1$. \label{prop:small}
 \end{enumerate}
 We can add other properties about their shape: 
 convexity, smallest possible elongation or maximal distance to the starting point.
 %% It may also contain the standard digitization of the current facet returned by
 %% a plane-probing algorithm. 
 
-As reported in \sect{sec:dps}, there are two main generic methods for generating patterns
-from an arbitrary multidimensional continued fractions (MCF) algorithm:
-\begin{enumerate}[label=(M\arabic*)]
-\item one is based on dual substitutions, \label{m:sub}
-\item another one is based on a translation-union algorithm. \label{m:tu}
-\end{enumerate}
-We believe that these two approaches are closely related, but this requires
-further investigation because they rely on different frameworks. 
-
-\emph{Christoffel parallelograms}, introduced in \cite{Labbe2015},
-encode a digitization of 3D planar parallelograms. They have strong
-structural properties, similar to those of Christoffel words:
-symmetry of their central part and conjugation with their reversal.
-The concatenation of two Christoffel parallelograms into another one
-is not yet understood, but this question is closely related to MCF
-and pattern generation. 
-
+A first task is to review, study and compare the existing methods for pattern generation
+in the field of multidimensional continued fractions (MCF) algorithms. 
 \begin{Task}
   \label{task:genmeth}
-  Study methods \ref{m:sub} and \ref{m:tu} on arbitrary MCF algorithms,
-  compare them and relate them to Christoffel parallelograms.   
+  Study and compare methods that generate patterns from arbitrary MCF algorithms. 
 \end{Task}
 
-Even if MCF algorithms usually guarantee some of the above properties
-(at least \ref{prop:inside} and \ref{prop:period}),
-they do not take into account the pattern shape. As any other MCF algorithm, the R-algorithm
-also produces a sequence of matrices, denoted by $M_1..M_n$. We believe that the R-algorithm
-is a good candidate for methods \ref{m:sub} and \ref{m:tu} in order to generate patterns with shape
-constraints because it returns a reduced triangular facet.
+As reported in \sect{sec:dps}, there are two main generic methods for generating patterns
+from an arbitrary MCF algorithm:
+\begin{enumerate}[label=(M\arabic*)]
+\item one is based on dual substitutions, \eg \cite{Fernique2009}, \label{m:sub}
+\item another one is based on a translation-union algorithm \cite{Jamet2016}. \label{m:tu}
+\end{enumerate}
+We believe that these two approaches are closely related, but this requires
+further investigation because they rely on different frameworks.
+In addition, these approaches are also related to \emph{Christoffel parallelograms},
+which encode a specific digitization of 3D planar parallelograms. They were introduced in
+\cite{Labbe2015} and have strong structural properties, similar to those of Christoffel words:
+symmetry of their central part and conjugation with their reversal.
+The concatenation of two Christoffel parallelograms into another one
+is not yet understood, but could be of practical interest for pattern generation. 
 
-One difficulty is that several substitutions can be associated to the same matrix
-(but reciprocally a substitution has only one incidence matrix). First, we may consider all the possible
-substitution sequences
-$\Sigma := \{ \sigma_1..\sigma_n \ | \ \sigma_i \text{ is a possible substitution for } M_i \}$.
+Even if MCF algorithms usually guarantee some of the above properties
+(at least \ref{prop:inside} and \ref{prop:period}), they do not take
+into account the pattern shape. As any other MCF algorithm, the R-algorithm
+also produces a sequence of matrices, denoted by $M_1..M_n$. We believe that the
+R-algorithm is a good candidate for methods \ref{m:sub} and \ref{m:tu} in order
+to generate patterns with shape constraints because it returns a reduced triangular facet.
+
+The second task is an experimental study that focuses on the patterns obtained from
+the matrix sequence given by the R-algorithm or another plane-probing algorithm (but
+not by an arbitrary MCF algorithm).
 
 \begin{Task}
   \label{task:genexp}
   Experimentally check if the properties \ref{prop:inside}-\ref{prop:small}
-  hold for patterns generated from $\Sigma$ by methods \ref{m:sub} and \ref{m:tu}.  
+  hold for patterns generated by methods \ref{m:sub} and \ref{m:tu}
+  from the matrix sequence given by the R-algorithm or another plane-probing algorithm
+  (task~\ref{task:start}).   
 \end{Task}
 
+One difficulty with method \ref{m:sub} is that several substitutions can be associated to the
+same matrix (but reciprocally, a substitution has only one incidence matrix).
+In task~\ref{task:genexp}, we will consider all the possible substitution sequences, \ie the set
+$\Sigma := \{ \sigma_1..\sigma_n \ | \ \sigma_i \text{ is a possible substitution for } M_i \}$.
 Although it is hardly never investigated in the field of MCF algorithms, the choice of a
 substitution can play an important role, especially for \ref{prop:connect} and \ref{prop:small}.
 In our geometric setting, we can expect a criterion for choosing a convenient substitution at each step. 
+
+The last task consists in finding the right way of generating patterns under shape constraints. 
 
 \begin{Task}
   \label{task:genpat}
@@ -386,8 +392,9 @@ of \ref{wp0}.
 
 \Risks
 We do not know if it is possible to generate patterns with all the above properties
-or an appropriate subset of them in order to correctly process non-convex parts,
-in spite of promising results. Still, we have algorithmic solutions
+or an appropriate subset of them in order to correctly process non-convex parts.
+%,in spite of promising results.
+Still, we have algorithmic solutions
 \cite{LPRJMIV2017} to cope with these problems, which alleviate such risk. 
 On the contrary, a success in this WP would lead to both theoretical results
 on MCF algorithms and related geometric problems, and a speed-up in the analysis
