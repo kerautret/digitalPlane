@@ -425,13 +425,15 @@ generator will be available in \DGtal.
    {Technical report at T+30.}
 \medskip
 
- Most of the time, when we are working with a digital surface, we are 
-interested in the geometry of a continuous shape whose digitization is the input digital data.
+Most of the time, when we are working with a digital surface, we are 
+interested in the geometry of a continuous shape whose digitization is the input 3D volume.
 We expect that a given geometric quantity, such as a normal vector, computed at a point of a digital surface
 is close to the one of the underlying continuous shape at a close enough point. 
 This WP aims at providing efficient, parameter-free and multigrid-convergent estimators based of
 the output of plane-probing algorithms: normal vector (and surfel area as a by-product),
 distance to boundary, voxel coverage (fig.~\ref{fig:2D}).
+
+A first task is to propose first-order estimators. 
 
 \begin{Task}
   \label{task:normal}
@@ -439,11 +441,7 @@ distance to boundary, voxel coverage (fig.~\ref{fig:2D}).
   derive other first-order estimators.  
 \end{Task}
 
-The accuracy of a multigrid-convergent estimator depends on the resolution: the higher the resolution,
-the more accurate the estimator. An important task in this WP is to experimentally and theoretically
-study the estimation accuracy for shapes digitized at increasing resolutions. The theoretical study
-will probably rely on the size of the facets returned by plane-probing algorithms: the bigger the facets,
-the less sensitive to digitization noise the estimator. 
+A second task is to study the multigrid convergence of these estimators. 
 
 \begin{Task}
   \label{task:conv}
@@ -451,39 +449,44 @@ the less sensitive to digitization noise the estimator.
   and the estimators accuracy for smooth shapes digitized at increasing resolutions. 
 \end{Task}
 
+The accuracy of a multigrid-convergent estimator depends on the resolution: the higher the resolution,
+the more accurate the estimator. The goal of task~\ref{task:conv} is to experimentally and theoretically
+study the estimation accuracy for smooth shapes digitized at increasing resolutions. The theoretical study
+will rely on the size of the facets returned by plane-probing algorithms: the bigger the facets,
+the less sensitive to digitization noise the estimator. 
+
 Plane-probing algorithms not only provide a normal vector but also position information,
 which may be useful for many applications in graphics such as polyhedral approximation,
 surface fairing or digital surface visualization. The goal of this WP is also to investigate
 at least one of these applications.   
-
-We can approximate a digital surface either by a polyhedral surface whose vertices 
-are a subset of the input data points, as in (relative) convex hulls 
-\cite{Klette2001,Schultz2009} 
-or by a quadrangular mesh whose vertices are set to optimized positions, so that it is
-as smooth as possible \cite{Coeurjolly2017}. In the former problem, the facets returned by the
-plane-probing algorithms will play an important role, while in the latter,
-normal estimates are usually a key input of the \dav{energy
-  function minimization leading to regularized vertex positions.}  
 
 \begin{Task}
   \label{task:approx}
   Design an algorithm that computes a fair approximation of a digital surface. 
 \end{Task}
 
-Even if meshes can be efficiently visualized because of hardware
-support \dav{(Graphical Processing Units)},
-it may be interesting to directly render the input data. \dav{Voxel
-  based rendering techniques (\emph{e.g.}
-  \cite{DBLP:conf/si3d/CrassinNLE09,}) can be used to
-visualize digital surfaces equipped with a piecewise smooth normal
-vector field}. Results will be greatly improved by accurate normal estimates,
-but also by accurate position estimates. In addition, voxel coverage and absorption can
-also be used to remove staircase effects near shape borders in the resulting 2D view.
+We can approximate a digital surface either by a polyhedral surface whose vertices 
+are a subset of the input data points, as in (relative) convex hulls 
+\cite{Klette2001,Schultz2009} 
+or by a quadrangular mesh whose vertices are set to optimized positions, so that it is
+as smooth as possible \cite{Coeurjolly2017}. In the former problem, the facets returned
+by the plane-probing algorithms will play an important role, while in the latter,
+normal estimates are usually a key input of the energy function minimization leading
+to regularized vertex positions.  
 
 \begin{Task}
   \label{task:rendering}
   Design an algorithm that directly renders digital surfaces using first-order estimations.  
 \end{Task}
+
+Even if meshes can be efficiently visualized because of hardware
+support (Graphical Processing Units), it may be interesting to
+directly render the input data. Voxel-based rendering techniques
+(\eg \cite{DBLP:conf/si3d/CrassinNLE09}) can be used to
+visualize digital surfaces equipped with a piecewise smooth normal
+vector field. Results will be greatly improved by accurate normal estimates,
+but also by accurate position estimates. In addition, voxel coverage and absorption can
+also be used to remove staircase effects near shape borders in the resulting 2D view.
 
 The PhD student will work on all these tasks. This WP, and especially tasks~\ref{task:normal}
 and \ref{task:conv}, will be the core of its thesis project. Tasks \ref{task:approx},
