@@ -19,18 +19,19 @@ has recently obtained several results on normal vector computation \cite{LPRTCS2
 He has coauthored several papers in peer-reviewed international journals (\eg PR, CVIU, JMIV, DAM) 
 and in conferences (\eg DGCI, ICPR).
 
-The project will also involve specialists in digital geometry and combinatorics on words. 
+The project will also involve specialists in digital geometry and combinatorics on words.
+%(see also table~\ref{tab:persons}). 
 \begin{table}[h]
 \small
 \centering
-\begin{tabular}{|cccl|}
+\begin{tabular}{|ccclr|}
 \hline
-Collaborator & Position & Lab & Expertise \\ \hline
+Collaborator & Position & Lab & Expertise & PM\\ \hline
 \hline
-\textbf{D. Coeurjolly} & DR & LIRIS & digital and comput. geometry, geometry processing \\ \hline
-\textbf{B. Kerautret} & MdC & LORIA & digital geometry, image analysis \\ \hline
-\textbf{S. Labb\'{e}} & CR & LABRI & multidim. cont. frac. alg., combinatorics on words \\ \hline
-\textbf{J-O. Lachaud} & Pr & LAMA & digital geometry and topology, image analysis \\ \hline
+\textbf{D. Coeurjolly} & DR & LIRIS & digital and comput. geometry, geometry processing & 5 \\ \hline
+\textbf{B. Kerautret} & MdC & LORIA & digital geometry, image analysis & 12 \\ \hline
+\textbf{S. Labb\'{e}} & CR & LABRI & multidim. cont. frac. alg., combinatorics on words & 12 \\ \hline
+\textbf{J-O. Lachaud} & Pr & LAMA & digital geometry and topology, image analysis & 6 \\ \hline
 \hline
 \end{tabular}
 \normalsize
@@ -51,10 +52,9 @@ Collaborator & Position & Lab & Expertise \\ \hline
 %% \normalsize
 %% \end{table}
 
-TODO qqs phrases de presentations pour chacun
 
 \textbf{D. Coeurjolly} (40 years old) is a senior tenured
-  Researcher (\emph{Directeur de recherche}) at CNRS and a member of
+  researcher (\emph{Directeur de recherche}) at CNRS and a member of
   LIRIS since 2007. His research interests include digital and
   computational geometry, geometry processing and sampling in computer
   graphics. From 2006 to 2008, he chaired the Technical Committee 18
@@ -62,33 +62,41 @@ TODO qqs phrases de presentations pour chacun
   Recognition). In 2008, he chaired and organized the International
   conference on Discrete Geometry for Computer Imagery (DGCI 2008) in
   Lyon. Since 2011, he chairs the Steering Committee of the DGCI
-  conference.  From 2011 to Jan. 2015, he lead the \emph{m2disco} team
-  at LIRIS and is now Director of the Fédération Informatique de Lyon
-  (FR2000, CNRS). In 2009, he received a Bronze Medal from CNRS that
-  recognized his activities in Digital Geometry. He has
+  conference. 
+  %From 2011 to Jan. 2015, he lead the \emph{m2disco} team at LIRIS and
+  Since 2017, he is Director of the Fédération Informatique de Lyon
+  (FR2000, CNRS).
+  In 2009, he received a Bronze Medal from CNRS that
+  recognized his activities in digital geometry. He has
   authored/co-authored 35 articles in the main international journals
   of the field (\eg TOG, PAMI, IP, CVIU, PR, PRL, DAM, GMOD, C \& G,
   IVC), and more than 40 papers in peer-reviewed international
   conferences (\eg SIGGRAPH, DGCI, ICPR, IWCIA).
+  %%TRIS: 
+  In 2010, he co-created {\DGtal} and he is now one of
+  the main editor of the library.
 
 
   
- \textbf{B. Kerautret} (41 year old) is Assistant Professor since 2005
- at the LORIA laboratory. He received a Ph.D degree in Computer
- Science from Bordeaux University (France) in 2004.  His research are
- focused on digital geometry, image processing and its application. He
- is also interested in Reproducible Research as active member of the
- IPOL Editorial Board journal and was at the initiative of the recent
+ \textbf{B. Kerautret} (41 years old) is an assistant professor since 2005
+ at the LORIA laboratory. He received a PhD degree in Computer
+ Science from Bordeaux University in 2004.  His research are
+ focused on digital geometry, image processing and its applications.
+ He co-organized the International conference on Discrete
+ Geometry for Computer Imagery (DGCI 2011) in Nancy. He
+ is also interested in reproducible research as an active member of the
+ IPOL Editorial Board and was at the initiative of the recent
  first workshop on Reproducible Research in Pattern Recognition in
- 2016. He participate to the GeoDIB ANR project in 2006-2011 and co
- advised 2 Phd Thesis. Since 2017 he is the chair of the the Technical
- Committee 18 "Discrete Geometry" of IAPR (Int. Assoc. for Pattern
- Recognition) and co organize the International conference on Discrete
- Geometry for Computer Imagery (DGCI 2011) in Nancy. He has written
+ 2016.
+ %He participate to the GeoDIB ANR project in 2006-2011 and co advised 2 Phd Thesis.
+ Since 2017, he chairs the Technical Committee 18 "Discrete Geometry" of IAPR
+ (Int. Assoc. for Pattern Recognition). He has written
  about forty papers in international journals or conferences on these
- topics. He actively contribute to DGtal Library and is the manager of
- DGTalTools project, part of DGtal dedicated to applications. In
- december 2017, he defended his Habilitation to conduct Researches.
+ topics. He actively contribute to {\DGtal} library and is the manager of
+ the {\DGtalTools} project.
+ %part of DGtal dedicated to applications. %%TRIS deja presente (sec. 1)
+ In december 2017, he defended his habilitation thesis to supervise research.
+ %habilitation to conduct researches.
  
 
 \textbf{S. Labb\'{e}} 
@@ -127,27 +135,28 @@ plane-probing algorithms, which will be our main tool to achieve goals \ref{goal
 and \ref{goalscale} in the last two packages. 
 
 \begin{enumerate} [label=(W\arabic*),start=0]
-\item Plane-probing algorithms (first year). In this WP, we want to
+\item Plane-probing algorithms (first year). In this WP, we will seek to
   improve various features of plane-probing algorithms, even in the
-  planar case. Due to preliminary works, we have in mind many short-term tasks for this.  \label{wp0}
-\item Pattern generation (first two years). In this WP, we seek a way to associate
+  planar case. Thanks to our preliminary works, we have in mind many short-term
+  tasks for this.  \label{wp0}
+\item Pattern generation (first two years). In this WP, we will seek a way to associate
   to the state of a plane-probing algorithm a piece of digital plane
-  that fits to the digital surface in order to correctly process non-planar parts,
+  that fits the digital surface in order to correctly process non-planar parts,
   especially non-convex parts. This requires not only expertise in
   digital geometry but also in multidimensional continued fractions
   algorithms and combinatorics on words (see \sect{sec:dps} and below).  \label{wp1} 
-\item Geometric inference and applications (year 2,3). This WP is devoted
+\item Geometric inference and applications (years 2 and 3). This WP is devoted
   to the derivation of efficient, parameter-free, multigrid-convergent estimators.
-  The goal of this WP is also to investigate at one application based on such
-  estimators such as surface fairing or digital surface visualization. \label{wp2} 
-\item Multiscale analysis of digital surface (year 3,4). In this WP, we
+  The goal of this WP is also to investigate at least one application based on
+  first-order estimators, such as surface fairing. \label{wp2} 
+\item Multiscale analysis of digital surface (years 3 and 4). In this WP, we will
   seek a way to locally detect the best scales of analysis, based on properties
   of digital plane segments. \label{wp3}
 \end{enumerate}
 
-Since there are so many perspectives and paths to follow, this project needs
+Since there are so many perspectives and research directions, this project needs
 to strengthen a team of experts by full-time workers in order to make the best of them.
-We request
+We request a financial support for: 
 \begin{itemize}
 \item[(MS)] one master project funding to help us on short-term tasks in \ref{wp0},
 \item[(PhD)] one PhD grant for working on \ref{wp2} and \ref{wp3},
