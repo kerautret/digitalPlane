@@ -189,10 +189,10 @@ We request a financial support for:
 \medskip
 
 As explained in \sect{sec:dps}, a plane-probing algorithms sparsely probes the data points
-around a starting point to compute a local normal direction. Several algorithms of this kind
-has been proposed by the principal investigator and its collaborators
+around a starting point to compute a local normal direction. Several algorithms of this category
+weren proposed by the principal investigator and his collaborators
 \cite{LPRTCS2016, LPRDGCI2016, LPRJMIV2017}.
-What makes them original in regard to the state of the art, is that they decide on-the-fly
+What makes them original compared to the state of the art, is that they allow to decide on-the-fly
 how to probe the digital surface, without any parameter or any prior order.
 
 The last proposed algorithm, called \emph{R-algorithm} in \cite{LPRJMIV2017}, is the most
@@ -213,25 +213,33 @@ is reduced. The following conjucture is experimentally true but not yet proved:
   is always reduced at the last step.  
 \end{Conjecture}
 
-A first task of this WP is to prove this conjecture, because it may be
-a key ingredient to certify the locality of the R-algorithm and answer
-the following questions: can we bound by above the distance of the probed
-points to the starting point? 
-what is the minimal part $\Part \subset \Plane{\mu}{\vec{n}}$ for which the
-R-algorithm returns the normal $\vec{n}$ when applied to $\Part$?
-can we characterize the behavior of the R-algorithm on a convex or arbitrary
-part of a digital surface?\todo{deplacer les taches en chapeau de
-  paragraphe ou alors changer le style}
+A first task of this WP is to prove this conjecture.
 
 \begin{Task}
   \label{task:reduction}
   Prove conjecture~\ref{conj:reduction} and certify the locality of the R-algorithm. 
 \end{Task}
 
-Another task in this WP is related to the starting point. In \cite{LPRJMIV2017},
-it must be a \emph{reentrant corner}. This restriction avoids degenerate cases, but
-limit the practical usage of the algorithm for digital surface analysis
-(see fig.~\ref{fig:snow}). Raising this restriction to points whose neighboring
+Indeed, a proof of conjecture~\ref{conj:reduction} may be a key ingredient
+to certify the locality of the R-algorithm and answer
+the following questions: can we bound by above the distance of the probed
+points to the starting point? 
+what is the minimal part $\Part \subset \Plane{\mu}{\vec{n}}$ for which the
+R-algorithm returns the normal $\vec{n}$ when applied to $\Part$?
+can we characterize the behavior of the R-algorithm on a convex or arbitrary
+part of a digital surface?
+
+Another task in this WP is related to the starting point.
+
+\begin{Task}
+  \label{task:start}
+  Modify the R-algorithm so that it can be run from any starting point. 
+\end{Task}
+
+In \cite{LPRJMIV2017}, the starting point must be a \emph{reentrant corner}.
+This restriction avoids degenerate cases, but
+limits the practical usage of the algorithm for digital surface analysis
+(see, for instance, fig.~\ref{fig:snow}). Raising this restriction to points whose neighboring
 surfels form a flat part along one or two axis is however just a technical
 problem that can be quickly solved. A more important challenge is that the R-algorithm
 stops prematurately and outputs only an approximation of the normal vector for some
@@ -239,22 +247,17 @@ well-identified starting points, which are not located deeply enough in the digi
 surface. Even if we know how to detect and remove approximated results
 \emph{a posteriori} \cite{LPRJMIV2017}, it would be quite interesting to translate
 the starting point to deeper and deeper positions in order to avoid producing any
-approximated results.
+approximated results. The master project will focus on this task. %~\ref{task:start}. 
+
 %TODO ne remet pas en cause la localite.
 %Finally, it remains the \emph{sailent corners}. 
 %how to retrieve complementary facets ?
 %TODO: parler des facettes complementaires ?
 
-\begin{Task}
-  \label{task:start}
-  Modify the R-algorithm so that it can be run from any starting point. 
-\end{Task}
-
-The master project will focus on this task. %~\ref{task:start}. 
 
 \Risks
 Preliminary works have considerably reduced the risks in this WP. Task~\ref{task:start}
-can be done within one year. If we face to a difficulty that cannot be overcomed,
+can be done within one year. If we find ourselves facing to a difficulty that cannot be overcomed,
 we will resort to the R-algorithm as it is described in \cite{LPRJMIV2017} and use it
 to improve the approach of \citeauthor*{Charrier2011} \cite{Charrier2011}, as explained
 in \ref{riskppa}. Task~\ref{task:reduction} is very important to rely on provable
@@ -269,7 +272,7 @@ properties but not completing it does not prevent us from developing practical a
       for planar and convex parts.   
     \item Implementation of the algorithm in \DGtal.   
 \end{itemize}
-The first two items will have to be included in a technical report at T+12.
+The first two items will be included in a technical report at T+12.
 The last one will be part of a software release at T+24, which will include
 the development of \ref{wp1}. 
 
