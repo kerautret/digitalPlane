@@ -1,4 +1,4 @@
-\begin{tikzpicture} 
+\begin{tikzpicture}[yscale=0.8] 
 \usetikzlibrary{shapes}
 
 \tikzset{task/.style={draw,rectangle,rounded corners=3pt}}
