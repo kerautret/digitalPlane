@@ -250,7 +250,7 @@ is reduced. The following conjucture is experimentally true but not yet proved:
 \end{Conjecture}
 
 A first task of this WP is to prove this conjecture.
-
+%
 \begin{Task}
   \label{task:reduction}
   Prove conjecture~\ref{conj:reduction} and certify the locality of the R-algorithm. 
@@ -266,7 +266,7 @@ can we characterize the behavior of the R-algorithm on a convex or arbitrary
 part of a digital surface?
 
 Another task in this WP is related to the starting point.
-
+%
 \begin{Task}
   \label{task:start}
   Modify the R-algorithm so that it can be run from any starting point. 
@@ -361,6 +361,7 @@ convexity, smallest possible elongation or maximal distance to the starting poin
 
 A first task is to review, study and compare the existing methods for pattern generation
 in the field of multidimensional continued fractions (MCF) algorithms. 
+%
 \begin{Task}
   \label{task:genmeth}
   Study and compare methods that generate patterns from arbitrary MCF algorithms. 
@@ -391,7 +392,7 @@ to generate patterns with shape constraints because it returns a reduced triangu
 The second task is an experimental study that focuses on the patterns obtained from
 the matrix sequence given by the R-algorithm or another plane-probing algorithm (but
 not by an arbitrary MCF algorithm).
-
+%
 \begin{Task}
   \label{task:genexp}
   Experimentally check if the properties \ref{prop:inside}-\ref{prop:small}
@@ -409,7 +410,7 @@ substitution can play an important role, especially for \ref{prop:connect} and \
 In our geometric setting, we can expect a criterion for choosing a convenient substitution at each step. 
 
 The last task consists in finding the right way of generating patterns under shape constraints. 
-
+%
 \begin{Task}
   \label{task:genpat}
   Generate a pattern having at least properties \ref{prop:inside}-\ref{prop:small} in the course of
@@ -470,7 +471,7 @@ the output of plane-probing algorithms: normal vector (and surfel area as a by-p
 distance to boundary, voxel coverage (fig.~\ref{fig:2D}).
 
 A first task is to propose first-order estimators. 
-
+%
 \begin{Task}
   \label{task:normal}
   Propose a parameter-free normal estimator based on plane-probing algorithms and
@@ -478,7 +479,7 @@ A first task is to propose first-order estimators.
 \end{Task}
 
 A second task is to study the multigrid convergence of these estimators. 
-
+%
 \begin{Task}
   \label{task:conv}
   Study the growth rate of the facets returned by plane-probing algorithms
@@ -495,7 +496,7 @@ Plane-probing algorithms not only provide a normal vector but also position info
 which may be useful for many applications in graphics such as polyhedral approximation,
 surface fairing or digital surface visualization. The goal of this WP is also to investigate
 at least one of these applications.   
-
+%
 \begin{Task}
   \label{task:approx}
   Design an algorithm that computes a fair approximation of a digital surface. 
@@ -509,7 +510,7 @@ as smooth as possible \cite{Coeurjolly2017}. In the former problem, the facets r
 by the plane-probing algorithms will play an important role, while in the latter,
 normal estimates are usually a key input of the energy function minimization leading
 to regularized vertex positions.  
-
+%
 \begin{Task}
   \label{task:rendering}
   Design an algorithm that directly renders digital surfaces using first-order estimations.  
@@ -576,11 +577,11 @@ This strategy has been used with success for digital curves \cite{Kerautret2012}
 and the goal of this WP is to provide the theoretical results and tools required to apply it on digital surfaces. 
 
 %TODO illustration 2D ?
-
-In a first task, we will focus on the number of facets returned by plane-probing algorithms.
-
 %for several subsampled versions of the input 3D volume, a way of determining the scale 
 %at which noise is unlikely:
+
+In a first task, we will focus on the number of facets returned by plane-probing algorithms.
+%
 \begin{Task}
   \label{task:global}
   Develop a tool that, among several subsampled versions of the input 3D volume,
@@ -588,16 +589,15 @@ In a first task, we will focus on the number of facets returned by plane-probing
 \end{Task}
 
 This global strategy is enough in case of uniform noise over the whole digital surface.  
-
-In another task, we will locally focus on the size of all facets covering a same data point
-for various resolutions in order to deal with non-uniform noise. 
+In order to deal with non-uniform noise, we will also focus on the size of all facets
+covering a same data point for various resolutions.   
 This strategy is a better way of detecting the local amount of noise,
 but provides a more complex output because the most meaningful scale is
 computed at each data point.
 We can either simply output this information to feed high-level tools
 or compute estimates during the scale detection, such as a normal estimator
 robust to noise.  
-
+%
 \begin{Task}
   \label{task:local}
   Develop a tool that automatically adds to a digital surface a scale value and
@@ -640,15 +640,15 @@ described in \sect{sec:methodo}.
 \begin{figure}[htbp]
   \centering
   \input{tasks.tikz}
-  \caption{Dependency graph of the project tasks. See \sect{sec:schedule} for details.}
+  \caption{Dependency graph of the project tasks (see text for details).} %\sect{sec:schedule} for details.}
   \label{fig:tasks}
 \end{figure}
 
-We clearly see in fig.~\ref{fig:tasks} that \ref{wp0} and \ref{wp1} can be started
+One can clearly see in fig.~\ref{fig:tasks} that \ref{wp0} and \ref{wp1} can be started
 at the beginning of the project, whereas \ref{wp2} and \ref{wp3}, which greatly depend
-on tasks~\ref{task:start} and \ref{task:genpat}, respectively in \ref{wp0} and \ref{wp1}
-must be delayed. \ref{wp3} will start after \ref{wp0} and \ref{wp1}, but \ref{wp2} will
-start earlier, because we will first focus on convex parts and only task~\ref{task:start}
+on tasks~\ref{task:start} and \ref{task:genpat}, respectively in \ref{wp0} and \ref{wp1},
+must begin later. \ref{wp3} will start strictly after \ref{wp0} and \ref{wp1}, but \ref{wp2}
+will start sooner, because we will first focus on convex parts and only task~\ref{task:start}
 in \ref{wp0} is required for that.
 
 To sum up, fig.~\ref{fig:gantt} shows the Gantt chart of the project schedule.
@@ -666,11 +666,12 @@ release at T+24 and T+48.
   \label{fig:gantt}
 \end{figure}
 
-In addition, collaborators hired during the project are depicted with dashed grey rectangles.
-The postdoctoral student will be hired for working on \ref{wp1} at the beginning of the project.
-The master student will work during the first year and the PhD student will be hired
-after one year. If the master student demonstrate strong skills, it will be an excellent applicant
-for the PhD grant.
+In addition, collaborators hired during the project and for which we request a financial support
+are depicted with dashed grey rectangles.
+The postdoctoral student (Postdoc) will be hired for working on \ref{wp1} at the beginning of the project.
+The master student (MS) will work on \ref{wp0} during the first year and the PhD student (PhD) will be
+hired after one year for working on \ref{wp2} and \ref{wp3}. If the master student demonstrate strong skills,
+he will be an excellent applicant for the PhD grant.
 
 \subsubsection{Requested means}
 \label{sec:ressources}
@@ -705,7 +706,8 @@ This section details our needs, which are summed up in table~\ref{tab:grant}.
 \end{table}
 
 \textbf{Staff ($\approx$ 205k \euro).} As described in the scientific program (\sect{sec:wp} and \sect{sec:schedule}),
-we request one PhD grant and one master project funding ($\approx$ 111k \euro). TODO detailler.
+we request one PhD grant (3 years) and one master project funding (6 months).
+We estimate this cost at  ($\approx$ 111k \euro). TODO detailler.
 A same student would basically start working on \ref{wp0} during its master project and then
 continue with \ref{wp2} and \ref{wp3} during its PhD thesis.
 We also need a postdoctoral student for working on \ref{wp1} during two years ($\approx$ 95k \euro). 
