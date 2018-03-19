@@ -494,9 +494,9 @@ and \ref{task:conv}, will be the core of its thesis project. Tasks \ref{task:app
 
 \Risks
 The main risk in this WP is that normal estimators
-directly derived from plane-probing algorithms do not have the multigrid-convergence
-property. In that case, fall-back solutions presented in \ref{riskestim} will achieve
-multigrid-convergence without any parameter but at the price of a higher computational
+directly derived from plane-probing algorithms are not multigrid-convergent.
+In this case, fall-back solutions presented in \ref{riskestim} will achieve
+convergence without any parameter but at the price of a higher computational
 cost and a lower accuracy in the localization of sharp features. 
 
 \Success
@@ -506,7 +506,7 @@ cost and a lower accuracy in the localization of sharp features.
   \item Implementation of the estimator in \DGtal.
 \end{itemize}
 
-The first two items will have to be included in a technical report at T+30.
+The first two items will be included in a technical report at T+30.
 The last one will be part of a software release at T+48, which will include
 the outcome of \ref{wp3}. 
 
@@ -522,7 +522,7 @@ the outcome of \ref{wp3}.
    {Software release at T+48.}
 \medskip
 
-Digital surfaces may be degraded with \emph{noise}, especially in medical imaging.
+Digital surfaces may be degraded with noise, especially in medical imaging.
 Since noise usually affect only the finest levels of details, the following algorithm
 is a way of coping with the problem: while there is noise, subsample by 2 the digital surface.
 At the end, we get a noise-free digital surface, but at a potentially coarser level.
