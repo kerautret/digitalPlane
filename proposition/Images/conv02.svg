@@ -1492,20 +1492,6 @@
        width="5.4299998"
        y="331.73001"
        x="258.13" />
-    <line
-       id="line416"
-       style="fill:none;stroke:#323232;stroke-width:0.70599999mm;stroke-linecap:butt;stroke-linejoin:miter"
-       y2="86.830002"
-       x2="326.12"
-       y1="114.91"
-       x1="315.13" />
-    <line
-       id="line418"
-       style="fill:none;stroke:#0000ff;stroke-width:0.70599999mm;stroke-linecap:butt;stroke-linejoin:miter"
-       y2="87.580002"
-       x2="327.59"
-       y1="115"
-       x1="315.04001" />
     <ellipse
        id="ellipse420"
        style="fill:none;stroke:#0000ff;stroke-width:0.70599999mm;stroke-linecap:butt;stroke-linejoin:miter"
